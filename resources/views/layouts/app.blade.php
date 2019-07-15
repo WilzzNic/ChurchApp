@@ -42,5 +42,8 @@
         
         <!-- Argon JS -->
         <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
+    
+        <!-- Datepicker JS -->
+        <script src="{{ asset('argon') }}/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     </body>
 </html>

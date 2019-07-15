@@ -25,6 +25,34 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        
+        Gate::define('guest', function ($user, $post) {
+            return $user->role == 'guest';
+        });
+
+        Gate::define('basic_congregation', function ($user, $post) {
+            return $user->role == 'basic_congregation';
+        });
+
+        Gate::define('expert_congregation', function() {
+            return $user->role == 'expert_congregation';
+        });
+
+        Gate::define('KAJ_leader', function() {
+            return $user->role == 'KAJ_leader';
+        });
+
+        Gate::define('KOM_leader', function() {
+            return 'KOM_leader';
+        });
+
+        Gate::define('FA_leader', function() {
+            return 'FA_leader';
+        });
+
+        Gate::define('PA_leader', function() {
+            return 'PA_leader';
+        });
+
     }
 }

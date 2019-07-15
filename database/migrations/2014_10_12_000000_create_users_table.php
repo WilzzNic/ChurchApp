@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
 
             /* Karena nama lengkap ada di tabel jemaat dicomment dl. Ingat ubah di blade kalo tidak dipakai */
-            $table->string('name');
+            // $table->string('name');
 
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

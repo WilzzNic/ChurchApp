@@ -77,12 +77,109 @@
                 </div>
             </form>
             <!-- Navigation -->
+            @can('basic_congregation')
+            <h6 class="navbar-heading text-muted">Personal</h6>
+
             <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('profile.edit') }}">
+                        <i class="fa fa-user text-primary"></i> {{ __('General Description') }}
+                    </a>
+                </li>
+            </ul>
+
+            <hr class="my-3">
+
+            <h6 class="navbar-heading text-muted">Services</h6>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#navbar-baptis" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-baptis">
+                        <i class="fa fa-tint" style="color: #f4645f;"></i>
+                        <span class="nav-link-text" style="color: #f4645f;">{{ __('Pelayanan Baptis') }}</span>
+                    </a>
+
+                    <div class="collapse show" id="navbar-baptis">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('bcon.requestbaptis') }}">
+                                    {{ __('Daftar Pelayanan Baptisan') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user.index') }}">
+                                    {{ __('Sertifikat Pelayanan Baptis') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#navbar-kom" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-kom">
+                        <i class="ni ni-hat-3" style="color: #f4645f;"></i>
+                        <span class="nav-link-text" style="color: #f4645f;">{{ __('Pelayanan KOM') }}</span>
+                    </a>
+
+                    <div class="collapse show" id="navbar-kom">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('profile.edit') }}">
+                                    {{ __('Daftar Pelayanan KOM') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user.index') }}">
+                                    {{ __('Sertifikat Pelayanan KOM') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#navbar-kaj" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-kaj">
+                        <i class="ni ni-badge" style="color: #f4645f;"></i>
+                        <span class="nav-link-text" style="color: #f4645f;">{{ __('Pelayanan KAJ') }}</span>
+                    </a>
+
+                    <div class="collapse show" id="navbar-kaj">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('profile.edit') }}">
+                                    {{ __('Daftar Pelayanan KAJ') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user.index') }}">
+                                    {{ __('Sertifikat KAJ') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('profile.edit') }}">
+                        <i class="fa fa-users text-primary"></i> {{ __('Family Altar') }}
+                    </a>
+                </li>
+            </ul>
+            @endcan
+
+            {{-- <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">
                         <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
                     </a>
                 </li>
+                
                 <li class="nav-item">
                     <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
                         <i class="fab fa-laravel" style="color: #f4645f;"></i>
@@ -130,29 +227,7 @@
                         <i class="ni ni-cloud-download-95"></i> Upgrade to PRO
                     </a>
                 </li>
-            </ul>
-            <!-- Divider -->
-            <hr class="my-3">
-            <!-- Heading -->
-            <h6 class="navbar-heading text-muted">Documentation</h6>
-            <!-- Navigation -->
-            <ul class="navbar-nav mb-md-3">
-                <li class="nav-item">
-                    <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
-                        <i class="ni ni-spaceship"></i> Getting started
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
-                        <i class="ni ni-palette"></i> Foundation
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
-                        <i class="ni ni-ui-04"></i> Components
-                    </a>
-                </li>
-            </ul>
+            </ul> --}}
         </div>
     </div>
 </nav>

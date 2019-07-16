@@ -26,7 +26,17 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'min:3'],
+            'nama' => ['required', 'min:3'],
+            'jenis_kelamin' => ['required'],
+            'no_hp' => ['required', 'string'],
+            'alamat' => ['required', 'string'],
+            'tmpt_lhr' => ['required', 'string'],
+            'tgl_lhr' => ['required', 'date'],
+            'status_nikah' => ['required', 'string'],
+            'profesi' => ['nullable', 'string'],
+            'nama_ibu' => ['nullable', 'string'],
+            'nama_ayah' => ['nullable', 'string'],
+            'lokasi_ibadah' => ['nullable', 'string'],
             'email' => ['required', 'email', Rule::unique((new User)->getTable())->ignore(auth()->id())],
         ];
     }

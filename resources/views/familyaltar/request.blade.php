@@ -33,14 +33,18 @@ projects or assigned tasks'),
                             </select>
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-control-label" for="input-tgl">{{ __('Tanggal Baptis') }}</label>
-                            <div class="input-group input-group-alternative">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                                </div>
-                                <input class="form-control datepicker" id="input-tgl" name="tanggal" placeholder="Tanggal" type="text" value="{{ old('tanggal') }}">
-                            </div>
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table id="table" class="table align-items-center table-flush">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Owner</th>
+                                        <th scope="col">Daerah</th>
+                                        <th scope="col">No. FA</th>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
 
                         <div class="text-center">
@@ -59,6 +63,20 @@ projects or assigned tasks'),
 
 @push('js')
 <script type="text/javascript">
+    $(document).ready(function() {
+        $('#table').DataTable({
+            serverSide: true,
+            ajax: "{{ route('bcon.altardt') }}",
+            columns: [
+                { name: 'id' },
+                { name: 'owner_id' },
+                { name: 'daerah_id' },
+                { name: 'FA_number' }
+            ],
+        });
+    });
+
+
     $(function() {
         $(".datepicker").datepicker({
             format: 'yyyy-mm-dd',

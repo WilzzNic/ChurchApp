@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 	Route::middleware('can:basic_congregation')->group(function() {
 		Route::get('/baptis/request', 'RequestBaptisController@index')->name('bcon.requestbaptis');
 		Route::get('/family-altar/request', 'RequestFAController@index')->name('bcon.requestfa');
+		Route::get('/family-altar/dt', 'RequestFAController@populateFA')->name('bcon.altardt');
 	});
 
 	Route::middleware('can:expert_congregation')->group(function() {

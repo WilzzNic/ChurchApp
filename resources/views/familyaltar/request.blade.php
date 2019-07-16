@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('Pelayanan Baptis')])
+@extends('layouts.app', ['title' => __('Family Altar')])
 
 @section('content')
 @include('users.partials.header', [
@@ -14,9 +14,11 @@ projects or assigned tasks'),
             <div class="card bg-secondary shadow">
                 <div class="card-header bg-white border-0">
                     <div class="row align-items-center">
-                        <h1 class="text-center col-12"><i class="fa fa-tint"></i></h1>
-                        <h3 class="text-center col-12 mb-5">{{ __('Pelayanan Baptis') }}</h3>
-                        <p class="text-muted text-center col-12 mb-0">Bagi Anda yang membutuhkan pelayanan baptisan dapat mengisi form di bawah ini.</p>
+                        <h1 class="text-center col-12"><i class="fa fa-users"></i></h1>
+                        <h3 class="text-center col-12 mb-5">{{ __('Family Altar') }}</h3>
+                        <p class="text-muted text-center col-12 mb-0">
+                            Ayo bergabung dan tumbuh bersama Family Altar. Temuka Family Altar terdekat dengan lingkungan saudara.
+                        </p>
                     </div>
                 </div>
                 <div class="card-body">
@@ -25,9 +27,9 @@ projects or assigned tasks'),
                         @csrf
                         
                         <div class="form-group">
-                            <label class="form-control-label" for="input-waktu">{{ __('Waktu') }}</label>
-                            <select class="custom-select" name="waktu" id="input-waktu">
-                                <option>09.30</option>
+                            <label class="form-control-label" for="input-daerah">{{ __('Daerah') }}</label>
+                            <select class="custom-select" name="daerah" id="input-daerah">
+                                <option>Medan Johor</option>
                             </select>
                         </div>
 

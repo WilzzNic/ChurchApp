@@ -166,7 +166,7 @@
 
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('profile.edit') }}">
+                    <a class="nav-link" href="{{ route('bcon.requestfa') }}">
                         <i class="fa fa-users text-primary"></i> {{ __('Family Altar') }}
                     </a>
                 </li>

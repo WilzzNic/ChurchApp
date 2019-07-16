@@ -14,14 +14,16 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Auth::routes();
+
+Auth::routes(['verify' => true]);
 
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'verified']], function () {
 	Route::get('/home', 'HomeController@index')->name('home');
 
 	Route::middleware('can:basic_congregation')->group(function() {
 		Route::get('/baptis/request', 'RequestBaptisController@index')->name('bcon.requestbaptis');
+		Route::get('/family-altar/request', 'RequestFAController@index')->name('bcon.requestfa');
 	});
 
 	Route::middleware('can:expert_congregation')->group(function() {

@@ -77,7 +77,6 @@
                 </div>
             </form>
             <!-- Navigation -->
-            @can('basic_congregation')
             <h6 class="navbar-heading text-muted">Personal</h6>
 
             <ul class="navbar-nav">
@@ -88,6 +87,7 @@
                 </li>
             </ul>
 
+            @unless(Auth::user()->can('guest') || Auth::user()->can('admin'))
             <hr class="my-3">
 
             <h6 class="navbar-heading text-muted">Services</h6>
@@ -126,7 +126,7 @@
                     <div class="collapse show" id="navbar-kom">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('profile.edit') }}">
+                                <a class="nav-link" href="{{ route('bcon.requestkom') }}">
                                     {{ __('Daftar Pelayanan KOM') }}
                                 </a>
                             </li>
@@ -150,7 +150,7 @@
                     <div class="collapse show" id="navbar-kaj">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('profile.edit') }}">
+                                <a class="nav-link" href="{{ route('bcon.requestkaj') }}">
                                     {{ __('Daftar Pelayanan KAJ') }}
                                 </a>
                             </li>
@@ -171,7 +171,7 @@
                     </a>
                 </li>
             </ul>
-            @endcan
+            @endunless
 
             {{-- <ul class="navbar-nav">
                 <li class="nav-item">

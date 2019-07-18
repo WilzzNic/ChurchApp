@@ -29,22 +29,28 @@ projects or assigned tasks'),
                         <div class="form-group">
                             <label class="form-control-label" for="input-daerah">{{ __('Daerah') }}</label>
                             <select class="custom-select" name="daerah" id="input-daerah">
-                                <option>Medan Johor</option>
+                                <option selected disabled>-- Pilih Daerah --</option>
+                                @foreach($daerahs as $daerah)
+                                    <option value="{{ $daerah->id }}">{{ $daerah->nama_daerah }}</option>
+                                @endforeach
                             </select>
                         </div>
 
-                        <div class="table-responsive">
-                            <!-- Projects table -->
-                            <table id="table" class="table align-items-center table-flush">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Owner</th>
-                                        <th scope="col">Daerah</th>
-                                        <th scope="col">No. FA</th>
-                                    </tr>
-                                </thead>
-                            </table>
+                        <div class="form-group">
+                            <div class="table-responsive">
+                                <!-- Projects table -->
+                                <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">No. FA</th>
+                                            <th scope="col">Owner</th>
+                                            <th scope="col">Daerah</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
 
                         <div class="text-center">
@@ -69,9 +75,10 @@ projects or assigned tasks'),
             ajax: "{{ route('bcon.altardt') }}",
             columns: [
                 { name: 'id' },
-                { name: 'owner_id' },
-                { name: 'daerah_id' },
-                { name: 'FA_number' }
+                { name: 'FA_number' },
+                { name: 'owner.nama', orderable: false },
+                { name: 'daerah.nama_daerah', orderable: false },
+                { name: 'action', orderable: false, searchable: false }
             ],
         });
     });

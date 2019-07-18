@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRequestBaptisTable extends Migration
+class CreateRequestKartuAnggotasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateRequestBaptisTable extends Migration
      */
     public function up()
     {
-        Schema::create('request_baptis', function (Blueprint $table) {
+        Schema::create('request_kartu_anggotas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('jemaat_id');
-            $table->time('waktu')->nullable();
-            $table->date('tanggal');
-            $table->string('status');
+            $table->integer('cabang_gereja_id');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateRequestBaptisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('request_baptis');
+        Schema::dropIfExists('request_kartu_anggotas');
     }
 }

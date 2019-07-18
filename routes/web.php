@@ -21,14 +21,22 @@ Auth::routes(['verify' => true]);
 Route::group(['middleware' => ['auth', 'verified']], function () {
 	Route::get('/home', 'HomeController@index')->name('home');
 
-	Route::middleware('can:basic_congregation')->group(function() {
+	
+	Route::middleware('can:expert_congregation' || 'can:basic_congregation')->group(function() {
+		/* Baptis */
 		Route::get('/baptis/request', 'RequestBaptisController@index')->name('bcon.requestbaptis');
+		Route::post('/baptis/request/send', 'RequestBaptisController@request')->name('bcon.requestbaptis.send');
+
+		/* Family Altar */
 		Route::get('/family-altar/request', 'RequestFAController@index')->name('bcon.requestfa');
 		Route::get('/family-altar/dt', 'RequestFAController@populateFA')->name('bcon.altardt');
-	});
 
-	Route::middleware('can:expert_congregation')->group(function() {
-		
+		/* KOM */
+		Route::get('/kom/request', 'RequestKOMController@index')->name('bcon.requestkom');
+
+		/* KAJ */
+		Route::get('/kaj/request', 'RequestKAJController@index')->name('bcon.requestkaj');
+
 	});
 
 	Route::middleware('can:admin')->prefix('admin')->group(function() {

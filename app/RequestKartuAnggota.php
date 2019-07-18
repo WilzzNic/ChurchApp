@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RequestPenyAnak extends Model
+class RequestKartuAnggota extends Model
 {
     //
 }

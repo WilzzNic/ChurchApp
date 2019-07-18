@@ -11,6 +11,7 @@ use App\KAJ;
 use App\KOM;
 use App\Baptis;
 use DB;
+use App\CabangGereja;
 
 class ProfileController extends Controller
 {
@@ -22,8 +23,10 @@ class ProfileController extends Controller
     public function edit()
     {
         $jemaat = Jemaat::where('user_id', auth()->user()->id)->first();
+        $cabangs = CabangGereja::get();
         
-        return view('profile.edit')->with('data', $jemaat);
+        return view('profile.edit')->with('data', $jemaat)
+                                ->with('cabangs', $cabangs);
     }
 
     /**
@@ -38,6 +41,7 @@ class ProfileController extends Controller
         DB::transaction(function() use ($request) {
             $user = Auth::user();
             $user->email = $request->email;
+            $user->role = 'basic_congregation';
             $user->save();
 
             $jemaat = Jemaat::where('user_id', $user->id)->first();

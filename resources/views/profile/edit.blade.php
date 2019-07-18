@@ -1,11 +1,19 @@
 @extends('layouts.app', ['title' => __('General Description')])
 
 @section('content')
+    @if(Auth::user()->can('guest'))
+        @include('users.partials.header', [
+            'title' => __('Hello') . ' '. auth()->user()->email,
+            'description' => __('Lengkapi data diri anda untuk mengakses layanan.'),
+            'class' => 'col-lg-7'
+        ])
+    @else
     @include('users.partials.header', [
-        'title' => __('Hello') . ' '. auth()->user()->name,
+        'title' => __('Hello') . ' '. auth()->user()->email,
         'description' => __('This is your profile page. You can see the progress you\'ve made with your work and manage your projects or assigned tasks'),
         'class' => 'col-lg-7'
-    ])   
+    ])
+    @endif   
 
     <div class="container-fluid mt--7">
         <div class="row">
@@ -22,6 +30,7 @@
                             @method('put')
 
                             <h6 class="heading-small text-muted mb-4">{{ __('User information') }}</h6>
+                            <h6 class="text-muted mb-4">(<span style="color:red;">*</span>) menandakan data yang perlu diisi untuk mengakses pelayanan minimum yang tersedia.</h6>
                             
                             @if (session('status'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -52,7 +61,7 @@
                                      placeholder="{{ __('Nama') }}" value="{{ old('nama', $data['nama']) }}" required>
 
                                     @if ($errors->has('nama'))
-                                        <span class="invalid-feedback" role="alert">
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
                                             <strong>{{ $errors->first('nama') }}</strong>
                                         </span>
                                     @endif
@@ -65,7 +74,7 @@
                                      placeholder="{{ __('No. HP') }}" value="{{ old('no_hp', $data['no_hp']) }}">
 
                                     @if ($errors->has('no_hp'))
-                                        <span class="invalid-feedback" role="alert">
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
                                             <strong>{{ $errors->first('no_hp') }}</strong>
                                         </span>
                                     @endif
@@ -77,7 +86,7 @@
                                     rows="3" name="alamat" placeholder="Tulis alamat lengkap di sini..">{{ old('alamat', $data['alamat']) }}</textarea>
 
                                     @if ($errors->has('alamat'))
-                                        <span class="invalid-feedback" role="alert">
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
                                             <strong>{{ $errors->first('alamat') }}</strong>
                                         </span>
                                     @endif
@@ -161,12 +170,28 @@
 
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-loc-ibadah">{{ __('Lokasi Ibadah') }}</label>
-                                    <select class="custom-select" name="status_nikah" id="input-loc-ibadah">
+                                    <select class="custom-select" name="lokasi_ibadah" id="input-loc-ibadah">
                                         <option disabled selected>-- Pilih Lokasi Ibadah --</option>
-                                        <option value="Belum ada">Belum ada</option>
+                                        <option value="">Belum Ada</option>
+                                        @foreach ($cabangs as $cabang)
+                                            <option value="{{ $cabang->id }}" selected>{{ $cabang->nama_gereja }}</option>
+                                        @endforeach
                                         {{-- isi code disini --}}
                                     </select>
                                 </div>
+
+                                <div class="form-group{{ $errors->has('no_fa') ? ' has-danger' : '' }}">
+                                        <label class="form-control-label" for="input-no-fa">{{ __('No. Family Altar') }}</label>
+                                        <input type="text" name="no_fa" id="input-no-fa" 
+                                        class="form-control form-control-alternative{{ $errors->has('no_fa') ? ' is-invalid' : '' }}" 
+                                        placeholder="{{ __('No. Familiy Altar') }}" value="{{ old('no_fa', $data->fa ? $data->fa->FA_number : '') }}" disabled>
+    
+                                        @if ($errors->has('nama_ayah'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('nama_ayah') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
 
                                 <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-email">{{ __('E-mail') }}</label>
@@ -198,10 +223,6 @@
                                             <input type="file" name="img_baptis" class="custom-file-input" id="baptisFile" accept="image/*" onchange="readURL(this, 2);">
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="form-group mt-4">
-                                    <small class="text-muted mb-4">(<span style="color:red;">*</span>) menandakan data yang perlu diisi untuk mengakses pelayanan minimum yang tersedia.</p>
                                 </div>
 
                                 <div class="text-center">

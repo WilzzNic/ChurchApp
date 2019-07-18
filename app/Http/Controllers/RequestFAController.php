@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Freshbitsweb\Laratables\Laratables;
 use App\FamilyAltar;
+use App\Daerah;
 
 class RequestFAController extends Controller
 {
     public function index() {
-        return view('familyaltar.request');
+        $daerahs = Daerah::get();
+        return view('familyaltar.request')->with('daerahs', $daerahs);
     }
 
     public function populateFA() {

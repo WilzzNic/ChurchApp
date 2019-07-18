@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRequestPenyAnaksTable extends Migration
+class CreateRequestKelasOrientasisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateRequestPenyAnaksTable extends Migration
      */
     public function up()
     {
-        Schema::create('request_peny_anaks', function (Blueprint $table) {
+        Schema::create('request_kelas_orientasis', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('jemaat_id');
             $table->integer('cabang_gereja_id');
-            $table->string('nama_anak');
-            $table->string('tempat_lahir');
-            $table->date('tgl_lahir');
-            $table->date('tgl_penyerahan');
+            $table->integer('seri');
+            $table->string('asal_gereja');
+            $table->date('tanggal');
+            $table->time('waktu')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ class CreateRequestPenyAnaksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('request_peny_anaks');
+        Schema::dropIfExists('request_kelas_orientasis');
     }
 }

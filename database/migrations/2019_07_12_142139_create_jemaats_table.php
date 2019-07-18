@@ -16,8 +16,7 @@ class CreateJemaatsTable extends Migration
         Schema::create('jemaats', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            // $table->integer('familyaltar_id')->nullable();
-            // $table->integer('no_fa')->unique()->nullable();
+            $table->integer('family_altar_id')->nullable();
             $table->string('nama');
             $table->char('jenis_kelamin', 1);
             $table->string('tempat_lahir')->nullable();

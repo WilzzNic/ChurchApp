@@ -25,38 +25,36 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        
         Gate::define('guest', function ($user) {
             return $user->role == 'guest';
         });
 
         Gate::define('basic_congregation', function ($user) {
-            return $user->role == 'basic_congregation' || $user->role == 'guest';
+            return $user->role == 'basic_congregation';
         });
 
         Gate::define('expert_congregation', function($user) {
-            return $user->role == 'expert_congregation' || $user->role == 'guest';
+            return $user->role == 'expert_congregation';
         });
 
         Gate::define('admin', function ($user) {
-            return $user->role == 'admin' || $user->role == 'guest';
+            return $user->role == 'admin';
         });
 
         Gate::define('KAJ_leader', function($user) {
-            return $user->role == 'KAJ_leader' || $user->role == 'guest';
+            return $user->role == 'KAJ_leader';
         });
 
         Gate::define('KOM_leader', function($user) {
-            return 'KOM_leader' || $user->role == 'guest';
+            return $user->role == 'KOM_leader';
         });
 
         Gate::define('FA_leader', function($user) {
-            return 'FA_leader'|| $user->role == 'guest';
+            return $user->role == 'FA_leader';
         });
 
         Gate::define('PA_leader', function($user) {
-            return 'PA_leader' || $user->role == 'guest';
+            return $user->role == 'PA_leader';
         });
-
     }
 }

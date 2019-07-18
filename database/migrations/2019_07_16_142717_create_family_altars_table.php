@@ -18,6 +18,9 @@ class CreateFamilyAltarsTable extends Migration
             $table->integer('owner_id');
             $table->integer('daerah_id');
             $table->string('FA_number');
+            $table->text('alamat');
+            $table->string('hari', 10);
+            $table->time('waktu');
             $table->timestamps();
         });
     }

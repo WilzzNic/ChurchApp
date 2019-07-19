@@ -1,5 +1,7 @@
 @extends('layouts.app', ['title' => __('Family Altar')])
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 @section('content')
 @include('users.partials.header', [
 'title' => __('Hello') . ' '. auth()->user()->name,
@@ -23,8 +25,7 @@ projects or assigned tasks'),
                 </div>
                 <div class="card-body">
                     @can('basic_congregation')
-                    <form class="px-5" method="post" action="{{ route('profile.update') }}" autocomplete="off">
-                        @csrf
+                    <form class="px-5" autocomplete="off">
                         
                         <div class="form-group">
                             <label class="form-control-label" for="input-daerah">{{ __('Daerah') }}</label>
@@ -42,7 +43,6 @@ projects or assigned tasks'),
                                 <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
                                     <thead class="thead-light">
                                         <tr>
-                                            <th scope="col">#</th>
                                             <th scope="col">No. FA</th>
                                             <th scope="col">Owner</th>
                                             <th scope="col">Daerah</th>
@@ -53,9 +53,6 @@ projects or assigned tasks'),
                             </div>
                         </div>
 
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-success mt-4">{{ __('Kirim Permohonan') }}</button>
-                        </div>
                     </form>
                     @endcan
                 </div>
@@ -70,19 +67,46 @@ projects or assigned tasks'),
 @push('js')
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#table').DataTable({
+        var t = $('#table').DataTable({
+            processing: true,
             serverSide: true,
+            pageLength: 5,
+            scrollX: true,
             ajax: "{{ route('bcon.altardt') }}",
             columns: [
-                { name: 'id' },
                 { name: 'FA_number' },
                 { name: 'owner.nama', orderable: false },
                 { name: 'daerah.nama_daerah', orderable: false },
                 { name: 'action', orderable: false, searchable: false }
             ],
         });
-    });
 
+        $('#input-daerah').change(function() {
+            t.destroy();
+            $('#table').DataTable({
+                processing: true,
+                serverSide: true,
+                pageLength: 5,
+                scrollX: true,
+                ajax: {
+                    url: "{{ route('bcon.altardt.daerah') }}",
+                    type: "POST",
+                    headers : {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data : function (d) {
+                        d.daerah = $('#input-daerah').val()
+                    }
+                },
+                columns: [
+                    { name: 'FA_number' },
+                    { name: 'owner.nama', orderable: false },
+                    { name: 'daerah.nama_daerah', orderable: false },
+                    { name: 'action', orderable: false, searchable: false }
+                ],
+            });
+        });
+    });
 
     $(function() {
         $(".datepicker").datepicker({

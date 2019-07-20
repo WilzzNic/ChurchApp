@@ -29,4 +29,8 @@ class Jemaat extends Model
     public function requestBaptis() {
         return $this->hasOne('App\RequestBaptis');
     }
+
+    public function requestAltar() {
+        return $this->hasOne('App\RequestAltar');
+    }
 }

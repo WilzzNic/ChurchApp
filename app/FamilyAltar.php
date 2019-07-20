@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FamilyAltar extends Model
 {
+
     public function owner() {
         return $this->belongsTo('App\Jemaat', 'owner_id');
     }

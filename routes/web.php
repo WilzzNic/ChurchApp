@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 		Route::get('/family-altar/dt', 'RequestFAController@populateFA')->name('bcon.altardt');
 		Route::post('/family-altar/dt-daerah', 'RequestFAController@populateByDaerah')->name('bcon.altardt.daerah');
 		Route::post('/family-altar/send/{id}', 'RequestFAController@request')->name('bcon.requestfa.send');
+		Route::delete('/family-altar/leave/{id}', 'RequestFAController@leave')->name('bcon.requestfa.leave');
 
 		/* KOM */
 		Route::get('/kom/request', 'RequestKOMController@index')->name('bcon.requestkom');

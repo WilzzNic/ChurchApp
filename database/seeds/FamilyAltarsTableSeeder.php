@@ -21,5 +21,14 @@ class FamilyAltarsTableSeeder extends Seeder
         $familyAltar->hari = 'Sabtu';
         $familyAltar->waktu = '08:00:00';
         $familyAltar->save();
+
+        $familyAltar = new FamilyAltar();
+        $familyAltar->owner_id = 2;
+        $familyAltar->daerah_id = 2;
+        $familyAltar->FA_number = 20894;
+        $familyAltar->alamat = 'Jl. Adam Malik No.6D';
+        $familyAltar->hari = 'Senin';
+        $familyAltar->waktu = '23:00:00';
+        $familyAltar->save();
     }
 }

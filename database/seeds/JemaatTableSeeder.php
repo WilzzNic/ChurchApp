@@ -24,5 +24,17 @@ class JemaatTableSeeder extends Seeder
         $jemaat->status_pernikahan = 'Menikah';
         $jemaat->status = Jemaat::STATUS_UNVERIFIED;
         $jemaat->save();
+
+        $jemaat = new Jemaat();
+        $jemaat->user_id = 3;
+        $jemaat->nama = 'Okky Putra Barus';
+        $jemaat->jenis_kelamin = 'L';
+        $jemaat->tempat_lahir = 'Medan';
+        $jemaat->tgl_lahir = '1977-07-10';
+        $jemaat->no_hp = '0821712047';
+        $jemaat->alamat = 'Jl. Pancing No.90';
+        $jemaat->status_pernikahan = 'Belum Menikah';
+        $jemaat->status = Jemaat::STATUS_UNVERIFIED;
+        $jemaat->save();
     }
 }

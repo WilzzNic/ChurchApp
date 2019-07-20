@@ -19,6 +19,7 @@ class CreateRequestAltarsTable extends Migration
             $table->integer('family_altar_id');
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

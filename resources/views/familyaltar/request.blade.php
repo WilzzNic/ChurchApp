@@ -30,7 +30,7 @@ projects or assigned tasks'),
                         <div class="form-group">
                             <label class="form-control-label" for="input-daerah">{{ __('Daerah') }}</label>
                             <select class="custom-select" name="daerah" id="input-daerah">
-                                <option selected disabled>-- Pilih Daerah --</option>
+                                <option value="0" selected>Semua Daerah</option>
                                 @foreach($daerahs as $daerah)
                                     <option value="{{ $daerah->id }}">{{ $daerah->nama_daerah }}</option>
                                 @endforeach
@@ -46,6 +46,8 @@ projects or assigned tasks'),
                                             <th scope="col">No. FA</th>
                                             <th scope="col">Owner</th>
                                             <th scope="col">Daerah</th>
+                                            <th scope="col">Hari</th>
+                                            <th scope="col">Waktu</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -70,23 +72,41 @@ projects or assigned tasks'),
         var t = $('#table').DataTable({
             processing: true,
             serverSide: true,
-            pageLength: 5,
+            pageLength: 10,
             scrollX: true,
             ajax: "{{ route('bcon.altardt') }}",
+            columnDefs: [
+                {
+                    targets: 4,
+                    render: $.fn.dataTable.render.moment('HH:ii:ss'),
+                }
+            ],
             columns: [
                 { name: 'FA_number' },
                 { name: 'owner.nama', orderable: false },
                 { name: 'daerah.nama_daerah', orderable: false },
+                { name: 'hari', orderable: false },
+                { name: 'waktu', orderable: false },
                 { name: 'action', orderable: false, searchable: false }
             ],
         });
 
+        var dt = null;
+
         $('#input-daerah').change(function() {
-            t.destroy();
-            $('#table').DataTable({
+            if(t == null) {
+                dt.destroy();
+                dt = null;
+            }
+            else {
+                t.destroy();
+                t = null;
+            }
+            
+            dt = $('#table').DataTable({
                 processing: true,
                 serverSide: true,
-                pageLength: 5,
+                pageLength: 10,
                 scrollX: true,
                 ajax: {
                     url: "{{ route('bcon.altardt.daerah') }}",

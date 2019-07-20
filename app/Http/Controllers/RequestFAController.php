@@ -20,9 +20,18 @@ class RequestFAController extends Controller
 
     public function populateByDaerah(Request $request) {
         return Laratables::recordsOf(FamilyAltar::class, function($query) use ($request) {
-            return $query->whereHas('daerah', function($query) use ($request) {
-                $query->where('id', '=', $request->daerah);
-            });
+            if($request->daerah == 0) {
+                return $query;
+            }
+            else {
+                return $query->whereHas('daerah', function($query) use ($request) {
+                    $query->where('id', '=', $request->daerah);
+                });
+            }
         });
+    }
+
+    public function request($id) {
+        return $id;
     }
 }

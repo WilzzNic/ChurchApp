@@ -22,6 +22,6 @@ class FamilyAltar extends Model
      */
     public static function laratablesCustomAction($family_altar)
     {
-        return view('widgets.requestbutton', compact('family_altar'))->render();
+        return view('widgets.farequestbutton', compact('family_altar'))->render();
     }
 }

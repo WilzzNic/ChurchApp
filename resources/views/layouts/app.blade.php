@@ -24,6 +24,9 @@
         <!-- Argon CSS -->
         <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
 
+        <!-- Select2 CSS-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+
         @stack('css')
     </head>
     <body class="{{ $class ?? '' }}">
@@ -54,7 +57,7 @@
     
 
         <!-- Datatable JS -->
-        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        {{-- <script src="https://code.jquery.com/jquery-3.3.1.js"></script> --}}
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/plug-ins/1.10.19/dataRender/datetime.js"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/dataTables.uikit.min.js"></script>
@@ -62,5 +65,8 @@
 
         <!-- Datepicker JS -->
         <script src="{{ asset('argon') }}/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+        <!-- Select2 JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
     </body>
 </html>

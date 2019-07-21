@@ -36,6 +36,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 		/* KOM */
 		Route::get('/kom/request', 'RequestKOMController@index')->name('bcon.requestkom');
+		Route::post('/kom/request/schedule', 'RequestKOMController@schedule')->name('bcon.requestkom.schedule');
+		Route::post('kom/request/send', 'RequestKOMController@request')->name('bcon.requestkom.send');
 
 		/* KAJ */
 		Route::get('/kaj/request', 'RequestKAJController@index')->name('bcon.requestkaj');

@@ -75,9 +75,9 @@ class ProfileController extends Controller
             if($request->hasFile('img_kom')) {
                 if($request->img_kom->isValid()) {
                     $path = $request->img_kom->store('public/'. $user->id);
-                    $jemaat_kom = KAJ::where('jemaat_id', $jemaat->id)->first();
+                    $jemaat_kom = KOM::where('jemaat_id', $jemaat->id)->first();
                     if(is_null($jemaat_kom)) {
-                        $jemaat_kom = new KAJ();
+                        $jemaat_kom = new KOM();
                         $jemaat_kom->jemaat_id = $jemaat->id;
                     }
                     $jemaat_kom->kom_img_path = $user->id . '/' . $request->img_kom->hashName();
@@ -91,7 +91,7 @@ class ProfileController extends Controller
                     $path = $request->img_baptis->store('public/'. $user->id);
                     $jemaat_baptis = Baptis::where('jemaat_id', $jemaat->id)->first();
                     if(is_null($jemaat_baptis)) {
-                        $jemaat_baptis = new KAJ();
+                        $jemaat_baptis = new Baptis();
                         $jemaat_baptis->jemaat_id = $jemaat->id;
                     }
                     $jemaat_baptis->serti_baptis_img_path = $user->id . '/' . $request->img_baptis->hashName();

@@ -47,7 +47,7 @@ projects or assigned tasks'),
                         <div class="row">
                             <div class="col text-center">
                                 <h4>Data Anda Tidak Lengkap atau Sedang Diverifikasi</h4>
-                                <p>Untuk dapat menggunakan pelayanan, Anda harus mengisi data <b>General Description</b> dan telah <b>dibaptis</b>.</p>
+                                <p>Untuk dapat menggunakan pelayanan, Anda harus mengisi data <b>General Description</b> dan <b>mengupload sertifikat baptis</b>.</p>
                                 <h1><i class="fa fa-spinner"></i></h1>
                             </div>
                         </div>

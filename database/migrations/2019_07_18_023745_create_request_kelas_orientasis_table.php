@@ -16,12 +16,12 @@ class CreateRequestKelasOrientasisTable extends Migration
         Schema::create('request_kelas_orientasis', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('jemaat_id');
-            $table->integer('seri');
+            $table->integer('jadwal_kom_id');
             $table->string('asal_gereja');
             $table->date('tanggal');
-            $table->time('waktu')->nullable();
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

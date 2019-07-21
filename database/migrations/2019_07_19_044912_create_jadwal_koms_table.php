@@ -16,10 +16,11 @@ class CreateJadwalKomsTable extends Migration
         Schema::create('jadwal_koms', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('cabang_gereja_id');
+            $table->integer('seri_kom');
             $table->time('waktu');
             $table->string('hari');
-            $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -29,7 +29,7 @@ projects or assigned tasks'),
                             <form class="px-5" autocomplete="off">
 
                                 @if (session('status'))
-                                    <div class="alert alert-danger alert-success fade show" role="alert">
+                                    <div class="alert alert-danger alert-dismissable fade show" role="alert">
                                         {{ session('status') }}
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
@@ -71,7 +71,7 @@ projects or assigned tasks'),
                                 @method('DELETE')
 
                                 @if (session('status'))
-                                    <div class="alert alert-danger alert-success fade show" role="alert">
+                                    <div class="alert alert-success alert-dismissable fade show" role="alert">
                                         {{ session('status') }}
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>

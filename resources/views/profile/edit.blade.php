@@ -174,9 +174,8 @@
                                         <option disabled selected>-- Pilih Lokasi Ibadah --</option>
                                         <option value="">Belum Ada</option>
                                         @foreach ($cabangs as $cabang)
-                                            <option value="{{ $cabang->id }}" selected>{{ $cabang->nama_gereja }}</option>
+                                            <option value="{{ $cabang->id }}">{{ $cabang->nama_gereja }}</option>
                                         @endforeach
-                                        {{-- isi code disini --}}
                                     </select>
                                 </div>
 

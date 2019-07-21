@@ -33,4 +33,8 @@ class Jemaat extends Model
     public function requestAltar() {
         return $this->hasOne('App\RequestAltar');
     }
+
+    public function cabangGereja() {
+        return $this->belongsTo('App\CabangGereja', 'lokasi_ibadah');
+    }
 }

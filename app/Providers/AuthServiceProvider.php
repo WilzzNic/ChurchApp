@@ -53,8 +53,8 @@ class AuthServiceProvider extends ServiceProvider
             return $user->role == 'FA_leader';
         });
 
-        Gate::define('PA_leader', function($user) {
-            return $user->role == 'PA_leader';
+        Gate::define('baptis_leader', function($user) {
+            return $user->role == 'baptis_leader';
         });
     }
 }

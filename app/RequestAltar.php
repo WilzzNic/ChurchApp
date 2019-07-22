@@ -20,4 +20,9 @@ class RequestAltar extends Model
     public function jemaat() {
         return $this->belongsTo('App\Jemaat');
     }
+
+    public static function laratablesCustomAction($model)
+    {
+        return view('widgets.approvalbuttons', compact('model'))->render();
+    }
 }

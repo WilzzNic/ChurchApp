@@ -22,7 +22,6 @@ projects or assigned tasks'),
                     </div>
                 </div>
                 <div class="card-body">
-                    @can('basic_congregation')
                     <form class="px-5" method="post" action="{{ route('bcon.requestkom.send') }}" autocomplete="off">
                         @csrf
 
@@ -59,7 +58,7 @@ projects or assigned tasks'),
                         <div class="form-group">
                             <label class="form-control-label" for="input-asal-gereja">{{ __('Asal Gereja') }}</label>
                             <input id="input-asal-gereja" class="form-control form-control-alternative" name="asal_gereja"
-                            value="{{ auth()->user()->jemaat->cabangGereja->nama_gereja }}"
+                            value="{{ auth()->user()->jemaat->cabangGereja ? auth()->user()->jemaat->cabangGereja->nama_gereja : ''}}"
                             placeholder="Asal Gereja" type="text" required>
                         </div>
 
@@ -85,7 +84,6 @@ projects or assigned tasks'),
                             <button type="submit" class="btn btn-success mt-4">{{ __('Daftar') }}</button>
                         </div>
                     </form>
-                    @endcan
                 </div>
             </div>
         </div>

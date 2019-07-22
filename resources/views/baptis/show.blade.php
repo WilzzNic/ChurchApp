@@ -11,6 +11,28 @@ projects or assigned tasks'),
 ])
 
 <div class="container-fluid mt--7">
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalApprove" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col">
             <div class="card bg-secondary shadow">
@@ -36,14 +58,15 @@ projects or assigned tasks'),
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Tanggal dikirim</th>
                                     <th scope="col">Jemaat</th>
+                                    <th scope="col">Tanggal Permohonan Dikirim</th>
+                                    <th scope="col">Tanggal Dibaptis</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
                         </table>
                     </div>
-                        
+
                 </div>
             </div>
         </div>
@@ -61,30 +84,41 @@ projects or assigned tasks'),
             pageLength: 10,
             scrollX: true,
             ajax: "{{ route('leader.request.show.dt') }}",
-            columns: [
-                { name: 'id' },
-                { name: 'created_at' },
-                { name: 'jemaat.nama' },
-                { name: 'action', orderable: false, searchable: false }
+            columnDefs: [{
+                searchable: false,
+                orderable: false,
+                targets: 0
+            }],
+            order: [
+                [1, 'asc']
             ],
-            columnDefs: [
-                {
-                    targets: 1,
-                    render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s', 'YYYY-MM-DD'),
+            columns: [{
+                    name: 'id'
                 },
                 {
-                    searchable: false,
+                    name: 'created_at'
+                },
+                {
+                    name: 'jemaat.nama'
+                },
+                {
+                    name: 'tanggal'
+                },
+                {
+                    name: 'action',
                     orderable: false,
-                    targets: 0
-                },
+                    searchable: false
+                }
             ],
-            order: [[ 1, 'asc' ]],
         });
 
-        t.on( 'order.dt search.dt', function () {
-            t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-                cell.innerHTML = i+1;
-            } );
+        t.on('order.dt search.dt', function () {
+            t.column(0, {
+                search: 'applied',
+                order: 'applied'
+            }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
         }).draw();
     });
 </script>

@@ -20,7 +20,7 @@ projects or assigned tasks'),
                     </div>
                 </div>
                 <div class="card-body">
-                    @can('basic_congregation')
+                    @if(auth()->user()->jemaat->lokasi_ibadah)
                         @if(!auth()->user()->jemaat->requestBaptis)
                         <form class="px-5" method="post" action="{{ route('bcon.requestbaptis.send') }}" autocomplete="off">
                             @csrf
@@ -100,8 +100,17 @@ projects or assigned tasks'),
                         </form>
 
                         @endif
-
-                    @endcan
+                    @else
+                        <div class="px-5">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <h4>Apakah Anda merupakan jemaat salah di salah satu cabang gereja Yayasan Surya Kebenaran Indonesia?</h4>
+                                    <p>Jika iya, Anda harus mengisi kolom <b>Lokasi Ibadah</b> di <b>General Description</b> untuk dapat mengajukan baptis.</p>
+                                    <h1><i class="fa fa-spinner"></i></h1>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

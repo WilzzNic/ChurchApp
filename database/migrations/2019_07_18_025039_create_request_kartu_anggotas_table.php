@@ -18,6 +18,7 @@ class CreateRequestKartuAnggotasTable extends Migration
             $table->integer('jemaat_id');
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

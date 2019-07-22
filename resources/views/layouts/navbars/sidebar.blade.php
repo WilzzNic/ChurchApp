@@ -87,7 +87,29 @@
                 </li>
             </ul>
 
-            @unless(Auth::user()->can('guest') || Auth::user()->can('admin'))
+            @if(Auth::user()->can('FA_leader') || Auth::user()->can('baptis_leader') || Auth::user()->can('KOM_leader') || Auth::user()->can('KAJ_leader'))
+            <hr class="my-3">
+            
+            <h6 class="navbar-heading text-muted">Menus</h6>
+            
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('leader.request.show') }}">
+                        <i class="fa fa-inbox text-default"></i> {{ __('Request List') }}
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('bcon.requestfa') }}">
+                        <i class="ni ni-chart-bar-32 text-default"></i> {{ __('Statistik') }}
+                    </a>
+                </li>
+            </ul>
+            @endif
+
+            @unless(Auth::user()->can('guest') || Auth::user()->can('admin') || Auth::user()->can('KAJ_leader') || Auth::user()->can('KOM_leader') || Auth::user()->can('baptis_leader'))
             <hr class="my-3">
 
             <h6 class="navbar-heading text-muted">Services</h6>
@@ -164,13 +186,15 @@
                 </li>
             </ul>
 
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('bcon.requestfa') }}">
-                        <i class="fa fa-users text-primary"></i> {{ __('Family Altar') }}
-                    </a>
-                </li>
-            </ul>
+                @unless(Auth::user()->can('FA_leader'))
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('bcon.requestfa') }}">
+                            <i class="fa fa-users text-primary"></i> {{ __('Family Altar') }}
+                        </a>
+                    </li>
+                </ul>
+                @endunless
             @endunless
 
             {{-- <ul class="navbar-nav">

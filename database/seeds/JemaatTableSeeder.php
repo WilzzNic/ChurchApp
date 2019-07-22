@@ -36,5 +36,44 @@ class JemaatTableSeeder extends Seeder
         $jemaat->status_pernikahan = 'Belum Menikah';
         $jemaat->status = Jemaat::STATUS_UNVERIFIED;
         $jemaat->save();
+
+        $jemaat = new Jemaat();
+        $jemaat->user_id = 4;
+        $jemaat->nama = 'Andi';
+        $jemaat->jenis_kelamin = 'L';
+        $jemaat->tempat_lahir = 'Medan';
+        $jemaat->tgl_lahir = '1987-12-17';
+        $jemaat->no_hp = '0127471248';
+        $jemaat->alamat = 'Jl. Kecoa No.90';
+        $jemaat->lokasi_ibadah = 1;
+        $jemaat->status_pernikahan = 'Belum Menikah';
+        $jemaat->status = Jemaat::STATUS_UNVERIFIED;
+        $jemaat->save();
+
+        $jemaat = new Jemaat();
+        $jemaat->user_id = 5;
+        $jemaat->nama = 'Budi';
+        $jemaat->jenis_kelamin = 'L';
+        $jemaat->tempat_lahir = 'Medan';
+        $jemaat->tgl_lahir = '1987-12-17';
+        $jemaat->no_hp = '0127471248';
+        $jemaat->alamat = 'Jl. Kecoa No.91';
+        $jemaat->status_pernikahan = 'Cerai/Pisah';
+        $jemaat->lokasi_ibadah = 2;
+        $jemaat->status = Jemaat::STATUS_UNVERIFIED;
+        $jemaat->save();
+
+        $jemaat = new Jemaat();
+        $jemaat->user_id = 6;
+        $jemaat->nama = 'Emily';
+        $jemaat->jenis_kelamin = 'P';
+        $jemaat->tempat_lahir = 'Medan';
+        $jemaat->tgl_lahir = '1987-12-17';
+        $jemaat->no_hp = '01274121248';
+        $jemaat->alamat = 'Jl. Kecoa No.91';
+        $jemaat->status_pernikahan = 'Belum Menikah';
+        $jemaat->lokasi_ibadah = 1;
+        $jemaat->status = Jemaat::STATUS_UNVERIFIED;
+        $jemaat->save();
     }
 }

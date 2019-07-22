@@ -174,23 +174,25 @@
                                         <option disabled selected>-- Pilih Lokasi Ibadah --</option>
                                         <option value="">Belum Ada</option>
                                         @foreach ($cabangs as $cabang)
-                                            <option value="{{ $cabang->id }}">{{ $cabang->nama_gereja }}</option>
+                                            <option value="{{ $cabang->id }}" {{ auth()->user()->jemaat->lokasi_ibadah == $cabang->id ? 'selected' : '' }}>{{ $cabang->nama_gereja }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-
+                                
+                                @if(Auth::user()->can('basic_congregation') || Auth::user()->can('expert_congregation'))
                                 <div class="form-group{{ $errors->has('no_fa') ? ' has-danger' : '' }}">
-                                        <label class="form-control-label" for="input-no-fa">{{ __('No. Family Altar') }}</label>
-                                        <input type="text" name="no_fa" id="input-no-fa" 
-                                        class="form-control form-control-alternative{{ $errors->has('no_fa') ? ' is-invalid' : '' }}" 
-                                        placeholder="{{ __('No. Familiy Altar') }}" value="{{ old('no_fa', $data->fa ? $data->fa->FA_number : '') }}" disabled>
-    
-                                        @if ($errors->has('nama_ayah'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('nama_ayah') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
+                                    <label class="form-control-label" for="input-no-fa">{{ __('No. Family Altar') }}</label>
+                                    <input type="text" name="no_fa" id="input-no-fa" 
+                                    class="form-control form-control-alternative{{ $errors->has('no_fa') ? ' is-invalid' : '' }}" 
+                                    placeholder="{{ __('No. Familiy Altar') }}" value="{{ old('no_fa', $data->fa ? $data->fa->FA_number : '') }}" disabled>
+
+                                    @if ($errors->has('nama_ayah'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('nama_ayah') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                @endif
 
                                 <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-email">{{ __('E-mail') }}</label>

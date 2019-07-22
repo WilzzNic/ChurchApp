@@ -23,14 +23,16 @@ projects or assigned tasks'),
                 </div>
                 <div class="card-body">
                     @can('expert_congregation')
-                    <form class="px-5" method="post" action="{{ route('profile.update') }}" autocomplete="off">
+                    <form class="px-5" method="GET" action="{{ route('bcon.requestkaj.send') }}" autocomplete="off">
                         @csrf
 
+                        @if(!auth()->user()->jemaat->requestKAJ)
                         <div class="form-group">
                             <div class="row">
                                 <div class="col text-center">
                                     <h4>Selamat!</h4>
-                                    <p>Data anda telah terverifikasi dan telah memenuhi syarat untuk mengajukan <b>Kartu Anggota Jemaat.</b></p>
+                                    <p>Data anda telah terverifikasi dan telah memenuhi syarat untuk mengajukan <b>Kartu
+                                            Anggota Jemaat.</b></p>
                                     <h1><i class="ni ni-satisfied"></i></h1>
                                 </div>
                             </div>
@@ -39,6 +41,17 @@ projects or assigned tasks'),
                         <div class="text-center">
                             <button type="submit" class="btn btn-success mt-4">{{ __('Ajukan Pembuatan KAJ') }}</button>
                         </div>
+                        @else
+                        <div class="px-5">
+                            <div class="row">
+                                <div class="col text-center">
+                                    <h4>Terima kasih</h4>
+                                    <p>Tim pelayanan KAJ akan menghubungi anda dalam 3 x 24 jam.</p>
+                                    <h1><i class="fa fa-clock"></i></h1>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                     </form>
                     @endcan
 
@@ -47,7 +60,8 @@ projects or assigned tasks'),
                         <div class="row">
                             <div class="col text-center">
                                 <h4>Data Anda Tidak Lengkap atau Sedang Diverifikasi</h4>
-                                <p>Untuk dapat menggunakan pelayanan, Anda harus mengisi data <b>General Description</b> dan <b>mengupload sertifikat baptis</b>.</p>
+                                <p>Untuk dapat menggunakan pelayanan, Anda harus mengisi data <b>General Description</b>
+                                    dan <b>mengupload sertifikat baptis</b>.</p>
                                 <h1><i class="fa fa-spinner"></i></h1>
                             </div>
                         </div>
@@ -64,10 +78,10 @@ projects or assigned tasks'),
 
 @push('js')
 <script type="text/javascript">
-    $(function() {
+    $(function () {
         $(".datepicker").datepicker({
             format: 'yyyy-mm-dd',
-            daysOfWeekDisabled: [1,2,3,4,5,6],
+            daysOfWeekDisabled: [1, 2, 3, 4, 5, 6],
             startDate: '+0d',
         });
     });

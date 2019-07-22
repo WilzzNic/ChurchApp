@@ -36,8 +36,9 @@ projects or assigned tasks'),
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Tanggal dikirim</th>
                                     <th scope="col">Jemaat</th>
+                                    <th scope="col">Tanggal dikirim</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
@@ -61,31 +62,26 @@ projects or assigned tasks'),
             pageLength: 10,
             scrollX: true,
             ajax: "{{ route('leader.request.show.dt') }}",
+            columnDefs: [ {
+                searchable: false,
+                orderable: false,
+                targets: 0
+            }],
+            order: [[ 2, 'asc' ]],
             columns: [
                 { name: 'id' },
-                { name: 'created_at' },
                 { name: 'jemaat.nama' },
+                { name: 'status' },
+                { name: 'created_at', orderable: false },
                 { name: 'action', orderable: false, searchable: false }
             ],
-            columnDefs: [
-                {
-                    targets: 1,
-                    render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s', 'YYYY-MM-DD'),
-                },
-                {
-                    searchable: false,
-                    orderable: false,
-                    targets: 0
-                },
-            ],
-            order: [[ 1, 'asc' ]],
         });
 
         t.on( 'order.dt search.dt', function () {
             t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
                 cell.innerHTML = i+1;
             } );
-        }).draw();
+        } ).draw();
     });
 </script>
 @endpush

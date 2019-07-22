@@ -17,12 +17,10 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-
 Route::group(['middleware' => ['auth', 'verified']], function () {
 	Route::get('/home', 'HomeController@index')->name('home');
-
 	
-	Route::middleware('can:expert_congregation' || 'can:basic_congregation')->group(function() {
+	Route::middleware(['can:expert_congregation' || 'can:basic_congregation'])->group(function() {
 		/* Baptis */
 		Route::get('/baptis/request', 'RequestBaptisController@index')->name('bcon.requestbaptis');
 		Route::post('/baptis/request/send', 'RequestBaptisController@request')->name('bcon.requestbaptis.send');
@@ -41,6 +39,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 		/* KAJ */
 		Route::get('/kaj/request', 'RequestKAJController@index')->name('bcon.requestkaj');
+		Route::get('/kaj/request/send', 'RequestKAJController@request')->name('bcon.requestkaj.send');
 
 	});
 
@@ -48,20 +47,11 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 		
 	});
 
-	Route::middleware('can:KAJ_leader')->prefix('kaj-l')->group(function() {
-		
-	});
-
-	Route::middleware('can:KOM_leader')->prefix('kom-l')->group(function() {
-		
-	});
-
-	Route::middleware('can:FA_leader')->prefix('fa-l')->group(function() {
-		
-	});
-
-	Route::middleware('can:PA_leader')->prefix('pa-l')->group(function() {
-		
+	Route::middleware(['can:KAJ_leader' || 'can:KOM_leader' || 'can:FA_leader' || 'can:baptis_leader'])->prefix('leader')->group(function() {
+		Route::get('/request-list', 'LeadersController@show')->name('leader.request.show');
+		Route::get('/request-list/dt', 'LeadersController@showDt')->name('leader.request.show.dt');
+		Route::post('/request-list/approve/{id}', 'LeadersController@approve')->name('leader.request.approve');
+		Route::post('/request-list/reject/{id}', 'LeadersController@reject')->name('leader.request.reject');
 	});
 
 	Route::resource('user', 'UserController', ['except' => ['show']]);

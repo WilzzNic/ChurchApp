@@ -3,8 +3,7 @@
 @section('content')
 @include('users.partials.header', [
 'title' => __('Hello') . ' '. auth()->user()->email,
-'description' => __('This is your profile page. You can see the progress you\'ve made with your work and manage your
-projects or assigned tasks'),
+'description' => __('Ini adalah halaman untuk mengajukan permohonan mengikuti Kelas Orientais Melayani (KOM).'),
 'class' => 'col-lg-7'
 ])
 

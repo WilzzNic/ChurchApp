@@ -18,7 +18,7 @@ class RequestKelasOrientasi extends Model
     }
 
     public function jadwal() {
-        return $this->belongsTo('App\JadwalKom');
+        return $this->belongsTo('App\JadwalKom', 'jadwal_kom_id');
     }
 
     public static function laratablesCustomAction($model)

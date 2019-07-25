@@ -3,8 +3,7 @@
 @section('content')
 @include('users.partials.header', [
 'title' => __('Hello') . ' '. auth()->user()->email,
-'description' => __('This is your profile page. You can see the progress you\'ve made with your work and manage your
-projects or assigned tasks'),
+'description' => __('Ini adalah halaman untuk mengajukan pembuatan Kartu Anggota Jemaat.'),
 'class' => 'col-lg-7'
 ])
 
@@ -22,7 +21,7 @@ projects or assigned tasks'),
                     </div>
                 </div>
                 <div class="card-body">
-                    @can('expert_congregation')
+                    @if(auth()->user()->jemaat->status == App\Jemaat::STATUS_VERIFIED && auth()->user()->jemaat->baptis->status == App\Baptis::STATUS_VERIFIED)
                     <form class="px-5" method="GET" action="{{ route('bcon.requestkaj.send') }}" autocomplete="off">
                         @csrf
 
@@ -53,9 +52,9 @@ projects or assigned tasks'),
                         </div>
                         @endif
                     </form>
-                    @endcan
+                    @endif
 
-                    @can('basic_congregation')
+                    @if(Auth::user()->can('basic_congregation') || Auth::user()->can('FA_leader'))
                     <div class="px-5">
                         <div class="row">
                             <div class="col text-center">

@@ -17,6 +17,7 @@ class CreateDaerahsTable extends Migration
             $table->increments('id');
             $table->string('nama_daerah');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

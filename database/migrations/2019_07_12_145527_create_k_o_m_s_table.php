@@ -16,7 +16,7 @@ class CreateKOMSTable extends Migration
         Schema::create('k_o_m_s', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('jemaat_id');
-            $table->string('kom_img_path');
+            $table->string('img_path');
             $table->string('status');
             $table->timestamps();
         });

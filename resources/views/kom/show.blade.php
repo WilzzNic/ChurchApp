@@ -36,9 +36,12 @@ projects or assigned tasks'),
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Jemaat</th>
                                     <th scope="col">Tanggal dikirim</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">Seri KOM</th>
+                                    <th scope="col">Jemaat</th>
+                                    <th scope="col">Asal Gereja</th>
+                                    <th scope="col">Waktu Kelas</th>
+                                    <th scope="col">Tanggal Kelas</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
@@ -62,17 +65,30 @@ projects or assigned tasks'),
             pageLength: 10,
             scrollX: true,
             ajax: "{{ route('leader.request.show.dt') }}",
-            columnDefs: [ {
-                searchable: false,
-                orderable: false,
-                targets: 0
-            }],
-            order: [[ 2, 'asc' ]],
+            columnDefs: [ 
+                {
+                    searchable: false,
+                    orderable: false,
+                    targets: 0
+                },
+                {
+                    targets: 1,
+                    render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s', 'YYYY-MM-DD'),
+                },
+                {
+                    targets: 5,
+                    render: $.fn.dataTable.render.moment('H:m:s', 'HH:mm'),
+                },
+            ],
+            order: [[ 1, 'asc' ]],
             columns: [
                 { name: 'id' },
+                { name: 'created_at' },
+                { name: 'jadwal.seri_kom' },
                 { name: 'jemaat.nama' },
-                { name: 'status' },
-                { name: 'created_at', orderable: false },
+                { name: 'asal_gereja' },
+                { name: 'jadwal.waktu' },
+                { name: 'tanggal' },
                 { name: 'action', orderable: false, searchable: false }
             ],
         });

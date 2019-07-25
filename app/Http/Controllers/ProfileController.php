@@ -41,7 +41,9 @@ class ProfileController extends Controller
         DB::transaction(function() use ($request) {
             $user = Auth::user();
             $user->email = $request->email;
-            $user->role = 'basic_congregation';
+            if(auth()->user()->role == 'guest' || auth()->user()->role == 'basic_congregation') {
+                $user->role = 'basic_congregation';
+            }
             $user->save();
 
             $jemaat = Jemaat::where('user_id', $user->id)->first();
@@ -56,17 +58,17 @@ class ProfileController extends Controller
             $jemaat->nama_ibu = $request->nama_ibu;
             $jemaat->nama_ayah = $request->nama_ayah;
             $jemaat->lokasi_ibadah = $request->lokasi_ibadah;
-            $jemaat->status = 'Unverified';
+            $jemaat->status = Jemaat::STATUS_PENDING;
 
             if($request->hasFile('img_kaj')) {
                 if($request->img_kaj->isValid()) {
-                    $path = $request->img_kaj->store('public/'. $user->id);
+                    $path = $request->img_kaj->store('public/');
                     $jemaat_kaj = KAJ::where('jemaat_id', $jemaat->id)->first();
                     if(is_null($jemaat_kaj)) {
                         $jemaat_kaj = new KAJ();
                         $jemaat_kaj->jemaat_id = $jemaat->id;
                     }
-                    $jemaat_kaj->kaj_img_path = $user->id . '/' . $request->img_kaj->hashName();
+                    $jemaat_kaj->img_path = $request->img_kaj->hashName();
                     $jemaat_kaj->status = 'Unverified';
                     $jemaat_kaj->save();
                 }
@@ -74,13 +76,13 @@ class ProfileController extends Controller
 
             if($request->hasFile('img_kom')) {
                 if($request->img_kom->isValid()) {
-                    $path = $request->img_kom->store('public/'. $user->id);
+                    $path = $request->img_kom->store('public/');
                     $jemaat_kom = KOM::where('jemaat_id', $jemaat->id)->first();
                     if(is_null($jemaat_kom)) {
                         $jemaat_kom = new KOM();
                         $jemaat_kom->jemaat_id = $jemaat->id;
                     }
-                    $jemaat_kom->kom_img_path = $user->id . '/' . $request->img_kom->hashName();
+                    $jemaat_kom->img_path = $request->img_kom->hashName();
                     $jemaat_kom->status = 'Unverified';
                     $jemaat_kom->save();
                 }
@@ -88,13 +90,13 @@ class ProfileController extends Controller
 
             if($request->hasFile('img_baptis')) {
                 if($request->img_baptis->isValid()) {
-                    $path = $request->img_baptis->store('public/'. $user->id);
+                    $path = $request->img_baptis->store('public/');
                     $jemaat_baptis = Baptis::where('jemaat_id', $jemaat->id)->first();
                     if(is_null($jemaat_baptis)) {
                         $jemaat_baptis = new Baptis();
                         $jemaat_baptis->jemaat_id = $jemaat->id;
                     }
-                    $jemaat_baptis->serti_baptis_img_path = $user->id . '/' . $request->img_baptis->hashName();
+                    $jemaat_baptis->img_path = $request->img_baptis->hashName();
                     $jemaat_baptis->status = 'Unverified';
                     $jemaat_baptis->save();
                 }

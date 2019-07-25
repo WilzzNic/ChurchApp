@@ -16,7 +16,7 @@ class CreateBaptisTable extends Migration
         Schema::create('baptis', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('jemaat_id');
-            $table->string('serti_baptis_img_path');
+            $table->string('img_path');
             $table->string('status');
             $table->timestamps();
         });

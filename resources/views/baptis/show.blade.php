@@ -23,12 +23,21 @@ projects or assigned tasks'),
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+                <form id="form" action="{{ route('leader.approve.baptis') }}" class="form-inline" method="POST">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" id="id" name="id">
+                            <label for="input-waktu" class="sr-only">Waktu</label>
+                            <input type="time" class="form-control" id="input-waktu" name="waktu">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -58,8 +67,8 @@ projects or assigned tasks'),
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Jemaat</th>
                                     <th scope="col">Tanggal Permohonan Dikirim</th>
+                                    <th scope="col">Jemaat</th>
                                     <th scope="col">Tanggal Dibaptis</th>
                                     <th scope="col">Actions</th>
                                 </tr>
@@ -84,11 +93,17 @@ projects or assigned tasks'),
             pageLength: 10,
             scrollX: true,
             ajax: "{{ route('leader.request.show.dt') }}",
-            columnDefs: [{
-                searchable: false,
-                orderable: false,
-                targets: 0
-            }],
+            columnDefs: [
+                {
+                    searchable: false,
+                    orderable: false,
+                    targets: 0
+                },
+                {
+                    targets: 1,
+                    render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s', 'YYYY-MM-DD'),
+                }
+            ],
             order: [
                 [1, 'asc']
             ],
@@ -120,6 +135,11 @@ projects or assigned tasks'),
                 cell.innerHTML = i + 1;
             });
         }).draw();
+
+        $('#modalApprove').on('show.bs.modal', function (e) {
+            var request = $(e.relatedTarget).data('request');
+            $('#id').val(request);
+        });
     });
 </script>
 @endpush

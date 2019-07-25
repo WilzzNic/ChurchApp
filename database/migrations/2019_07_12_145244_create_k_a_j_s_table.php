@@ -16,7 +16,7 @@ class CreateKAJSTable extends Migration
         Schema::create('k_a_j_s', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('jemaat_id');
-            $table->string('kaj_img_path');
+            $table->string('img_path');
             $table->string('status');
             $table->timestamps();
         });

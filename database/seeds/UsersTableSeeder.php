@@ -68,5 +68,23 @@ class UsersTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+
+        DB::table('users')->insert([
+            'email' => 'ceci@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('secret'),
+            'role' => 'KOM_leader',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('users')->insert([
+            'email' => 'superadmin@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('secret'),
+            'role' => 'superadmin',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
     }
 }

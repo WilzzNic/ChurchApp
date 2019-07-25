@@ -22,6 +22,7 @@ class CreateFamilyAltarsTable extends Migration
             $table->string('hari', 10);
             $table->time('waktu');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -23,12 +23,12 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="" class="px-5"
+                    <form method="POST" action="{{ route('superadmin.manage.cabang.add') }}" class="px-5"
                         autocomplete="off">
                         @csrf
 
                         @if (session('status'))
-                        <div class="alert alert-default alert-dismissable fade show" role="alert">
+                        <div class="alert alert-success alert-dismissable fade show" role="alert">
                             {{ session('status') }}
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -40,7 +40,7 @@
                             <label class="form-control-label" for="input-cabang">{{ __('Nama Cabang') }}</label>
                             <input type="text" name="cabang" id="input-cabang"
                                 class="form-control form-control-alternative{{ $errors->has('cabang') ? ' is-invalid' : '' }}"
-                                placeholder="{{ __('Nama Cabang') }}" value="" required>
+                                placeholder="{{ __('Nama Cabang') }}" value="{{ old('cabang') }}" required>
 
                             @if ($errors->has('cabang'))
                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -83,7 +83,33 @@
 @push('js')
 <script type="text/javascript">
     $(document).ready(function () {
-
+        var dt = $('#table').DataTable({
+            processing: true,
+            serverSide: true,
+            pageLength: 10,
+            scrollX: true,
+            ajax: "{{ route('superadmin.manage.cabang.dt') }}",
+            columnDefs: [{
+                targets: 2,
+                render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s', 'YYYY-MM-DD'),
+            }],
+            columns: [
+                {
+                    name: 'id'
+                },
+                {
+                    name: 'nama_gereja'
+                },
+                {
+                    name: 'created_at'
+                },
+                {
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                }
+            ],
+        });
     });
 </script>
 @endpush

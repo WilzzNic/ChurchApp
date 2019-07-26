@@ -95,6 +95,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 		/* Manajemen Cabang Gereja */
 		Route::get('manage/cabang/index', 'Superadmin\CabangGerejaController@index')->name('superadmin.manage.cabang');
+		Route::get('manage/cabang/dt', 'Superadmin\CabangGerejaController@dt')->name('superadmin.manage.cabang.dt');
+		Route::post('manage/cabang/add', 'Superadmin\CabangGerejaController@add')->name('superadmin.manage.cabang.add');
+		Route::delete('manage/cabang/delete/{id}', 'Superadmin\CabangGerejaController@delete')->name('superadmin.manage.cabang.delete');
 	});
 
 	Route::middleware(['can:KAJ_leader' || 'can:KOM_leader' || 'can:FA_leader' || 'can:baptis_leader'])->prefix('leader')->group(function() {

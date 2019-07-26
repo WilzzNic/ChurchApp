@@ -98,6 +98,12 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 		Route::get('manage/cabang/dt', 'Superadmin\CabangGerejaController@dt')->name('superadmin.manage.cabang.dt');
 		Route::post('manage/cabang/add', 'Superadmin\CabangGerejaController@add')->name('superadmin.manage.cabang.add');
 		Route::delete('manage/cabang/delete/{id}', 'Superadmin\CabangGerejaController@delete')->name('superadmin.manage.cabang.delete');
+
+		/* Manajemen Admin */
+		Route::get('manage/admin/index', 'Superadmin\ManageAdminController@index')->name('superadmin.manage.admin');
+		Route::get('manage/admin/dt', 'Superadmin\ManageAdminController@dt')->name('superadmin.manage.admin.dt');
+		Route::post('manage/admin/add', 'Superadmin\ManageAdminController@add')->name('superadmin.manage.admin.add');
+		Route::delete('manage/admin/delete/{id}', 'Superadmin\ManageAdminController@delete')->name('superadmin.manage.admin.delete');
 	});
 
 	Route::middleware(['can:KAJ_leader' || 'can:KOM_leader' || 'can:FA_leader' || 'can:baptis_leader'])->prefix('leader')->group(function() {

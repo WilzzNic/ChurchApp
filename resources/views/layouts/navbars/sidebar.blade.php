@@ -108,6 +108,13 @@
                     </a>
                 </li>
             </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('superadmin.manage.admin') }}">
+                        <i class="ni ni-circle-08 text-default"></i> {{ __('Manajemen Admin') }}
+                    </a>
+                </li>
+            </ul>
             @endif
 
             @if(Auth::user()->can('admin'))

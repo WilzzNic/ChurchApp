@@ -55,6 +55,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return view('widgets.admin.manageuser', compact('model'))->render();
     }
 
+    public static function laratablesCustomAdmin($model)
+    {
+        return view('widgets.superadmin.admin.crud', compact('model'))->render();
+    }
+
+    public static function laratablesCustomCabang($model) {
+        return $model->jemaat->cabangGereja->nama_gereja;
+    }
+
     public static function laratablesModifyCollection($users)
     {
         return $users->map(function ($user) {

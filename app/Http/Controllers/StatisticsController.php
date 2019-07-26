@@ -61,6 +61,12 @@ class StatisticsController extends Controller
     }
 
     public function jemaatDt() {
-        return Laratables::recordsOf(Jemaat::class);
+        return Laratables::recordsOf(Jemaat::class, function($query) {
+            return $query->where('lokasi_ibadah', auth()->user()->jemaat->lokasi_ibadah)
+                ->whereHas('user', function($query) {
+                    $query->where('role', 'basic_congregation')
+                        ->orWhere('role', 'expert_congregation');
+                });
+        });
     }
 }

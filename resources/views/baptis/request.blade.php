@@ -86,7 +86,7 @@
                             <div class="form-group row">
                                 <label for="staticWaktu" class="col-sm-2 col-form-label">Waktu Baptis:</label>
                                 <div class="col-sm-10">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticWaktu" value="{{ is_null(auth()->user()->jemaat->requestBaptis->waktu) ? '-' : auth()->user()->jemaat->requestBaptis->waktu}}">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticWaktu" value="{{ is_null(auth()->user()->jemaat->requestBaptis->waktu) ? '-' : date('H:i', strtotime(auth()->user()->jemaat->requestBaptis->waktu))}}">
                                 </div>
                             </div>
 

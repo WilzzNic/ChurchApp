@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Freshbitsweb\Laratables\Laratables;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+
 use Illuminate\Support\Facades\DB;
 use App\RequestAltar;
 use App\RequestBaptis;
 use App\RequestKartuAnggota;
 use App\RequestKelasOrientasi;
+use App\CabangGereja;
+use App\JadwalKom;
 
 class LeadersController extends Controller
 {
@@ -138,5 +143,53 @@ class LeadersController extends Controller
 
     public function indexJadwalKOM() {
         return view('kom.add');
+    }
+
+    public function dtJadwalKOM() {
+
+        return Laratables::recordsOf(JadwalKom::class, function($query) {
+            return $query->where('cabang_gereja_id', auth()->user()->jemaat->lokasi_ibadah);
+        });
+    }
+
+    public function addJadwalKOM(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'seri_kom' => [
+                'required',
+                Rule::unique('jadwal_koms')->where(function($query) use ($request) {
+                    return $query->where('waktu', $request->waktu)
+                                ->where('hari', $request->hari);
+                }),
+            ],
+            'waktu' => 'required',
+            'hari'  => 'required',
+        ],
+        [
+            'seri_kom.required' => 'Seri KOM harus diiisi.',
+            'seri_kom.unique' => 'Jadwal ini telah ada di database.',
+            'waktu.required' => 'Waktu harus diiisi.',
+            'hari.required' => 'Hari KOM harus diiisi.',
+        ],
+        );
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+
+        $jadwal = new JadwalKom();
+        $jadwal->cabang_gereja_id = auth()->user()->jemaat->lokasi_ibadah;
+        $jadwal->seri_kom = $request->seri_kom;
+        $jadwal->waktu = $request->waktu;
+        $jadwal->hari = $request->hari;
+        $jadwal->save();
+
+        return back()->withStatus('Jadwal telah ditambahkan ke database.');
+    }
+
+    public function deleteJadwalKOM($id) {
+        $jadwal = JadwalKom::find($id);
+        $jadwal->delete();
+
+        return back()->withStatus('Jadwal telah dihapus.');
     }
 }

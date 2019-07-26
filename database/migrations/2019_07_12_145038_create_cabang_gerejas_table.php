@@ -17,6 +17,7 @@ class CreateCabangGerejasTable extends Migration
             $table->increments('id');
             $table->string('nama_gereja');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

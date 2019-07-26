@@ -81,6 +81,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 		/* Manajemen Pimpinan */
 		Route::get('manage/leader/index', 'Admin\ManageLeaderController@index')->name('admin.manage.leader.index');
+		Route::get('manage/leader/dt', 'Admin\ManageLeaderController@dt')->name('admin.manage.leader.dt');
+		Route::post('manage/leader/add', 'Admin\ManageLeaderController@add')->name('admin.manage.leader.add');
+		Route::delete('manage/leader/delete/{id}', 'Admin\ManageLeaderController@delete')->name('admin.manage.leader.delete');
 	});
 
 	Route::middleware('can:superadmin')->prefix('superadmin')->group(function() {
@@ -106,6 +109,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 	Route::middleware('can:KOM_leader')->prefix('leader')->group(function() {
 		Route::get('/jadwal/index', 'LeadersController@indexJadwalKOM')->name('leader.kom.jadwal.index');
+		Route::get('jadwal/dt', 'LeadersController@dtJadwalKOM')->name('leader.kom.jadwal.dt');
+		Route::post('jadwal/add', 'LeadersController@addJadwalKOM')->name('leader.kom.jadwal.add');
+		Route::delete('jadwal/delete/{id}', 'LeadersController@deleteJadwalKOM')->name('leader.kom.jadwal.delete');
 	});
 
 	Route::resource('user', 'UserController', ['except' => ['show']]);

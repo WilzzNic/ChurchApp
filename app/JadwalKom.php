@@ -12,4 +12,9 @@ class JadwalKom extends Model
     public function cabangGereja() {
         return $this->belongsTo('App\CabangGereja');
     }
+
+    public static function laratablesCustomAction($model)
+    {
+        return view('widgets.komleader.crud', compact('model'))->render();
+    }
 }

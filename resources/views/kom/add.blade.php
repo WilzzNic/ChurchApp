@@ -23,41 +23,38 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="" class="px-5" autocomplete="off">
+                    <form method="POST" action="{{ route('leader.kom.jadwal.add') }}" class="px-5" autocomplete="off">
                         @csrf
 
                         @if (session('status'))
-                        <div class="alert alert-default alert-dismissable fade show" role="alert">
-                            {{ session('status') }}
+                        <div class="alert alert-success alert-dismissable fade show" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
+                            {{ session('status') }}
+                        </div>
+                        @endif
+
+                        @if (session('errors'))
+                        <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            @foreach ($errors->all() as $error)
+                                <div>{{ $error }}</div>
+                            @endforeach
                         </div>
                         @endif
 
                         <div class="form-group">
-                            <label class="form-control-label" for="input-cabang">{{ __('Cabang') }}</label>
-                            <select class="form-control js-example-responsive" name="cabang" id="input-cabang">
-                                <option value="0">-- Pilih Cabang --</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
                             <label class="form-control-label" for="input-seri">{{ __('Seri KOM') }}</label>
-                            <select class="custom-select" name="seri" id="input-seri">
+                            <select class="custom-select" name="seri_kom" id="input-seri">
                                 <option value="0" disabled selected>-- Pilih Seri --</option>
                                 <option value="100">100</option>
                                 <option value="200">200</option>
                                 <option value="300">300</option>
                                 <option value="400">400</option>
                             </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-control-label" for="input-asal-gereja">{{ __('Asal Gereja') }}</label>
-                            <input id="input-asal-gereja" class="form-control form-control-alternative" name="asal_gereja"
-                            value=""
-                            placeholder="Asal Gereja" type="text" required>
                         </div>
 
                         <div class="form-group row">
@@ -75,12 +72,13 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-control-label" for="input-waktu">{{ __('Waktu') }}</label>
-                                <input type="time" class="form-control" name="waktu" id="input-waktu" placeholder="Waktu">
+                                <input type="time" class="form-control" name="waktu" id="input-waktu"
+                                    placeholder="Waktu">
                             </div>
                         </div>
 
                         <div class="text-center">
-                            <button type="submit" class="btn btn-success">{{ __('Tambah') }}</button>
+                            <button type="submit" class="btn btn-success">{{ __('Tambah Jadwal') }}</button>
                         </div>
 
                         <hr class="my-3">
@@ -91,11 +89,10 @@
                                 <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
                                     <thead class="thead-light">
                                         <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Nama Cabang</th>
                                             <th scope="col">Seri KOM</th>
                                             <th scope="col">Hari</th>
                                             <th scope="col">Waktu</th>
+                                            <th scope="col">Dibuat pada Tanggal</th>
                                             <th scope="col">Actions</th>
                                         </tr>
                                     </thead>
@@ -115,7 +112,40 @@
 @push('js')
 <script type="text/javascript">
     $(document).ready(function () {
-
+        $('#table').DataTable({
+            processing: true,
+            serverSide: true,
+            pageLength: 10,
+            scrollX: true,
+            ajax: "{{ route('leader.kom.jadwal.dt') }}",
+            columnDefs: [{
+                    targets: 3,
+                    render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s', 'YYYY-MM-DD'),
+                },
+                {
+                    targets: 2,
+                    render: $.fn.dataTable.render.moment('H:m:s', 'HH:mm'),
+                },
+            ],
+            columns: [{
+                    name: 'seri_kom'
+                },
+                {
+                    name: 'hari'
+                },
+                {
+                    name: 'waktu'
+                },
+                {
+                    name: 'created_at'
+                },
+                {
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                }
+            ],
+        });
     });
 </script>
 @endpush

@@ -49,4 +49,28 @@ class User extends Authenticatable implements MustVerifyEmail
     public function jemaat() {
         return $this->hasOne('App\Jemaat');
     }
+
+    public static function laratablesCustomAction($model)
+    {
+        return view('widgets.admin.manageuser', compact('model'))->render();
+    }
+
+    public static function laratablesModifyCollection($users)
+    {
+        return $users->map(function ($user) {
+            if($user->role == User::ROLE_L_KAJ){
+                $user->role = 'Pimpinan KAJ'; 
+            }
+            else if($user->role == User::ROLE_L_KOM) {
+                $user->role = 'Pimpinan KOM';
+            }
+            else if($user->role == User::ROLE_L_BAPTIS) {
+                $user->role = 'Pimpinan Baptis';
+            }
+            else {
+                $user->role = 'Pimpinan Family Altar';
+            }
+            return $user;
+        });
+    }
 }

@@ -20,7 +20,7 @@ class Jemaat extends Model
     }
 
     public function kom() {
-        return $this->hasMany('App\KOM');
+        return $this->hasOne('App\KOM');
     }
 
     public function baptis() {

@@ -55,7 +55,9 @@ projects or assigned tasks'),
                                         <tr>
                                             <th scope="col">No. FA</th>
                                             <th scope="col">Owner</th>
+                                            <th scope="col">No. HP</th>
                                             <th scope="col">Daerah</th>
+                                            <th scope="col">Alamat</th>
                                             <th scope="col">Hari</th>
                                             <th scope="col">Waktu</th>
                                             <th>Actions</th>
@@ -158,27 +160,6 @@ projects or assigned tasks'),
 @push('js')
 <script type="text/javascript">
     $(document).ready(function () {
-        // var t = $('#table').DataTable({
-        //     processing: true,
-        //     serverSide: true,
-        //     pageLength: 10,
-        //     scrollX: true,
-        //     ajax: "{{ route('bcon.altardt') }}",
-        //     columnDefs: [
-        //         {
-        //             targets: 4,
-        //             render: $.fn.dataTable.render.moment('H:m:s','HH:mm'),
-        //         }
-        //     ],
-        //     columns: [
-        //         { name: 'FA_number' },
-        //         { name: 'owner.nama', orderable: false },
-        //         { name: 'daerah.nama_daerah', orderable: false },
-        //         { name: 'hari', orderable: false },
-        //         { name: 'waktu', orderable: false },
-        //         { name: 'action', orderable: false, searchable: false }
-        //     ],
-        // });
 
         var dt = $('#table').DataTable({
             processing: true,
@@ -196,7 +177,7 @@ projects or assigned tasks'),
                 }
             },
             columnDefs: [{
-                targets: 4,
+                targets: 6,
                 render: $.fn.dataTable.render.moment('H:m:s', 'HH:mm'),
             }],
             columns: [{
@@ -207,7 +188,15 @@ projects or assigned tasks'),
                     orderable: false
                 },
                 {
+                    name: 'owner.no_hp',
+                    orderable: false
+                },
+                {
                     name: 'daerah.nama_daerah',
+                    orderable: false
+                },
+                {
+                    name: 'alamat',
                     orderable: false
                 },
                 {

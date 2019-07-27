@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 		/* Baptis */
 		Route::get('/baptis/request', 'RequestBaptisController@index')->name('bcon.requestbaptis');
 		Route::post('/baptis/request/send', 'RequestBaptisController@request')->name('bcon.requestbaptis.send');
+		Route::delete('/baptis/request/delete/{id}', 'RequestBaptisController@delete')->name('bcon.requestbaptis.delete');
 
 		/* Family Altar */
 		Route::get('/family-altar/request', 'RequestFAController@index')->name('bcon.requestfa');

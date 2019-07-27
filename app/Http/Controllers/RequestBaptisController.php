@@ -10,16 +10,20 @@ use Auth;
 class RequestBaptisController extends Controller
 {
     public function index() {
-        $user = Auth::user();
-        
-        return view('baptis.request');
+        if(auth()->user()->jemaat->requestBaptis) {
+            $request = RequestBaptis::where('jemaat_id', auth()->user()->jemaat->id)->first();
+            return view('baptis.sent')->with('request', $request);
+        }
+        else {
+            return view('baptis.request');
+        }
     }
 
     public function request(Request $request) {
         $validatedData = $request->validate([
             'tanggal' => 'required|date_format:Y-m-d'
         ]);
-
+        
         $user = Auth::user()->jemaat;
         
         if($user->requestBaptis) {
@@ -32,5 +36,12 @@ class RequestBaptisController extends Controller
         $user->requestBaptis()->save($sendRequest);
 
         return back()->withStatus(__('Permohonan telah dikirim.'));
+    }
+
+    public function delete($id) {
+        $jemaat = Auth::user()->jemaat;
+        $jemaat->requestBaptis->delete();
+
+        return view('baptis.request');
     }
 }

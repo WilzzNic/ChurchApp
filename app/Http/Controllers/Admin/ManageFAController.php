@@ -48,12 +48,15 @@ class ManageFAController extends Controller
             $family_altar->alamat = $request->alamat;
             $family_altar->hari = $request->hari;
             $family_altar->waktu = $request->waktu;
-
             $family_altar->save();
-
+            
             $user = User::find($family_altar->owner->user->id);
             $user->role = User::ROLE_L_FA;
             $user->save();
+
+            $jemaat = Jemaat::where('user_id', $user->id)->first();
+            $jemaat->family_altar_id = $family_altar->id;
+            $jemaat->save();
         });
 
         return back()->withStatus('Family Altar telah didaftarkan.');
@@ -83,7 +86,6 @@ class ManageFAController extends Controller
     public function delete($id) {
         DB::transaction(function () use ($request) {
             $family_altar = FamilyAltar::find($id);
-
             $family_altar->delete();
 
             if($user->jemaat->status == Jemaat::STATUS_VERIFIED && 
@@ -100,6 +102,9 @@ class ManageFAController extends Controller
                 $user->save();
             }
             
+            $jemaat = Jemaat::where('user_id', $user->id)->first();
+            $jemaat->family_altar_id = null;
+            $jemaat->save();
         });
 
         return back()->withStatus('Family Altar telah dibubarkan.');

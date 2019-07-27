@@ -20,7 +20,6 @@
                 </div>
                 <div class="card-body">
                     @if(auth()->user()->jemaat->lokasi_ibadah)
-                        @if(!auth()->user()->jemaat->requestBaptis)
                         <form class="px-5" method="post" action="{{ route('bcon.requestbaptis.send') }}" autocomplete="off">
                             @csrf
 
@@ -52,53 +51,6 @@
                                 <button type="submit" class="btn btn-success mt-4">{{ __('Kirim Permohonan') }}</button>
                             </div>
                         </form>
-
-                        @else
-                        <form>
-                            <div class="row">
-                                <div class="col">
-                                    @if(auth()->user()->jemaat->requestBaptis->status == 'Pending')
-                                        <div class="alert alert-default" role="alert">
-                                            <strong>Permohonan anda telah dikirim!</strong> Mohon menunggu konfirmasi dari Admin.
-                                        </div>
-                                    @elseif(auth()->user()->jemaat->requestBaptis->status == 'Accepted')
-                                        <div class="alert alert-primary" role="alert">
-                                            <span class="alert-inner--icon"><i class="ni ni-like-2"></i></span>
-                                            <span class="alert-inner--text"><strong>Permohonan anda telah diterima!</strong> Mohon datang pada waktu yang telah ditentukan.</span>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="staticName" class="col-sm-2 col-form-label">Nama:</label>
-                                <div class="col-sm-10">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticName" value="{{ auth()->user()->jemaat->nama }}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="staticTanggal" class="col-sm-2 col-form-label">Tanggal Baptis:</label>
-                                <div class="col-sm-10">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticTanggal" value="{{ auth()->user()->jemaat->requestBaptis->tanggal }}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="staticWaktu" class="col-sm-2 col-form-label">Waktu Baptis:</label>
-                                <div class="col-sm-10">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticWaktu" value="{{ is_null(auth()->user()->jemaat->requestBaptis->waktu) ? '-' : date('H:i', strtotime(auth()->user()->jemaat->requestBaptis->waktu))}}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="staticStatus" class="col-sm-2 col-form-label">Status:</label>
-                                <div class="col-sm-10">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticStatus" value="{{ auth()->user()->jemaat->requestBaptis->status }}">
-                                </div>
-                            </div>
-                        </form>
-
-                        @endif
                     @else
                         <div class="px-5">
                             <div class="row">

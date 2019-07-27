@@ -10,7 +10,7 @@
     @else
     @include('users.partials.header', [
         'title' => __('Hello') . ' '. auth()->user()->email,
-        'description' => __('This is your profile page. You can see the progress you\'ve made with your work and manage your projects or assigned tasks'),
+        'description' => __('Halaman ini memuat profil Anda.'),
         'class' => 'col-lg-7'
     ])
     @endif   
@@ -169,7 +169,13 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-loc-ibadah">{{ __('Lokasi Ibadah') }}</label>
+                                    <label class="form-control-label" for="input-loc-ibadah">
+                                        @if(Auth::user()->can('admin') || Auth::user()->can('superadmin'))
+                                            Cabang Gereja
+                                        @else
+                                            Lokasi Ibadah
+                                        @endif
+                                    </label>
                                     <select class="custom-select" name="lokasi_ibadah" id="input-loc-ibadah">
                                         <option disabled selected>-- Pilih Lokasi Ibadah --</option>
                                         <option value="">Belum Ada</option>
@@ -205,7 +211,23 @@
                                     @endif
                                 </div>
 
-                                <div class="form-row">
+                                @unless(Auth::user()->can('admin') || Auth::user()->can('superadmin'))
+                                <div class="form-group row">
+                                    <div class="col-md-4">
+                                        <label for="staticKAJ" class="form-control-label">Status KAJ</label>
+                                        <input type="text" readonly class="text-muted form-control-plaintext" id="staticKAJ" value="{{ $data->kaj ? $data->kaj->status : 'Tidak ada KAJ' }}">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="staticKOM" class="form-control-label">Status Sertifikat KOM</label>
+                                        <input type="text" readonly class="text-muted form-control-plaintext" id="staticKOM" value="{{ $data->kom ? $data->kom->status : 'Tidak ada Sertifikat KOM' }}">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="staticBaptis" class="form-control-label">Status Sertifikat Baptis</label>
+                                        <input type="text" readonly class="text-muted form-control-plaintext" id="staticBaptis" value="{{ $data->baptis ? $data->baptis->status : 'Tidak ada Sertifikat Baptis' }}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
                                     <div class="col-md-4">
                                         <div class="custom-file">
                                             <label id="label_kaj" class="custom-file-label" for="kajFile">Upload KAJ</label>
@@ -225,6 +247,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endunless
 
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-success mt-4">{{ __('Simpan') }}</button>
@@ -286,15 +309,6 @@
         @include('layouts.footers.auth')
     </div>
 @endsection
-
-@push('css')
-    <style>
-        img {
-            max-width: 150px;
-            max-height: 150px;
-        }
-    </style>
-@endpush
 
 @push('js')
 <script type="text/javascript">

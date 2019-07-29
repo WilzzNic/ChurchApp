@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('guest');
 
 Auth::routes(['verify' => true]);
 
@@ -105,6 +105,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 		Route::get('manage/admin/dt', 'Superadmin\ManageAdminController@dt')->name('superadmin.manage.admin.dt');
 		Route::post('manage/admin/add', 'Superadmin\ManageAdminController@add')->name('superadmin.manage.admin.add');
 		Route::delete('manage/admin/delete/{id}', 'Superadmin\ManageAdminController@delete')->name('superadmin.manage.admin.delete');
+
+		/* Statistik dan Data */
+		Route::get('statistics/index', 'Superadmin\StatisticsController@index')->name('superadmin.statistic.index');
+		Route::get('statistics/jemaat/dt', 'Superadmin\StatisticsController@dtJemaat')->name('superadmin.statistic.jemaat.dt');
 	});
 
 	Route::middleware(['can:KAJ_leader' || 'can:KOM_leader' || 'can:FA_leader' || 'can:baptis_leader'])->prefix('leader')->group(function() {

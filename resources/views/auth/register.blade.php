@@ -169,6 +169,7 @@
     $(function() {
         $(".datepicker").datepicker({
             format: 'yyyy-mm-dd',
+            endDate: '0d',
         });
     });
 </script>

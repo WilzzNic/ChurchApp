@@ -42,6 +42,6 @@ class RequestBaptisController extends Controller
         $jemaat = Auth::user()->jemaat;
         $jemaat->requestBaptis->delete();
 
-        return view('baptis.request');
+        return redirect()->back();
     }
 }

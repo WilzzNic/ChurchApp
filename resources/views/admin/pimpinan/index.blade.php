@@ -172,6 +172,7 @@
     $(function () {
         $("#input-tgl-lhr").datepicker({
             format: 'yyyy-mm-dd',
+            endDate: '0d',
         });
     });
 

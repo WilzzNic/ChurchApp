@@ -202,7 +202,7 @@
 
                                 <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-email">{{ __('E-mail') }}</label>
-                                    <input type="email" name="email" id="input-email" class="form-control form-control-alternative{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('E-mail') }}" value="{{ old('email', auth()->user()->email) }}" required>
+                                    <input type="email" name="email" id="input-email" class="form-control form-control-alternative{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('E-mail') }}" value="{{ old('email', auth()->user()->email) }}" disabled>
 
                                     @if ($errors->has('email'))
                                         <span class="invalid-feedback" role="alert">
@@ -313,8 +313,9 @@
 @push('js')
 <script type="text/javascript">
     $(function() {
-        $(".datepicker").datepicker({
+        $("#input-tgl-lhr").datepicker({
             format: 'yyyy-mm-dd',
+            endDate: '0d',
         });
     });
 

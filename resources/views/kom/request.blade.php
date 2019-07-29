@@ -102,6 +102,7 @@
     });
 
     $('#input-cabang').on('change', function(e) {
+        $('#input-jadwal').val("").datepicker("update");
         $.ajax({
             type: "POST",
             url: "{{ route('bcon.requestkom.schedule') }}",
@@ -121,34 +122,37 @@
                 $('.datepicker').prop('disabled', false);
                 $('#input-waktu').prop('disabled', false);
 
-                var haris = [];
+                haris = [];
 
                 messages.forEach(function(jadwal) {
                     if(jadwal.hari == "Minggu") {
                         haris.push(0);
+                        jadwals.push({ id:jadwal.id, hari:0, waktu:jadwal.waktu });
                     }
                     else if(jadwal.hari == "Senin") {
                         haris.push(1);
+                        jadwals.push({ id:jadwal.id, hari:1, waktu:jadwal.waktu });
                     }
                     else if(jadwal.hari == "Selasa") {
                         haris.push(2);
+                        jadwals.push({ id:jadwal.id, hari:2, waktu:jadwal.waktu });
                     }
                     else if(jadwal.hari == "Rabu") {
                         haris.push(3);
+                        jadwals.push({ id:jadwal.id, hari:3, waktu:jadwal.waktu });
                     }
                     else if(jadwal.hari == "Kamis") {
                         haris.push(4);
+                        jadwals.push({ id:jadwal.id, hari:4, waktu:jadwal.waktu });
                     } 
                     else if(jadwal.hari == "Jumat") {
                         haris.push(5);
+                        jadwals.push({ id:jadwal.id, hari:5, waktu:jadwal.waktu });
                     } 
                     else if(jadwal.hari == "Sabtu") {
                         haris.push(6);
+                        jadwals.push({ id:jadwal.id, hari:6, waktu:jadwal.waktu });
                     }
-
-                    $("#input-waktu").append(
-                        new Option(moment(jadwal.waktu, "HH:mm:ss").format("HH:mm"), jadwal.id)
-                    );
                 });
 
                 calendar_set = full_set.diff(haris);
@@ -164,6 +168,7 @@
 
 
     $('#input-seri').change(function() {
+        $('#input-jadwal').val("").datepicker("update");
         $.ajax({
             type: "POST",
             url: "{{ route('bcon.requestkom.schedule') }}",
@@ -183,32 +188,40 @@
                 $('.datepicker').prop('disabled', false);
                 $('#input-waktu').prop('disabled', false);
 
-                var haris = [];
+                haris = [];
+                jadwals = [];
+
+                result = [];
 
                 messages.forEach(function(jadwal) {
                     if(jadwal.hari == "Minggu") {
                         haris.push(0);
+                        jadwals.push({ id:jadwal.id, hari:0, waktu:jadwal.waktu });
                     }
                     else if(jadwal.hari == "Senin") {
                         haris.push(1);
+                        jadwals.push({ id:jadwal.id, hari:1, waktu:jadwal.waktu });
                     }
                     else if(jadwal.hari == "Selasa") {
                         haris.push(2);
+                        jadwals.push({ id:jadwal.id, hari:2, waktu:jadwal.waktu });
                     }
                     else if(jadwal.hari == "Rabu") {
                         haris.push(3);
+                        jadwals.push({ id:jadwal.id, hari:3, waktu:jadwal.waktu });
                     }
                     else if(jadwal.hari == "Kamis") {
                         haris.push(4);
+                        jadwals.push({ id:jadwal.id, hari:4, waktu:jadwal.waktu });
                     } 
                     else if(jadwal.hari == "Jumat") {
                         haris.push(5);
+                        jadwals.push({ id:jadwal.id, hari:5, waktu:jadwal.waktu });
                     } 
                     else if(jadwal.hari == "Sabtu") {
                         haris.push(6);
+                        jadwals.push({ id:jadwal.id, hari:6, waktu:jadwal.waktu });
                     }
-
-                    $("#input-waktu").append(new Option(moment(jadwal.waktu, "HH:mm:ss").format("HH:mm"), jadwal.id));
                 });
 
                 calendar_set = full_set.diff(haris);
@@ -217,6 +230,11 @@
             }
         });
     });
+
+    var haris = [];
+    var jadwals = [];
+    var result = [];
+    var day = -1;
 
     var full_set = [0,1,2,3,4,5,6];
     var calendar_set = [1,2,3,4,5,6];
@@ -227,6 +245,42 @@
             daysOfWeekDisabled: calendar_set,
             startDate: '+0d',
         });
+
+        $('#input-jadwal').datepicker().on('changeDate', function(e) {
+            day = e.format('DD');
+
+            if(day == 'Sunday') {
+                day = 0;
+            }
+            else if(day == 'Monday') {
+                day = 1;
+            }
+            else if(day == 'Tuesday') {
+                day = 2;
+            }
+            else if(day == 'Wednesday') {
+                day = 3;
+            }
+            else if(day == 'Thursday') {
+                day = 4;
+            }
+            else if(day == 'Friday') {
+                day = 5;
+            }
+            else if(day == 'Saturday') {
+                day = 6;
+            }
+
+            result = jadwals.filter(jadwal => {
+                return jadwal.hari == day;
+            });
+
+            $('#input-waktu').children('option:not(:first)').remove();
+
+            result.forEach(function(jadwal) {
+                $("#input-waktu").append(new Option(moment(jadwal.waktu, "HH:mm:ss").format("HH:mm"), jadwal.id));
+            });
+        })
     });
 </script>
 @endpush

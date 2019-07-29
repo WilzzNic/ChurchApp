@@ -47,6 +47,10 @@ class Jemaat extends Model
         return $this->hasOne('App\RequestKartuAnggota');
     }
 
+    public function requestKOM() {
+        return $this->hasOne('App\RequestKelasOrientasi');
+    }
+
     public function cabangGereja() {
         return $this->belongsTo('App\CabangGereja', 'lokasi_ibadah');
     }

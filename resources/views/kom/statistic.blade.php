@@ -186,8 +186,8 @@
     var canvas = document.getElementById('myChart');
     var data_array = {{ json_encode($data, JSON_HEX_TAG) }};
     var data = {
-        labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
-            "November", "December"
+        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Octr",
+            "Nov", "Dec"
         ],
         datasets: [{
             label: "My First dataset",

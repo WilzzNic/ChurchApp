@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 use Illuminate\Support\Facades\DB;
+use App\Jemaat;
 use App\RequestAltar;
 use App\RequestBaptis;
 use App\RequestKartuAnggota;

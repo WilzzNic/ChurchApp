@@ -20,6 +20,7 @@ class CreateRequestBaptisTable extends Migration
             $table->date('tanggal');
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

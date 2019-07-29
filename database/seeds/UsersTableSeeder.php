@@ -31,7 +31,7 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'email' => 'okkybarus@gmail.com',
+            'email' => 'halo@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('secret'),
             'role' => 'basic_congregation',

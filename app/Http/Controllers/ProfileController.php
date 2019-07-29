@@ -40,7 +40,6 @@ class ProfileController extends Controller
 
         DB::transaction(function() use ($request) {
             $user = Auth::user();
-            $user->email = $request->email;
             if(auth()->user()->role == 'guest' || auth()->user()->role == 'basic_congregation') {
                 $user->role = 'basic_congregation';
             }

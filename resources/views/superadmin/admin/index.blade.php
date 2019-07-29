@@ -62,6 +62,18 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label class="form-control-label" for="input-cabang">{{ __('Cabang') }}</label>
+                            <select class="form-control js-example-basic-single" name="cabang" id="input-cabang">
+                                <option value="0">-- Pilih Cabang --</option>
+                                @foreach($cabangs as $cabang)
+                                <option value="{{ $cabang->id }}" {{ old('cabang') == $cabang->id ? 'selected' : '' }}>
+                                    {{ $cabang->nama_gereja }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="form-group{{ $errors->has('nama') ? ' has-danger' : '' }}">
                             <label class="form-control-label" for="input-nama-lengkap">{{ __('Nama Lengkap') }}</label>
                             <input type="text"
@@ -152,54 +164,62 @@
             </div>
         </div>
     </div>
-</div>
-</div>
-
-@include('layouts.footers.auth')
+    @include('layouts.footers.auth')
 </div>
 @endsection
+
+@push('css')
+<style>
+    .select2 {
+        width: 100% !important;
+    }
+</style>
+@endpush
 
 @push('js')
 <script type="text/javascript">
     $(function () {
         $("#input-tgl-lhr").datepicker({
             format: 'yyyy-mm-dd',
+            endDate: '0d',
         });
     });
 
     $(document).ready(function () {
-        $(document).ready(function () {
-            $('#table').DataTable({
-                processing: true,
-                serverSide: true,
-                pageLength: 10,
-                scrollX: true,
-                ajax: "{{ route('superadmin.manage.admin.dt') }}",
-                columnDefs: [{
-                    targets: 3,
-                    render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s',
-                        'YYYY-MM-DD'),
-                }, ],
-                columns: [{
-                        name: 'email'
-                    },
-                    {
-                        name: 'jemaat.nama'
-                    },
-                    {
-                        name: 'cabang',
-                        orderable: false
-                    },
-                    {
-                        name: 'created_at'
-                    },
-                    {
-                        name: 'admin',
-                        orderable: false,
-                        searchable: false
-                    }
-                ],
-            });
+        $('#input-cabang').select2({
+            placeholder: 'Pilih Cabang Gereja'
+        });
+
+        $('#table').DataTable({
+            processing: true,
+            serverSide: true,
+            pageLength: 10,
+            scrollX: true,
+            ajax: "{{ route('superadmin.manage.admin.dt') }}",
+            columnDefs: [{
+                targets: 3,
+                render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s',
+                    'YYYY-MM-DD'),
+            }, ],
+            columns: [{
+                    name: 'email'
+                },
+                {
+                    name: 'jemaat.nama'
+                },
+                {
+                    name: 'cabang',
+                    orderable: false
+                },
+                {
+                    name: 'created_at'
+                },
+                {
+                    name: 'admin',
+                    orderable: false,
+                    searchable: false
+                }
+            ],
         });
     });
 </script>

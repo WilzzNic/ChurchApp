@@ -28,7 +28,7 @@ class JemaatTableSeeder extends Seeder
 
         $jemaat = new Jemaat();
         $jemaat->user_id = 3;
-        $jemaat->nama = 'Okky Putra Barus';
+        $jemaat->nama = 'Halo';
         $jemaat->family_altar_id = 2;
         $jemaat->jenis_kelamin = 'L';
         $jemaat->tempat_lahir = 'Medan';

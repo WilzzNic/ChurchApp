@@ -22,7 +22,7 @@ class ManageLeaderController extends Controller
     public function dt() {
         return Laratables::recordsOf(User::class, function($query) {
             return $query
-                ->whereIn('role', [User::ROLE_L_KAJ, User::ROLE_L_FA, User::ROLE_L_KOM, User::ROLE_L_BAPTIS])
+                ->whereIn('role', [User::ROLE_L_KAJ, User::ROLE_L_KOM, User::ROLE_L_BAPTIS])
                 ->whereHas('jemaat', function($q) {
                     $q->where('lokasi_ibadah', '=', auth()->user()->jemaat->lokasi_ibadah);
                 });
@@ -56,7 +56,7 @@ class ManageLeaderController extends Controller
             $user = new User();
             $user->email = $request->email;
             $user->password = $request->password;
-            $user->role = $request->role;
+            $user->role = bcrypt($request->role);
             $user->save();
 
             $jemaat = new Jemaat();

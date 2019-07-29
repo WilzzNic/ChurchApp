@@ -13,6 +13,7 @@ use App\User;
 use App\Baptis;
 use App\KOM;
 use App\KAJ;
+use DB;
 
 class ManageFAController extends Controller
 {

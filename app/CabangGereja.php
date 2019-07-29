@@ -9,6 +9,10 @@ class CabangGereja extends Model
 {
     use SoftDeletes;
 
+    public function jemaat() {
+        return $this->belongsToMany('App\Jemaat');
+    }
+
     public static function laratablesCustomAction($model)
     {
         return view('widgets.superadmin.cabanggereja.crud', compact('model'))->render();

@@ -37,7 +37,7 @@ class ProfileRequest extends FormRequest
             'nama_ibu' => ['nullable', 'string'],
             'nama_ayah' => ['nullable', 'string'],
             'lokasi_ibadah' => ['nullable', 'string'],
-            'email' => ['required', 'email', Rule::unique((new User)->getTable())->ignore(auth()->id())],
+            // 'email' => ['required', 'email', Rule::unique((new User)->getTable())->ignore(auth()->id())],
         ];
     }
 }

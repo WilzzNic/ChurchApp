@@ -108,10 +108,19 @@
                     </a>
                 </li>
             </ul>
+
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('superadmin.manage.admin') }}">
                         <i class="ni ni-circle-08 text-default"></i> {{ __('Manajemen Admin') }}
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('superadmin.statistic.index') }}">
+                        <i class="ni ni-chart-bar-32 text-default"></i> {{ __('Statistik dan Data') }}
                     </a>
                 </li>
             </ul>

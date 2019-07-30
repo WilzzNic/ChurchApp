@@ -187,12 +187,28 @@
             <hr class="my-3">
             
             <h6 class="navbar-heading text-muted">Menus</h6>
-            
+
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('leader.request.show') }}">
-                        <i class="fa fa-inbox text-default"></i> {{ __('Request List') }}
+                    <a class="nav-link active" href="#navbar-inbox" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-inbox">
+                        <i class="fa fa-inbox text-default"></i>
+                        {{ __('Inbox') }}</span>
                     </a>
+
+                    <div class="collapse show" id="navbar-inbox">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('leader.request.show') }}">
+                                    <i class="fa fa-paper-plane text-default"></i> {{ __('Request List') }}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('leader.request.history.index') }}">
+                                    <i class="fa fa-envelope-open text-default"></i> {{ __('Request History List') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
 

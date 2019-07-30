@@ -48,6 +48,8 @@
             @include('layouts.footers.guest')
         @endguest
 
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        
         <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
         <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

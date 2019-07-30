@@ -193,4 +193,59 @@ class LeadersController extends Controller
 
         return back()->withStatus('Jadwal telah dihapus.');
     }
+
+    public function historyIndex() {
+        $role = auth()->user()->role;
+
+        if($role ==  User::ROLE_L_FA){
+            return view('familyaltar.history');
+        }
+        else if($role ==  User::ROLE_L_BAPTIS) {
+            return view('baptis.history');
+        }
+        else if($role ==  User::ROLE_L_KAJ) {
+            return view('kaj.history');
+        }
+        else {
+            return view('kom.history');
+        }
+    }
+
+    public function historyDt() {
+        $role = auth()->user()->role;
+
+        if($role ==  User::ROLE_L_FA) {
+            return Laratables::recordsOf(RequestAltar::class, function($query) {
+                return $query->where('status', RequestAltar::STATUS_PENDING)
+                ->whereHas('fa', function($q) {
+                    $q->where('owner_id', '=', auth()->user()->jemaat->id);
+                });
+            });
+        }
+        else if($role ==  User::ROLE_L_BAPTIS) {
+            return Laratables::recordsOf(RequestBaptis::class, function($query) {
+                return $query->whereIn('status', [RequestBaptis::STATUS_ACCEPTED, RequestBaptis::STATUS_REJECTED])
+                ->whereHas('jemaat', function($q) {
+                    $q->where('lokasi_ibadah', '=', auth()->user()->jemaat->lokasi_ibadah);
+                });;
+                        
+            });
+        }
+        else if($role ==  User::ROLE_L_KAJ) {
+            return Laratables::recordsOf(RequestKartuAnggota::class, function($query) {
+                return $query->where('status', RequestKartuAnggota::STATUS_PENDING)
+                ->whereHas('jemaat', function($q) {
+                    $q->where('lokasi_ibadah', '=', auth()->user()->jemaat->lokasi_ibadah);
+                });
+            });
+        }
+        else {
+            return Laratables::recordsOf(RequestKelasOrientasi::class, function($query) {
+                return $query->where('status', RequestKelasOrientasi::STATUS_PENDING)
+                ->whereHas('jadwal', function($q) {
+                    $q->where('cabang_gereja_id', '=', auth()->user()->jemaat->lokasi_ibadah);
+                });
+            });
+        }
+    }
 }

@@ -21,4 +21,9 @@ class RequestBaptis extends Model
     {
         return view('widgets.baptisleader.approvalbuttons', compact('model'))->render();
     }
+    
+    public static function laratablesCustomEmail($model)
+    {
+        return $model->jemaat->user->email;
+    }
 }

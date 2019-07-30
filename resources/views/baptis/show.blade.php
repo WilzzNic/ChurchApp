@@ -35,7 +35,7 @@ projects or assigned tasks'),
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                 </form>
             </div>
@@ -47,8 +47,8 @@ projects or assigned tasks'),
             <div class="card bg-secondary shadow">
                 <div class="card-header bg-white border-0">
                     <div class="row align-items-center">
-                        <h1 class="text-center col-12"><i class="fa fa-inbox"></i></h1>
-                        <h3 class="text-center col-12 mb-5">{{ __('Request List') }}</h3>
+                        <h1 class="text-center col-12" style="font-size: 50pt;"><i class="fa fa-paper-plane"></i></h1>
+                        <h3 class="text-center col-12">{{ __('Request List') }}</h3>
                     </div>
                 </div>
                 <div class="card-body">
@@ -66,8 +66,8 @@ projects or assigned tasks'),
                         <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">#</th>
                                     <th scope="col">Tanggal Permohonan Dikirim</th>
+                                    <th scope="col">E-mail</th>
                                     <th scope="col">Jemaat</th>
                                     <th scope="col">Tanggal Dibaptis</th>
                                     <th scope="col">Actions</th>
@@ -95,23 +95,20 @@ projects or assigned tasks'),
             ajax: "{{ route('leader.request.show.dt') }}",
             columnDefs: [
                 {
-                    searchable: false,
-                    orderable: false,
-                    targets: 0
-                },
-                {
-                    targets: 1,
+                    targets: 0,
                     render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s', 'YYYY-MM-DD'),
-                }
+                },
             ],
             order: [
-                [1, 'asc']
+                [0, 'asc']
             ],
-            columns: [{
-                    name: 'id'
-                },
+            columns: [
                 {
                     name: 'created_at'
+                },
+                {
+                    name: 'email',
+                    orderable: false,
                 },
                 {
                     name: 'jemaat.nama'
@@ -126,15 +123,6 @@ projects or assigned tasks'),
                 }
             ],
         });
-
-        t.on('order.dt search.dt', function () {
-            t.column(0, {
-                search: 'applied',
-                order: 'applied'
-            }).nodes().each(function (cell, i) {
-                cell.innerHTML = i + 1;
-            });
-        }).draw();
 
         $('#modalApprove').on('show.bs.modal', function (e) {
             var request = $(e.relatedTarget).data('request');

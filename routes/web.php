@@ -120,8 +120,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 		Route::get('/statistics', 'StatisticsController@index')->name('leader.statistic.index');
 		Route::get('/statistics/jemaat/dt', 'StatisticsController@jemaatDt')->name('leader.statistic.jemaat.dt');
 
-		Route::get('/request-history', 'LeadersController@historyIndex')->name('leader.request.history.index');
-		Route::get('/request-history/dt', 'LeadersController@historyDt')->name('leader.request.history.dt');
+		Route::get('/request-approved', 'LeadersController@approvedIndex')->name('leader.request.approved.index');
+		Route::get('/request-approved/dt', 'LeadersController@approvedDt')->name('leader.request.approved.dt');
 	});
 
 	Route::middleware('can:KOM_leader')->prefix('leader')->group(function() {

@@ -67,7 +67,7 @@
             serverSide: true,
             pageLength: 10,
             scrollX: true,
-            ajax: "{{ route('leader.request.history.dt') }}",
+            ajax: "{{ route('leader.request.approved.dt') }}",
             columnDefs: [{
                     visible: false,
                     targets: groupColumn,

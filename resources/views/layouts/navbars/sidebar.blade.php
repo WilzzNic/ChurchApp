@@ -203,7 +203,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('leader.request.history.index') }}">
+                                <a class="nav-link" href="{{ route('leader.request.approved.index') }}">
                                     <i class="fa fa-envelope-open text-default"></i> {{ __('Approved List') }}
                                 </a>
                             </li>

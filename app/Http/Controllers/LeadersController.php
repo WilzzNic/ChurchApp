@@ -194,24 +194,24 @@ class LeadersController extends Controller
         return back()->withStatus('Jadwal telah dihapus.');
     }
 
-    public function historyIndex() {
+    public function approvedIndex() {
         $role = auth()->user()->role;
 
         if($role ==  User::ROLE_L_FA){
-            return view('familyaltar.history');
+            return view('familyaltar.approved');
         }
         else if($role ==  User::ROLE_L_BAPTIS) {
-            return view('baptis.history');
+            return view('baptis.approved');
         }
         else if($role ==  User::ROLE_L_KAJ) {
-            return view('kaj.history');
+            return view('kaj.approved');
         }
         else {
-            return view('kom.history');
+            return view('kom.approved');
         }
     }
 
-    public function historyDt() {
+    public function approvedDt() {
         $role = auth()->user()->role;
 
         if($role ==  User::ROLE_L_FA) {

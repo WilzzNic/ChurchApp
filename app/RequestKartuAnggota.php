@@ -21,4 +21,14 @@ class RequestKartuAnggota extends Model
     {
         return view('widgets.approvalbuttons', compact('model'))->render();
     }
+
+    public static function laratablesCustomEmail($model)
+    {
+        return $model->jemaat->user->email;
+    }
+
+    public static function laratablesCustomCabang($model)
+    {
+        return $model->jemaat->cabangGereja->nama_gereja;
+    }
 }

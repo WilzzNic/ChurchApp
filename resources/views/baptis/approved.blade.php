@@ -57,6 +57,12 @@
 </div>
 @endsection
 
+@push('css')
+<style>
+    thead th { white-space: nowrap; }
+</style>
+@endpush
+
 @push('js')
 <script type="text/javascript">
     $(document).ready(function () {

@@ -47,27 +47,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="table-responsive">
-                    <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Nama Jemaat</th>
-                                <th scope="col">No. FA</th>
-                                <th scope="col">Jenis Kelamin</th>
-                                <th scope="col">Tempat Lahir</th>
-                                <th scope="col">Tanggal Lahir</th>
-                                <th scope="col">Profesi</th>
-                                <th scope="col">Status Nikah</th>
-                                <th scope="col">No. HP</th>
-                                <th scope="col">Alamat</th>
-                                <th scope="col">Lokasi Ibadah</th>
-                                <th scope="col">Nama Ibu</th>
-                                <th scope="col">Nama Ayah</th>
-                                <th scope="col">Status Akun</th>
-                            </tr>
-                        </thead>
-                    </table>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nama Jemaat</th>
+                                    <th scope="col">No. FA</th>
+                                    <th scope="col">Jenis Kelamin</th>
+                                    <th scope="col">Tempat Lahir</th>
+                                    <th scope="col">Tanggal Lahir</th>
+                                    <th scope="col">Profesi</th>
+                                    <th scope="col">Status Nikah</th>
+                                    <th scope="col">No. HP</th>
+                                    <th scope="col">Alamat</th>
+                                    <th scope="col">Lokasi Ibadah</th>
+                                    <th scope="col">Nama Ibu</th>
+                                    <th scope="col">Nama Ayah</th>
+                                    <th scope="col">Status Akun</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -76,6 +78,12 @@
     @include('layouts.footers.auth')
 </div>
 @endsection
+
+@push('css')
+<style>
+    thead th { white-space: nowrap; }
+</style>
+@endpush
 
 @push('js')
 <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>

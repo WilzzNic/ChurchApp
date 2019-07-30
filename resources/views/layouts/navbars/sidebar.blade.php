@@ -204,7 +204,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('leader.request.history.index') }}">
-                                    <i class="fa fa-envelope-open text-default"></i> {{ __('Request History List') }}
+                                    <i class="fa fa-envelope-open text-default"></i> {{ __('Approved List') }}
                                 </a>
                             </li>
                         </ul>

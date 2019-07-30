@@ -224,7 +224,7 @@ class LeadersController extends Controller
         }
         else if($role ==  User::ROLE_L_BAPTIS) {
             return Laratables::recordsOf(RequestBaptis::class, function($query) {
-                return $query->whereIn('status', [RequestBaptis::STATUS_ACCEPTED, RequestBaptis::STATUS_REJECTED])
+                return $query->whereIn('status', [RequestBaptis::STATUS_ACCEPTED])
                 ->whereHas('jemaat', function($q) {
                     $q->where('lokasi_ibadah', '=', auth()->user()->jemaat->lokasi_ibadah);
                 });;
@@ -233,7 +233,7 @@ class LeadersController extends Controller
         }
         else if($role ==  User::ROLE_L_KAJ) {
             return Laratables::recordsOf(RequestKartuAnggota::class, function($query) {
-                return $query->where('status', RequestKartuAnggota::STATUS_PENDING)
+                return $query->whereIn('status', [RequestKartuAnggota::STATUS_ACCEPTED])
                 ->whereHas('jemaat', function($q) {
                     $q->where('lokasi_ibadah', '=', auth()->user()->jemaat->lokasi_ibadah);
                 });
@@ -241,7 +241,7 @@ class LeadersController extends Controller
         }
         else {
             return Laratables::recordsOf(RequestKelasOrientasi::class, function($query) {
-                return $query->where('status', RequestKelasOrientasi::STATUS_PENDING)
+                return $query->where('status', [RequestKelasOrientasi::STATUS_ACCEPTED])
                 ->whereHas('jadwal', function($q) {
                     $q->where('cabang_gereja_id', '=', auth()->user()->jemaat->lokasi_ibadah);
                 });

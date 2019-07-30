@@ -1,11 +1,11 @@
-@extends('layouts.app', ['title' => __('Request History List')])
+@extends('layouts.app', ['title' => __('Approved List')])
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('content')
 @include('users.partials.header', [
 'title' => __('Hello') . ' '. auth()->user()->email,
-'description' => __('Ini adalah halaman yang berisi permohonan yang sudah diterima atau ditolak.'),
+'description' => __('Ini adalah halaman yang berisi permohonan yang sudah diterima.'),
 'class' => 'col-lg-7'
 ])
 
@@ -17,7 +17,7 @@
                     <div class="row align-items-center">
                         <h1 class="text-center col-12" style="font-size: 50pt;"><i class="fa fa-envelope-open"></i></h1>
                         <h3 class="text-center col-12">
-                            {{ __('Request History List') }}
+                            {{ __('Approved List') }}
                         </h3>
                     </div>
                 </div>
@@ -42,7 +42,6 @@
                                     <th scope="col">Nama Jemaat</th>
                                     <th scope="col">Nama Ayah</th>
                                     <th scope="col">Nama Ibu</th>
-                                    <th scope="col">Status</th>
                                     <th scope="col">Tanggal Permohonan Dikirim</th>
                                     <th scope="col">Tanggal Update Permohonan</th>
                                 </tr>
@@ -78,7 +77,7 @@
                     render: $.fn.dataTable.render.moment('H:m:s', 'H:m'),
                 },
                 {
-                    targets: [7, 8],
+                    targets: [6, 7],
                     render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s', 'YYYY-MM-DD'),
                 },
             ],
@@ -126,9 +125,6 @@
                     name: 'jemaat.nama_ibu',
                     defaultContent: '-',
                     orderable: false,
-                },
-                {
-                    name: 'status',
                 },
                 {
                     name: 'created_at'

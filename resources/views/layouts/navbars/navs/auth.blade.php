@@ -2,7 +2,7 @@
 <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
     <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="{{ route('home') }}">{{ __('Dashboard') }}</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block">{{ __('Gereja Bethel Indonesia') }}</a>
         <!-- Form -->
         {{-- <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
             <div class="form-group mb-0">
@@ -20,10 +20,14 @@
                 <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="media align-items-center">
                         <span class="avatar avatar-sm rounded-circle">
-                            <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/team-4-800x800.jpg">
+                            @if(auth()->user()->jemaat->jenis_kelamin == 'L')
+                                <img src="{{ asset('img') }}/icons8-user-64.png" alt="Image placeholder" style="background-color:white;">
+                            @else    
+                                <img src="{{ asset('img') }}/icons8-female-user-64.png" alt="Image placeholder" style="background-color:white;">
+                            @endif
                         </span>
                         <div class="media-body ml-2 d-none d-lg-block">
-                            <span class="mb-0 text-sm  font-weight-bold">{{ auth()->user()->name }}</span>
+                            <span class="mb-0 text-sm  font-weight-bold">{{ auth()->user()->email }}</span>
                         </div>
                     </div>
                 </a>
@@ -35,18 +39,18 @@
                         <i class="ni ni-single-02"></i>
                         <span>{{ __('My profile') }}</span>
                     </a>
-                    <a href="#" class="dropdown-item">
+                    {{-- <a href="#" class="dropdown-item">
                         <i class="ni ni-settings-gear-65"></i>
                         <span>{{ __('Settings') }}</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
+                    </a> --}}
+                    {{-- <a href="#" class="dropdown-item">
                         <i class="ni ni-calendar-grid-58"></i>
                         <span>{{ __('Activity') }}</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
+                    </a> --}}
+                    {{-- <a href="#" class="dropdown-item">
                         <i class="ni ni-support-16"></i>
                         <span>{{ __('Support') }}</span>
-                    </a>
+                    </a> --}}
                     <div class="dropdown-divider"></div>
                     <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">

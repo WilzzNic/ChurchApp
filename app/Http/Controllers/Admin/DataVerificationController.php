@@ -108,9 +108,12 @@ class DataVerificationController extends Controller
     }
 
     public function validateJemaat($id) {
-        $jemaat = Jemaat::find($id);
-        $jemaat->status = Jemaat::STATUS_VERIFIED;
-        $jemaat->save();
+        DB::transaction(function() use ($id){
+            $jemaat = Jemaat::find($id);
+            $jemaat->status = Jemaat::STATUS_VERIFIED;
+            $jemaat->user->role = Jemaat::ROLE_E_CON;
+            $jemaat->push();
+        });
 
         return back()->withStatus('Jemaat terverifikasi');
     }

@@ -134,26 +134,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="table-responsive">
-                    <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scope="col">Nama Jemaat</th>
-                                <th scope="col">No. FA</th>
-                                <th scope="col">Jenis Kelamin</th>
-                                <th scope="col">Tempat Lahir</th>
-                                <th scope="col">Tanggal Lahir</th>
-                                <th scope="col">Profesi</th>
-                                <th scope="col">Status Nikah</th>
-                                <th scope="col">No. HP</th>
-                                <th scope="col">Alamat</th>
-                                <th scope="col">Lokasi Ibadah</th>
-                                <th scope="col">Nama Ibu</th>
-                                <th scope="col">Nama Ayah</th>
-                                <th scope="col">Status Akun</th>
-                            </tr>
-                        </thead>
-                    </table>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Nama Jemaat</th>
+                                    <th scope="col">No. FA</th>
+                                    <th scope="col">Jenis Kelamin</th>
+                                    <th scope="col">Tempat Lahir</th>
+                                    <th scope="col">Tanggal Lahir</th>
+                                    <th scope="col">Profesi</th>
+                                    <th scope="col">Status Nikah</th>
+                                    <th scope="col">No. HP</th>
+                                    <th scope="col">Alamat</th>
+                                    <th scope="col">Lokasi Ibadah</th>
+                                    <th scope="col">Nama Ibu</th>
+                                    <th scope="col">Nama Ayah</th>
+                                    <th scope="col">Status Akun</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -276,6 +279,93 @@
     var altarChart = Chart.Line(altar_canvas, {
         data: altar_data,
         options: option
+    });
+
+    $(document).ready(function () {
+        var t = $('#table').DataTable({
+            processing: true,
+            serverSide: true,
+            pageLength: 10,
+            scrollX: true,
+            ajax: "{{ route('superadmin.statistic.jemaat.dt') }}",
+            columnDefs: [{
+                searchable: false,
+                orderable: false,
+                targets: 0
+            },
+            {
+                render: function ( data, type, row ) {
+                    if(data == 'N/A') {
+                        data = '-';
+                    }
+                    return data;
+                },
+                targets: [2, 10],
+            }
+            ],
+            order: [
+                [0, 'asc']
+            ],
+            columns: [{
+                    name: 'id',
+                    defaultContent: '-',
+                    orderable: false,
+                },
+                {
+                    name: 'nama',
+                    defaultContent: '-',
+                },
+                {
+                    name: 'fa.FA_number',
+                    defaultContent: '-',
+                    orderable: false,
+                },
+                {
+                    name: 'jenis_kelamin',
+                    defaultContent: '-',
+                },
+                {
+                    name: 'tempat_lahir',
+                    defaultContent: '-',
+                },
+                {
+                    name: 'tgl_lahir',
+                    defaultContent: '-',
+                },
+                {
+                    name: 'profesi',
+                    defaultContent: '-',
+                },
+                {
+                    name: 'status_pernikahan',
+                    defaultContent: '-',
+                },
+                {
+                    name: 'no_hp',
+                    defaultContent: '-',
+                },
+                {
+                    name: 'alamat',
+                    defaultContent: '-',
+                },
+                {
+                    name: 'cabangGereja.nama_gereja',
+                    defaultContent: '-',
+                },
+                {
+                    name: 'nama_ibu',
+                    defaultContent: '-',
+                },
+                {
+                    name: 'nama_ayah',
+                    defaultContent: '-',
+                },
+                {
+                    name: 'status',
+                    defaultContent: '-',
+                }
+            ],
+        });
     });
 </script>
 @endpush

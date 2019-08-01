@@ -6,7 +6,7 @@
 @include('users.partials.header', [
 'title' => __('Hello') . ' '. auth()->user()->jemaat->nama,
 'description' => __('Ini adalah halaman Manajemen Cabang Gereja.'),
-'class' => 'col-lg-7'
+'class' => 'col-lg-12'
 ])
 
 <div class="container-fluid mt--7">

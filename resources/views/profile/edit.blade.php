@@ -5,13 +5,13 @@
 @include('users.partials.header', [
 'title' => __('Hello') . ' '. auth()->user()->email,
 'description' => __('Lengkapi data diri anda untuk mengakses layanan.'),
-'class' => 'col-lg-7'
+'class' => 'col-lg-12'
 ])
 @else
 @include('users.partials.header', [
 'title' => __('Hello') . ' '. auth()->user()->email,
 'description' => __('Halaman ini memuat profil Anda.'),
-'class' => 'col-lg-7'
+'class' => 'col-lg-12'
 ])
 @endif
 
@@ -267,7 +267,7 @@
                                         <label id="label_baptis" class="custom-file-label" for="baptisFile">Upload
                                             Sertifikat Baptis</label>
                                         <input type="file" name="img_baptis" class="custom-file-input" id="baptisFile"
-                                            accept="image/*" onchange="readURL(this, 2);">
+                                            accept="image/*" onchange="readURL(this, 1);">
                                     </div>
                                 </div>
                             </div>
@@ -278,10 +278,10 @@
                                     <input type="text" readonly class="text-muted form-control-plaintext" id="staticKOM"
                                         value="{{ $data->kom ? $data->kom->status : 'Tidak ada Sertifikat KOM' }}">
                                     <div class="custom-file">
-                                        <label id="label_kom" class="custom-file-label" for="komFile">Upload
+                                        <label id="label_kom100" class="custom-file-label" for="komFile">Upload
                                             KOM 100</label>
-                                        <input type="file" name="img_kom" class="custom-file-input" id="komFile"
-                                            accept="image/*" onchange="readURL(this, 1);">
+                                        <input type="file" name="img_kom_100" class="custom-file-input" id="komFile100"
+                                            accept="image/*" onchange="readURL(this, 2);">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -289,10 +289,10 @@
                                     <input type="text" readonly class="text-muted form-control-plaintext" id="staticKOM"
                                         value="{{ $data->kom ? $data->kom->status : 'Tidak ada Sertifikat KOM' }}">
                                     <div class="custom-file">
-                                        <label id="label_kom" class="custom-file-label" for="komFile">Upload
+                                        <label id="label_kom200" class="custom-file-label" for="komFile">Upload
                                             KOM 200</label>
-                                        <input type="file" name="img_kom" class="custom-file-input" id="komFile"
-                                            accept="image/*" onchange="readURL(this, 1);">
+                                        <input type="file" name="img_kom_200" class="custom-file-input" id="komFile200"
+                                            accept="image/*" onchange="readURL(this, 3);">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -300,10 +300,10 @@
                                     <input type="text" readonly class="text-muted form-control-plaintext" id="staticKOM"
                                         value="{{ $data->kom ? $data->kom->status : 'Tidak ada Sertifikat KOM' }}">
                                     <div class="custom-file">
-                                        <label id="label_kom" class="custom-file-label" for="komFile">Upload
+                                        <label id="label_kom300" class="custom-file-label" for="komFile">Upload
                                             KOM 300</label>
-                                        <input type="file" name="img_kom" class="custom-file-input" id="komFile"
-                                            accept="image/*" onchange="readURL(this, 1);">
+                                        <input type="file" name="img_kom_300" class="custom-file-input" id="komFile300"
+                                            accept="image/*" onchange="readURL(this, 4);">
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -311,10 +311,10 @@
                                     <input type="text" readonly class="text-muted form-control-plaintext" id="staticKOM"
                                         value="{{ $data->kom ? $data->kom->status : 'Tidak ada Sertifikat KOM' }}">
                                     <div class="custom-file">
-                                        <label id="label_kom" class="custom-file-label" for="komFile">Upload
+                                        <label id="label_kom400" class="custom-file-label" for="komFile">Upload
                                             KOM 400</label>
-                                        <input type="file" name="img_kom" class="custom-file-input" id="komFile"
-                                            accept="image/*" onchange="readURL(this, 1);">
+                                        <input type="file" name="img_kom_400" class="custom-file-input" id="komFile400"
+                                            accept="image/*" onchange="readURL(this, 5);">
                                     </div>
                                 </div>
                             </div>
@@ -411,14 +411,30 @@
 
     function readURL(input, $i) {
         if ($i == 0) {
-            $path = document.getElementById("kajFile").value;
-            $('#label_kaj').html($path);
+            var fullPath = document.getElementById("kajFile").value;
+            var filename = fullPath.replace(/^.*[\\\/]/, '');
+            $('#label_kaj').html(filename);
+
         } else if ($i == 1) {
-            $path = document.getElementById("komFile").value;
-            $('#label_kom').html($path);
+            var fullPath = document.getElementById("baptisFile").value;
+            var filename = fullPath.replace(/^.*[\\\/]/, '');
+            $('#label_baptis').html(filename);
         } else if ($i == 2) {
-            $path = document.getElementById("baptisFile").value;
-            $('#label_baptis').html($path);
+            var fullPath = document.getElementById("komFile100").value;
+            var filename = fullPath.replace(/^.*[\\\/]/, '');
+            $('#label_kom100').html(filename);
+        } else if ($i == 3) {
+            var fullPath = document.getElementById("komFile200").value;
+            var filename = fullPath.replace(/^.*[\\\/]/, '');
+            $('#label_kom200').html(filename);
+        } else if ($i == 4) {
+            var fullPath = document.getElementById("komFile300").value;
+            var filename = fullPath.replace(/^.*[\\\/]/, '');
+            $('#label_kom300').html(filename);
+        } else if ($i == 5) {
+            var fullPath = document.getElementById("komFile400").value;
+            var filename = fullPath.replace(/^.*[\\\/]/, '');
+            $('#label_kom400').html(filename);
         }
     }
 </script>

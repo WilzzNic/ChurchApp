@@ -18,4 +18,9 @@ class KOM extends Model
     {
         return view('widgets.admin.verifykom', compact('model'))->render();
     }
+
+    public static function laratablesCustomEmail($model)
+    {
+        return $model->jemaat->user->email;
+    }
 }

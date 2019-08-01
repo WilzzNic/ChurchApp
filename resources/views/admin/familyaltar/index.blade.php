@@ -6,7 +6,7 @@
 @include('users.partials.header', [
 'title' => __('Hello') . ' '. auth()->user()->jemaat->nama,
 'description' => __('Ini adalah halaman Manajemen Family Altar.'),
-'class' => 'col-lg-7'
+'class' => 'col-lg-12'
 ])
 
 <div class="container-fluid mt--7">
@@ -127,6 +127,14 @@
     @include('layouts.footers.auth')
 </div>
 @endsection
+
+@push('css')
+<style>
+    .select2 {
+        width: 100% !important;
+    }
+</style>
+@endpush
 
 @push('js')
 <script type="text/javascript">

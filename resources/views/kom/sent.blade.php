@@ -4,7 +4,7 @@
 @include('users.partials.header', [
 'title' => __('Hello') . ' '. auth()->user()->jemaat->nama,
 'description' => __('Ini adalah halaman untuk melihat detil KOM yang sedang di-enroll.'),
-'class' => 'col-lg-7'
+'class' => 'col-lg-12'
 ])
 
 <div class="container-fluid mt--7">

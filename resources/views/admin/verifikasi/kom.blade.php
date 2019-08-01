@@ -6,7 +6,7 @@
 @include('users.partials.header', [
 'title' => __('Hello') . ' '. auth()->user()->jemaat->nama,
 'description' => __('Ini adalah halaman Verifikasi KOM.'),
-'class' => 'col-lg-7'
+'class' => 'col-lg-12'
 ])
 
 <div class="container-fluid mt--7">
@@ -22,22 +22,23 @@
                     </div>
                 </div>
 
-                @if (session('status'))
+                <div class="card-body">
+                    @if (session('status'))
                     <div class="alert alert-default alert-dismissable fade show" role="alert">
                         {{ session('status') }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                @endif
-
-                <div class="card-body">
+                    @endif
+                    
                     <div class="table-responsive">
                         <!-- Projects table -->
                         <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">ID</th>
+                                    <th scope="col">Seri KOM</th>
+                                    <th scope="col">E-mail</th>
                                     <th scope="col">Jemaat</th>
                                     <th scope="col">Diupload pada Tanggal</th>
                                     <th scope="col">Sertifikat KOM</th>
@@ -57,19 +58,51 @@
 @push('js')
 <script type="text/javascript">
     $(document).ready(function () {
+        var groupColumn = 0;
+
         var dt = $('#table').DataTable({
             processing: true,
             serverSide: true,
             pageLength: 10,
             scrollX: true,
             ajax: "{{ route('admin.manage.kom.dt') }}",
-            columnDefs: [{
-                targets: 2,
-                render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s', 'YYYY-MM-DD'),
-            }],
+            columnDefs: [
+                {
+                    targets: 0,
+                    visible: false,
+                },
+                {
+                    targets: 3,
+                    render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s', 'YYYY-MM-DD'),
+                }
+            ],
+            order: [[ groupColumn, 'asc' ]],
+            drawCallback: function (settings) {
+                var api = this.api();
+                var rows = api.rows({
+                    page: 'current'
+                }).nodes();
+                var last = null;
+
+                api.column(groupColumn, {
+                    page: 'current'
+                }).data().each(function (group, i) {
+                    if (last !== group) {
+                        $(rows).eq(i).before(
+                            '<tr class="group"><td colspan="5"><b>Seri KOM: ' + group + '</b></td></tr>'
+                        );
+
+                        last = group;
+                    }
+                });
+            },
             columns: [
                 {
-                    name: 'id'
+                    name: 'seri_kom'
+                },
+                { 
+                    name: 'email',
+                    orderable: false 
                 },
                 {
                     name: 'jemaat.nama'
@@ -83,6 +116,17 @@
                     searchable: false
                 }
             ],
+        });
+
+        // Order by the grouping
+        $('#table tbody').on( 'click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if ( currentOrder[0] === groupColumn && currentOrder[1] === 'asc' ) {
+                table.order( [ groupColumn, 'desc' ] ).draw();
+            }
+            else {
+                table.order( [ groupColumn, 'asc' ] ).draw();
+            }
         });
     });
 </script>

@@ -66,7 +66,8 @@ class ProfileController extends Controller
             if($request->hasFile('img_kaj')) {
                 if($request->img_kaj->isValid()) {
                     $path = $request->img_kaj->store('public/');
-                    $jemaat_kaj = KAJ::where('jemaat_id', $jemaat->id)->first();
+                    $jemaat_kaj = KAJ::where('jemaat_id', $jemaat->id)
+                                    ->first();
                     if(is_null($jemaat_kaj)) {
                         $jemaat_kaj = new KAJ();
                         $jemaat_kaj->jemaat_id = $jemaat->id;
@@ -77,15 +78,69 @@ class ProfileController extends Controller
                 }
             }
 
-            if($request->hasFile('img_kom')) {
-                if($request->img_kom->isValid()) {
-                    $path = $request->img_kom->store('public/');
-                    $jemaat_kom = KOM::where('jemaat_id', $jemaat->id)->first();
+            if($request->hasFile('img_kom_100')) {
+                if($request->img_kom_100->isValid()) {
+                    $path = $request->img_kom_100->store('public/');
+                    $jemaat_kom = KOM::where('jemaat_id', $jemaat->id)
+                                    ->where('seri_kom', 100)
+                                    ->first();
                     if(is_null($jemaat_kom)) {
                         $jemaat_kom = new KOM();
                         $jemaat_kom->jemaat_id = $jemaat->id;
                     }
-                    $jemaat_kom->img_path = $request->img_kom->hashName();
+                    $jemaat_kom->seri_kom = 100;
+                    $jemaat_kom->img_path = $request->img_kom_100->hashName();
+                    $jemaat_kom->status = 'Unverified';
+                    $jemaat_kom->save();
+                }
+            }
+
+            if($request->hasFile('img_kom_200')) {
+                if($request->img_kom_200->isValid()) {
+                    $path = $request->img_kom_200->store('public/');
+                    $jemaat_kom = KOM::where('jemaat_id', $jemaat->id)
+                                    ->where('seri_kom', 200)
+                                    ->first();
+                    if(is_null($jemaat_kom)) {
+                        $jemaat_kom = new KOM();
+                        $jemaat_kom->jemaat_id = $jemaat->id;
+                    }
+                    $jemaat_kom->seri_kom = 200;
+                    $jemaat_kom->img_path = $request->img_kom_200->hashName();
+                    $jemaat_kom->status = 'Unverified';
+                    $jemaat_kom->save();
+                }
+            }
+
+            if($request->hasFile('img_kom_300')) {
+                if($request->img_kom_300->isValid()) {
+                    $path = $request->img_kom_300->store('public/');
+                    $jemaat_kom = KOM::where('jemaat_id', $jemaat->id)
+                                    ->where('seri_kom', 300)
+                                    ->first();
+                    if(is_null($jemaat_kom)) {
+                        $jemaat_kom = new KOM();
+                        $jemaat_kom->jemaat_id = $jemaat->id;
+                    }
+                    $jemaat_kom->seri_kom = 300;
+                    $jemaat_kom->img_path = $request->img_kom_300->hashName();
+                    $jemaat_kom->status = 'Unverified';
+                    $jemaat_kom->save();
+                }
+            }
+
+            if($request->hasFile('img_kom_400')) {
+                if($request->img_kom_400->isValid()) {
+                    $path = $request->img_kom_400->store('public/');
+                    $jemaat_kom = KOM::where('jemaat_id', $jemaat->id)
+                                    ->where('seri_kom', 400)
+                                    ->first();
+                    if(is_null($jemaat_kom)) {
+                        $jemaat_kom = new KOM();
+                        $jemaat_kom->jemaat_id = $jemaat->id;
+                    }
+                    $jemaat_kom->seri_kom = 400;
+                    $jemaat_kom->img_path = $request->img_kom_400->hashName();
                     $jemaat_kom->status = 'Unverified';
                     $jemaat_kom->save();
                 }

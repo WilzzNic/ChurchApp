@@ -87,8 +87,8 @@ class StatisticsController extends Controller
     public function dtJemaat() {
         return Laratables::recordsOf(Jemaat::class, function($query) {
             return $query->whereHas('user', function($query) {
-                $query->where('role', 'basic_congregation')
-                    ->orWhere('role', 'expert_congregation');
+                $query->where('role', 'basic_congregation');
+                    // ->orWhere('role', 'expert_congregation');
             });
         });
     }

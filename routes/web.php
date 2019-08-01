@@ -20,7 +20,7 @@ Auth::routes(['verify' => true]);
 Route::group(['middleware' => ['auth', 'verified']], function () {
 	Route::get('/home', 'HomeController@index')->name('home');
 	
-	Route::middleware(['can:expert_congregation' || 'can:basic_congregation'])->group(function() {
+	Route::middleware(['can:basic_congregation' || 'can:FA_leader'])->group(function() {
 		/* Baptis */
 		Route::get('/baptis/request', 'RequestBaptisController@index')->name('bcon.requestbaptis');
 		Route::post('/baptis/request/send', 'RequestBaptisController@request')->name('bcon.requestbaptis.send');

@@ -59,8 +59,16 @@ class ProfileController extends Controller
             $jemaat->nama_ibu = $request->nama_ibu;
             $jemaat->nama_ayah = $request->nama_ayah;
             $jemaat->lokasi_ibadah = $request->lokasi_ibadah;
-            if(auth()->user()->role == User::ROLE_GUEST || auth()->user()->role == User::ROLE_B_CON || auth()->user()->role == User::ROLE_E_CON) {
+
+            if($request->profesi != null && 
+                $request->status_nikah != null &&
+                $request->nama_ibu != null &&
+                $request->nama_ayah != null &&
+                $request->lokasi_ibadah != null) {
                 $jemaat->status = Jemaat::STATUS_PENDING;
+            }
+            else {
+                $jemaat->status = Jemaat::STATUS_UNVERIFIED;
             }
 
             if($request->hasFile('img_kaj')) {

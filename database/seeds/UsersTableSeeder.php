@@ -3,6 +3,8 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
+use App\User;
+
 class UsersTableSeeder extends Seeder
 {
     /**
@@ -80,6 +82,15 @@ class UsersTableSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('secret'),
             'role' => 'superadmin',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('users')->insert([
+            'email' => 'wilzznic05@gmail.com',
+            // 'email_verified_at' => now(),
+            'password' => Hash::make('secret'),
+            'role' => User::ROLE_GUEST,
             'created_at' => now(),
             'updated_at' => now()
         ]);

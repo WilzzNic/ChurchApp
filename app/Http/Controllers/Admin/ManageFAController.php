@@ -21,8 +21,8 @@ class ManageFAController extends Controller
         $jemaats = Jemaat::doesntHave('ownerFamilyAltar')
                         ->where('lokasi_ibadah', auth()->user()->jemaat->lokasi_ibadah)
                         ->whereHas('user', function($query) {
-                            $query->where('role', '=', 'basic_congregation')
-                                ->orWhere('role', '=', 'expert_congregation');
+                            $query->where('role', '=', 'basic_congregation');
+                                // ->orWhere('role', '=', 'expert_congregation');
                         })
                         ->get();
 
@@ -85,23 +85,29 @@ class ManageFAController extends Controller
     }
 
     public function delete($id) {
-        DB::transaction(function () use ($request) {
+        DB::transaction(function () use ($id) {
             $family_altar = FamilyAltar::find($id);
             $family_altar->delete();
 
-            if($user->jemaat->status == Jemaat::STATUS_VERIFIED && 
-            $user->jemaat->baptis->status == Baptis::STATUS_VERIFIED &&
-            $user->jemaat->kaj->status == KAJ::STATUS_VERIFIED &&
-            $user->jemaat->kom->status == KOM::STATUS_VERIFIED) {
-                $user = User::find($family_altar->owner->user->id);
-                $user->role = User::ROLE_E_CON;
-                $user->save();
-            }
-            else {
-                $user = User::find($family_altar->owner->user->id);
-                $user->role = User::ROLE_B_CON;
-                $user->save();
-            }
+            $user = User::find(auth()->user()->id);
+
+            $user = User::find($family_altar->owner->user->id);
+            $user->role = User::ROLE_B_CON;
+            $user->save();
+
+            // if($user->jemaat->status == Jemaat::STATUS_VERIFIED && 
+            // $user->jemaat->baptis->status == Baptis::STATUS_VERIFIED &&
+            // $user->jemaat->kaj->status == KAJ::STATUS_VERIFIED &&
+            // $user->jemaat->kom->status == KOM::STATUS_VERIFIED) {
+            //     $user = User::find($family_altar->owner->user->id);
+            //     $user->role = User::ROLE_E_CON;
+            //     $user->save();
+            // }
+            // else {
+            //     $user = User::find($family_altar->owner->user->id);
+            //     $user->role = User::ROLE_B_CON;
+            //     $user->save();
+            // }
             
             $jemaat = Jemaat::where('user_id', $user->id)->first();
             $jemaat->family_altar_id = null;

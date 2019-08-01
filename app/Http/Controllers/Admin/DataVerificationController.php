@@ -10,6 +10,7 @@ use App\Baptis;
 use App\KOM;
 use App\KAJ;
 use App\Jemaat;
+use DB;
 
 class DataVerificationController extends Controller
 {
@@ -111,7 +112,7 @@ class DataVerificationController extends Controller
         DB::transaction(function() use ($id){
             $jemaat = Jemaat::find($id);
             $jemaat->status = Jemaat::STATUS_VERIFIED;
-            $jemaat->user->role = Jemaat::ROLE_E_CON;
+            // $jemaat->user->role = Jemaat::ROLE_E_CON;
             $jemaat->push();
         });
 

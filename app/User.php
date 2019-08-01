@@ -17,7 +17,7 @@ class User extends Authenticatable implements MustVerifyEmail
     const ROLE_L_BAPTIS = 'baptis_leader';
     const ROLE_ADMIN = 'admin';
     const ROLE_B_CON = 'basic_congregation';
-    const ROLE_E_CON = 'expert_congregation';
+    // const ROLE_E_CON = 'expert_congregation';
 
 
     /**

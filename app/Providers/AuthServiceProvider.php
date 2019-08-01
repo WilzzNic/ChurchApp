@@ -33,9 +33,9 @@ class AuthServiceProvider extends ServiceProvider
             return $user->role == 'basic_congregation';
         });
 
-        Gate::define('expert_congregation', function($user) {
-            return $user->role == 'expert_congregation';
-        });
+        // Gate::define('expert_congregation', function($user) {
+        //     return $user->role == 'expert_congregation';
+        // });
 
         Gate::define('admin', function ($user) {
             return $user->role == 'admin';

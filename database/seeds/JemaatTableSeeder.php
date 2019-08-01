@@ -115,5 +115,17 @@ class JemaatTableSeeder extends Seeder
         $jemaat->status_pernikahan = 'Janda/Duda';
         $jemaat->status = Jemaat::STATUS_VERIFIED;
         $jemaat->save();
+
+        $jemaat = new Jemaat();
+        $jemaat->user_id = 9;
+        $jemaat->nama = 'Wilson Kho';
+        $jemaat->jenis_kelamin = 'L';
+        $jemaat->tempat_lahir = 'Medan';
+        $jemaat->tgl_lahir = '1997-07-13';
+        $jemaat->no_hp = '08136221023';
+        $jemaat->alamat = 'Jl. Kadal No.91';
+        $jemaat->status_pernikahan = 'Belum Menikah';
+        $jemaat->status = Jemaat::STATUS_UNVERIFIED;
+        $jemaat->save();
     }
 }

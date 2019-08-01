@@ -215,7 +215,7 @@
                                 </select>
                             </div>
 
-                            @if(Auth::user()->can('basic_congregation') || Auth::user()->can('expert_congregation'))
+                            @if(Auth::user()->can('basic_congregation'))
                             <div class="form-group{{ $errors->has('no_fa') ? ' has-danger' : '' }}">
                                 <label class="form-control-label" for="input-no-fa">{{ __('No. Family Altar') }}</label>
                                 <input type="text" name="no_fa" id="input-no-fa"

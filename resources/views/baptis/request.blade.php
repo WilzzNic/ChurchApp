@@ -2,7 +2,7 @@
 
 @section('content')
 @include('users.partials.header', [
-'title' => __('Hello') . ' '. auth()->user()->email,
+'title' => __('Hello') . ' '. auth()->user()->jemaat->nama,
 'description' => __('Ini adalah halaman bagi Anda untuk mengajukan Baptis.'),
 'class' => 'col-lg-7'
 ])

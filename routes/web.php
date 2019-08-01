@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 		Route::get('/kom/request', 'RequestKOMController@index')->name('bcon.requestkom');
 		Route::post('/kom/request/schedule', 'RequestKOMController@schedule')->name('bcon.requestkom.schedule');
 		Route::post('kom/request/send', 'RequestKOMController@request')->name('bcon.requestkom.send');
+		Route::delete('/kom/request/delete/{id}', 'RequestKOMController@delete')->name('bcon.requestkom.delete');
 
 		/* KAJ */
 		Route::get('/kaj/request', 'RequestKAJController@index')->name('bcon.requestkaj');
@@ -122,6 +123,11 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 		Route::get('/request-approved', 'LeadersController@approvedIndex')->name('leader.request.approved.index');
 		Route::get('/request-approved/dt', 'LeadersController@approvedDt')->name('leader.request.approved.dt');
+		
+		/* Enrolling List for KOM */
+		Route::get('/kom-enrolling', 'LeadersController@enrollingKOMIndex')->name('leader.kom.enrolling.index');
+		Route::get('/kom-enrolling/dt', 'LeadersController@enrollingKOMDt')->name('leader.kom.enrolling.dt');
+		Route::put('/kom-enrolling/complete/{id}', 'LeadersController@completeKOM')->name('leader.kom.enrolling.complete');
 	});
 
 	Route::middleware('can:KOM_leader')->prefix('leader')->group(function() {

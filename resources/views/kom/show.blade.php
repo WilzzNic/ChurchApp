@@ -1,12 +1,11 @@
-@extends('layouts.app', ['title' => __('Family Altar')])
+@extends('layouts.app', ['title' => __('Request List')])
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('content')
 @include('users.partials.header', [
-'title' => __('Hello') . ' '. auth()->user()->email,
-'description' => __('This is your profile page. You can see the progress you\'ve made with your work and manage your
-projects or assigned tasks'),
+'title' => __('Hello') . ' '. auth()->user()->jemaat->nama,
+'description' => __('Ini adalah halaman yang berisi permohonan untuk mengikuti KOM.'),
 'class' => 'col-lg-7'
 ])
 
@@ -16,8 +15,8 @@ projects or assigned tasks'),
             <div class="card bg-secondary shadow">
                 <div class="card-header bg-white border-0">
                     <div class="row align-items-center">
-                        <h1 class="text-center col-12"><i class="fa fa-inbox"></i></h1>
-                        <h3 class="text-center col-12 mb-5">{{ __('Request List') }}</h3>
+                        <h1 class="text-center col-12" style="font-size: 50pt;"><i class="fa fa-inbox"></i></h1>
+                        <h3 class="text-center col-12 mb-3">{{ __('Request List') }}</h3>
                     </div>
                 </div>
                 <div class="card-body">
@@ -35,7 +34,7 @@ projects or assigned tasks'),
                         <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">#</th>
+                                    <th scope="col">E-mail</th>
                                     <th scope="col">Tanggal dikirim</th>
                                     <th scope="col">Seri KOM</th>
                                     <th scope="col">Jemaat</th>
@@ -65,12 +64,7 @@ projects or assigned tasks'),
             pageLength: 10,
             scrollX: true,
             ajax: "{{ route('leader.request.show.dt') }}",
-            columnDefs: [ 
-                {
-                    searchable: false,
-                    orderable: false,
-                    targets: 0
-                },
+            columnDefs: [
                 {
                     targets: 1,
                     render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s', 'YYYY-MM-DD'),
@@ -82,12 +76,12 @@ projects or assigned tasks'),
             ],
             order: [[ 1, 'asc' ]],
             columns: [
-                { name: 'id' },
+                { name: 'email' },
                 { name: 'created_at' },
-                { name: 'jadwal.seri_kom' },
-                { name: 'jemaat.nama' },
+                { name: 'jadwal.seri_kom', orderable: false },
+                { name: 'jemaat.nama', orderable: false },
                 { name: 'asal_gereja' },
-                { name: 'jadwal.waktu' },
+                { name: 'jadwal.waktu', orderable: false },
                 { name: 'tanggal' },
                 { name: 'action', orderable: false, searchable: false }
             ],

@@ -95,7 +95,7 @@ class LeadersController extends Controller
         }
         else if($role == User::ROLE_L_KOM) {
             $request = RequestKelasOrientasi::find($id);
-            $request->status = RequestKelasOrientasi::STATUS_ACCEPTED;
+            $request->status = RequestKelasOrientasi::STATUS_ENROLLING;
             $request->save();
         }
 
@@ -216,7 +216,7 @@ class LeadersController extends Controller
 
         if($role ==  User::ROLE_L_FA) {
             return Laratables::recordsOf(RequestAltar::class, function($query) {
-                return $query->where('status', RequestAltar::STATUS_PENDING)
+                return $query->where('status', RequestAltar::STATUS_ACCEPTED)
                 ->whereHas('fa', function($q) {
                     $q->where('owner_id', '=', auth()->user()->jemaat->id);
                 });
@@ -241,11 +241,32 @@ class LeadersController extends Controller
         }
         else {
             return Laratables::recordsOf(RequestKelasOrientasi::class, function($query) {
-                return $query->where('status', [RequestKelasOrientasi::STATUS_ACCEPTED])
+                return $query->where('status', [RequestKelasOrientasi::STATUS_COMPLETED])
                 ->whereHas('jadwal', function($q) {
                     $q->where('cabang_gereja_id', '=', auth()->user()->jemaat->lokasi_ibadah);
                 });
             });
         }
+    }
+
+    public function enrollingKOMIndex() {
+        return view('kom.enrolling');
+    }
+
+    public function enrollingKOMDt() {
+        return Laratables::recordsOf(RequestKelasOrientasi::class, function($query) {
+            return $query->where('status', [RequestKelasOrientasi::STATUS_ENROLLING])
+            ->whereHas('jadwal', function($q) {
+                $q->where('cabang_gereja_id', '=', auth()->user()->jemaat->lokasi_ibadah);
+            });
+        });
+    }
+
+    public function completeKOM($id) {
+        $request = RequestKelasOrientasi::find($id);
+        $request->status = RequestKelasOrientasi::STATUS_COMPLETED;
+        $request->save();
+
+        return back()->withStatus(__('Jemaat telah dinyatakan selesai dalam menjalani modul.'));
     }
 }

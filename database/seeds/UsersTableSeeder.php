@@ -25,7 +25,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'wilson.nicholas56@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('secret'),
-            'role' => 'basic_congregation',
+            'role' => 'FA_leader',
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -34,7 +34,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'halo@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('secret'),
-            'role' => 'basic_congregation',
+            'role' => 'FA_leader',
             'created_at' => now(),
             'updated_at' => now()
         ]);

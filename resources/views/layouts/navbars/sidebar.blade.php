@@ -203,25 +203,26 @@
                                 <i class="fa fa-paper-plane text-default"></i> {{ __('Request List') }}
                             </a>
                         </li>
+
+                        @if(auth()->user()->role == 'KOM_leader')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('leader.kom.enrolling.index') }}">
+                                <i class="ni ni-bus-front-12 text-default"></i> Enrolling List
+                            </a>
+                        </li>
+                        @endif
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('leader.request.approved.index') }}">
                                 @if(auth()->user()->role == 'KOM_leader')
-                                <i class="ni ni-bus-front-12 text-default"></i> 
-                                Enrolling List
+                                <i class="fa fa-clipboard-list text-default"></i>
+                                Completed List
                                 @else
                                 <i class="fa fa-envelope-open text-default"></i>
                                 Approved List
                                 @endif
                             </a>
                         </li>
-
-                        @if(auth()->user()->role == 'KOM_leader')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('leader.request.show') }}">
-                                <i class="fa fa-clipboard-list text-default"></i> {{ __('Completed List') }}
-                            </a>
-                        </li>
-                        @endif
                     </ul>
                 </div>
             </li>

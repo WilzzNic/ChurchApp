@@ -1,11 +1,11 @@
-@extends('layouts.app', ['title' => __('Approved List')])
+@extends('layouts.app', ['title' => __('Enrolling List')])
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('content')
 @include('users.partials.header', [
 'title' => __('Hello') . ' '. auth()->user()->jemaat->nama,
-'description' => __('Ini adalah halaman yang berisi permohonan yang sudah diterima.'),
+'description' => __('Ini adalah halaman yang berisi jemaat yang sedang enroll KOM.'),
 'class' => 'col-lg-7'
 ])
 
@@ -15,15 +15,14 @@
             <div class="card bg-secondary shadow">
                 <div class="card-header bg-white border-0">
                     <div class="row align-items-center">
-                        <h1 class="text-center col-12" style="font-size: 50pt;"><i class="fa fa-envelope-open"></i></h1>
-                        <h3 class="text-center col-12">
-                            {{ __('Approved List') }}
-                        </h3>
+                        <h1 class="text-center col-12" style="font-size: 50pt;"><i class="ni ni-bus-front-12"></i></h1>
+                        <h3 class="text-center col-12 mb-3">{{ __('Enrolling List') }}</h3>
                     </div>
                 </div>
                 <div class="card-body">
+
                     @if (session('status'))
-                    <div class="alert alert-default alert-dismissable fade show" role="alert">
+                    <div class="alert alert-default alert-dismissible fade show" role="alert">
                         {{ session('status') }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -32,27 +31,25 @@
                     @endif
 
                     <div class="table-responsive">
-                        <!-- Projects table -->
                         <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">Tanggal Baptis</th>
-                                    <th scope="col">Waktu Baptis</th>
+                                    <th scope="col">Tanggal Kelas</th>
+                                    <th scope="col">Waktu Kelas</th>
                                     <th scope="col">E-mail</th>
-                                    <th scope="col">Nama Jemaat</th>
-                                    <th scope="col">Nama Ayah</th>
-                                    <th scope="col">Nama Ibu</th>
-                                    <th scope="col">Tanggal Permohonan Dikirim</th>
-                                    <th scope="col">Tanggal Update Permohonan</th>
+                                    <th scope="col">Seri KOM</th>
+                                    <th scope="col">Jemaat</th>
+                                    <th scope="col">Asal Gereja</th>
+                                    <th scope="col">Actions</th>
                                 </tr>
                             </thead>
                         </table>
                     </div>
+                        
                 </div>
             </div>
         </div>
     </div>
-
     @include('layouts.footers.auth')
 </div>
 @endsection
@@ -68,26 +65,23 @@
     $(document).ready(function () {
         var groupColumn = 0;
 
-        var table = $('#table').DataTable({
+        var t = $('#table').DataTable({
             processing: true,
             serverSide: true,
             pageLength: 10,
             scrollX: true,
-            ajax: "{{ route('leader.request.approved.dt') }}",
-            columnDefs: [{
+            ajax: "{{ route('leader.kom.enrolling.dt') }}",
+            columnDefs: [
+                {
                     visible: false,
                     targets: groupColumn,
                 },
                 {
                     targets: 1,
-                    render: $.fn.dataTable.render.moment('H:m:s', 'H:m'),
-                },
-                {
-                    targets: [6, 7],
-                    render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s', 'YYYY-MM-DD'),
+                    render: $.fn.dataTable.render.moment('H:m:s', 'HH:mm'),
                 },
             ],
-            "order": [[ groupColumn, 'asc' ]],
+            order: [[ groupColumn, 'asc' ]],
             drawCallback: function (settings) {
                 var api = this.api();
                 var rows = api.rows({
@@ -100,7 +94,7 @@
                 }).data().each(function (group, i) {
                     if (last !== group) {
                         $(rows).eq(i).before(
-                            '<tr class="group"><td colspan="5">Tanggal Baptis: <br><b>' + moment(group).format('DD MMM YYYY') + '</b></td></tr>'
+                            '<tr class="group"><td colspan="5">Tanggal Kelas: <br><b>' + moment(group).format('DD MMM YYYY') + '</b></td></tr>'
                         );
 
                         last = group;
@@ -108,36 +102,13 @@
                 });
             },
             columns: [
-                {
-                    name: 'tanggal'
-                },
-                {
-                    name: 'waktu'
-                },
-                {
-                    name: 'email',
-                    orderable: false,
-                },
-                {
-                    name: 'jemaat.nama',
-                    orderable: false,
-                },
-                {
-                    name: 'jemaat.nama_ayah',
-                    defaultContent: '-',
-                    orderable: false,
-                },
-                {
-                    name: 'jemaat.nama_ibu',
-                    defaultContent: '-',
-                    orderable: false,
-                },
-                {
-                    name: 'created_at'
-                },
-                {
-                    name: 'updated_at'
-                },
+                { name: 'tanggal' },
+                { name: 'jadwal.waktu', orderable: false },
+                { name: 'email' },
+                { name: 'jadwal.seri_kom', orderable: false },
+                { name: 'jemaat.nama', orderable: false },
+                { name: 'asal_gereja' },
+                { name: 'complete', orderable: false, searchable: false }
             ],
         });
 

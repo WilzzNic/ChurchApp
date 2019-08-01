@@ -2,7 +2,7 @@
 
 @section('content')
 @include('users.partials.header', [
-'title' => __('Hello') . ' '. auth()->user()->email,
+'title' => __('Hello') . ' '. auth()->user()->jemaat->nama,
 'description' => __('Ini adalah halaman untuk mengajukan permohonan mengikuti Kelas Orientais Melayani (KOM).'),
 'class' => 'col-lg-7'
 ])
@@ -32,13 +32,26 @@
                                 </button>
                             </div>
                         @endif
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                @foreach($errors->all() as $error)
+                                    <div>{{ $error }}</div>
+                                @endforeach
+                            </div>
+                        @endif
                         
                         <div class="form-group">
                             <label class="form-control-label" for="input-cabang">{{ __('Cabang') }}</label>
-                            <select class="form-control js-example-responsive" name="cabang" id="input-cabang">
-                                <option value="0">-- Pilih Cabang --</option>
+                            <select class="js-example-responsive form-control" name="cabang" id="input-cabang">
+                                <option value="0" selected disabled>-- Pilih Cabang --</option>
                                 @foreach($cab_gerejas as $cab_gereja)
-                                    <option value="{{ $cab_gereja->id }}">{{ $cab_gereja->nama_gereja }}</option>
+                                    <option value="{{ $cab_gereja->id }}" {{ old('cabang') == $cab_gereja->id ? 'selected' : '' }}>
+                                        {{ $cab_gereja->nama_gereja }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -47,17 +60,17 @@
                             <label class="form-control-label" for="input-seri">{{ __('Seri KOM') }}</label>
                             <select class="custom-select" name="seri" id="input-seri">
                                 <option value="0" disabled selected>-- Pilih Seri --</option>
-                                <option value="100">100</option>
-                                <option value="200">200</option>
-                                <option value="300">300</option>
-                                <option value="400">400</option>
+                                <option value="100" {{ old('seri') == '100' ? 'selected' : '' }}>100</option>
+                                <option value="200" {{ old('seri') == '200' ? 'selected' : '' }}>200</option>
+                                <option value="300" {{ old('seri') == '300' ? 'selected' : '' }}>300</option>
+                                <option value="400" {{ old('seri') == '400' ? 'selected' : '' }}>400</option>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label class="form-control-label" for="input-asal-gereja">{{ __('Asal Gereja') }}</label>
-                            <input id="input-asal-gereja" class="form-control form-control-alternative" name="asal_gereja"
-                            value="{{ auth()->user()->jemaat->cabangGereja ? auth()->user()->jemaat->cabangGereja->nama_gereja : ''}}"
+                            <input id="input-asal-gereja" class="form-control form-control-alternative" 
+                            name="asal_gereja" value="{{ auth()->user()->jemaat->cabangGereja ? auth()->user()->jemaat->cabangGereja->nama_gereja : ''}}"
                             placeholder="Asal Gereja" type="text" required>
                         </div>
 

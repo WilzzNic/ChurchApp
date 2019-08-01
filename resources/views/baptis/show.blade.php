@@ -1,12 +1,11 @@
-@extends('layouts.app', ['title' => __('Family Altar')])
+@extends('layouts.app', ['title' => __('Request List')])
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('content')
 @include('users.partials.header', [
-'title' => __('Hello') . ' '. auth()->user()->email,
-'description' => __('This is your profile page. You can see the progress you\'ve made with your work and manage your
-projects or assigned tasks'),
+'title' => __('Hello') . ' '. auth()->user()->jemaat->nama,
+'description' => __('Ini adalah halaman untuk melihat permohonan baptis.'),
 'class' => 'col-lg-7'
 ])
 

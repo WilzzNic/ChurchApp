@@ -49,7 +49,7 @@ class Jemaat extends Model
     }
 
     public function requestKOM() {
-        return $this->hasOne('App\RequestKelasOrientasi');
+        return $this->hasMany('App\RequestKelasOrientasi');
     }
 
     public function cabangGereja() {

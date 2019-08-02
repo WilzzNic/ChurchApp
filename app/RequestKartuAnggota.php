@@ -12,6 +12,7 @@ class RequestKartuAnggota extends Model
     const STATUS_PENDING = 'Pending';
     const STATUS_ACCEPTED = 'Accepted';
     const STATUS_REJECTED = 'Rejected';
+    const STATUS_CANCELLED = 'Cancelled';
 
     public function jemaat() {
         return $this->belongsTo('App\Jemaat');

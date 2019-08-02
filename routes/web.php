@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 		/* KAJ */
 		Route::get('/kaj/request', 'RequestKAJController@index')->name('bcon.requestkaj');
 		Route::get('/kaj/request/send', 'RequestKAJController@request')->name('bcon.requestkaj.send');
+		Route::delete('/kaj/request/delete/{id}', 'RequestKAJController@delete')->name('bcon.requestkaj.delete');
 
 	});
 

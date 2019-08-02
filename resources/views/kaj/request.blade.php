@@ -21,7 +21,9 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    @if(auth()->user()->jemaat->status == App\Jemaat::STATUS_VERIFIED && auth()->user()->jemaat->baptis->status == App\Baptis::STATUS_VERIFIED)
+                    @if(auth()->user()->jemaat->baptis != null)
+                    @if(auth()->user()->jemaat->status == App\Jemaat::STATUS_VERIFIED &&
+                    auth()->user()->jemaat->baptis->status == App\Baptis::STATUS_VERIFIED)
                     <form class="px-5" method="GET" action="{{ route('bcon.requestkaj.send') }}" autocomplete="off">
                         @csrf
 
@@ -52,9 +54,8 @@
                         </div>
                         @endif
                     </form>
-                    @endif
 
-                    @if(Auth::user()->can('basic_congregation') || Auth::user()->can('FA_leader'))
+                    @else
                     <div class="px-5">
                         <div class="row">
                             <div class="col text-center">
@@ -65,7 +66,20 @@
                             </div>
                         </div>
                     </div>
-                    @endcan
+                    @endif
+
+                    @else
+                    <div class="px-5">
+                        <div class="row">
+                            <div class="col text-center">
+                                <h4>Data Anda Tidak Lengkap atau Sedang Diverifikasi</h4>
+                                <p>Untuk dapat menggunakan pelayanan, Anda harus mengisi data <b>General Description</b>
+                                    dan <b>mengupload sertifikat baptis</b>.</p>
+                                <h1><i class="fa fa-spinner"></i></h1>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>

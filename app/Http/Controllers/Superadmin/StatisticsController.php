@@ -25,9 +25,9 @@ class StatisticsController extends Controller
                 ->groupBy('bulan')
                 ->get();
 
-        for($i=0; $i<=12; $i++) {
-            $temp = $altar_requests->where('bulan',$i); 
-            if($altar_requests->where('bulan',$i)->count() > 0) {
+        for($i=0; $i<12; $i++) {
+            $temp = $altar_requests->where('bulan', $i+1); 
+            if($temp->count() > 0) {
                 $altarRequest[$i] = $temp->first()->jumlah;
             } else {
                 $altarRequest[$i] = 0;
@@ -39,10 +39,11 @@ class StatisticsController extends Controller
                 ->selectRaw('count(id) as jumlah, MONTH(created_at) as bulan')
                 ->groupBy('bulan')
                 ->get();
+        
 
-        for($i=0; $i<=12; $i++) {
-            $temp = $baptis_requests->where('bulan', $i); 
-            if($baptis_requests->where('bulan', $i)->count() > 0) {
+        for($i=0; $i<12; $i++) {
+            $temp = $baptis_requests->where('bulan', $i+1); 
+            if($temp->count() > 0) {
                 $baptisRequest[$i] = $temp->first()->jumlah;
             } else {
                 $baptisRequest[$i] = 0;
@@ -55,9 +56,9 @@ class StatisticsController extends Controller
                 ->groupBy('bulan')
                 ->get();
         
-        for($i=0; $i<=12; $i++) {
-            $temp = $kaj_requests->where('bulan', $i); 
-            if($kaj_requests->where('bulan', $i)->count() > 0) {
+        for($i=0; $i<12; $i++) {
+            $temp = $kaj_requests->where('bulan', $i+1); 
+            if($temp->count() > 0) {
                 $kajRequest[$i] = $temp->first()->jumlah;
             } else {
                 $kajRequest[$i] = 0;
@@ -70,9 +71,9 @@ class StatisticsController extends Controller
                 ->groupBy('bulan')
                 ->get();
 
-        for($i=0; $i<=12; $i++) {
-            $temp = $kom_requests->where('bulan', $i); 
-            if($kom_requests->where('bulan', $i)->count() > 0) {
+        for($i=0; $i<12; $i++) {
+            $temp = $kom_requests->where('bulan', $i+1); 
+            if($temp->count() > 0) {
                 $komRequest[$i] = $temp->first()->jumlah;
             } else {
                 $komRequest[$i] = 0;

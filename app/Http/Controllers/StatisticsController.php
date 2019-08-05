@@ -28,9 +28,9 @@ class StatisticsController extends Controller
                     ->groupBy('bulan')
                     ->get();
 
-            for($i=0; $i<=12; $i++) {
-                $temp = $data->where('bulan',$i); 
-                if($data->where('bulan',$i)->count() > 0) {
+            for($i=0; $i<12; $i++) {
+                $temp = $data->where('bulan', $i+1); 
+                if($temp->count() > 0) {
                     $altarRequest[$i] = $temp->first()->jumlah;
                 } else {
                     $altarRequest[$i] = 0;
@@ -49,9 +49,9 @@ class StatisticsController extends Controller
                     ->groupBy('bulan')
                     ->get();
 
-            for($i=0; $i<=12; $i++) {
-                $temp = $data->where('bulan',$i); 
-                if($data->where('bulan',$i)->count() > 0) {
+            for($i=0; $i<12; $i++) {
+                $temp = $data->where('bulan', $i+1); 
+                if($temp->count() > 0) {
                     $baptisRequest[$i] = $temp->first()->jumlah;
                 } else {
                     $baptisRequest[$i] = 0;
@@ -70,9 +70,9 @@ class StatisticsController extends Controller
                     ->groupBy('bulan')
                     ->get();
 
-            for($i=0; $i<=12; $i++) {
-                $temp = $data->where('bulan',$i); 
-                if($data->where('bulan',$i)->count() > 0) {
+            for($i=0; $i<12; $i++) {
+                $temp = $data->where('bulan', $i+1); 
+                if($temp->count() > 0) {
                     $kajRequest[$i] = $temp->first()->jumlah;
                 } else {
                     $kajRequest[$i] = 0;
@@ -91,9 +91,9 @@ class StatisticsController extends Controller
                     ->groupBy('bulan')
                     ->get();
 
-            for($i=0; $i<=12; $i++) {
-                $temp = $data->where('bulan',$i); 
-                if($data->where('bulan',$i)->count() > 0) {
+            for($i=0; $i<12; $i++) {
+                $temp = $data->where('bulan', $i+1); 
+                if($temp->count() > 0) {
                     $komRequest[$i] = $temp->first()->jumlah;
                 } else {
                     $komRequest[$i] = 0;

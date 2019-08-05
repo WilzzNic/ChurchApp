@@ -195,25 +195,33 @@
                                 </span>
                                 @endif
                             </div>
-
+                            
+                            @if(!Auth::user()->can('superadmin'))
                             <div class="form-group">
                                 <label class="form-control-label" for="input-loc-ibadah">
-                                    @if(Auth::user()->can('admin') || Auth::user()->can('superadmin'))
+                                    @if(Auth::user()->can('admin') || Auth::user()->can('KAJ_leader') || Auth::user()->can('KOM_leader') || Auth::user()->can('baptis_leader'))
                                     Cabang Gereja
                                     @else
                                     Lokasi Ibadah
                                     @endif
                                 </label>
+                                @if(Auth::user()->can('admin') || Auth::user()->can('KAJ_leader') || Auth::user()->can('KOM_leader') || Auth::user()->can('baptis_leader'))
+                                <input type="text" readonly class="form-control-plaintext" id="input-loc-ibadah" name="cabang" value="{{ old('cabang', auth()->user()->jemaat->cabangGerejaTrashed ? auth()->user()->jemaat->cabangGerejaTrashed->nama_gereja : '-') }}">
+                                <input type="hidden" name="lokasi_ibadah" value="{{ old('lokasi_ibadah', auth()->user()->jemaat->cabangGerejaTrashed ? auth()->user()->jemaat->cabangGerejaTrashed->id : '-') }}">
+                                @else
                                 <select class="custom-select" name="lokasi_ibadah" id="input-loc-ibadah">
                                     <option disabled selected>-- Pilih Lokasi Ibadah --</option>
                                     <option value="">Belum Ada</option>
                                     @foreach ($cabangs as $cabang)
                                     <option value="{{ $cabang->id }}"
-                                        {{ auth()->user()->jemaat->lokasi_ibadah == $cabang->id ? 'selected' : '' }}>
+                                        {{ old('lokasi_ibadah', auth()->user()->jemaat->lokasi_ibadah == $cabang->id ? 'selected' : '') }}>
                                         {{ $cabang->nama_gereja }}</option>
                                     @endforeach
                                 </select>
+                                @endif
+                                    
                             </div>
+                            @endif
 
                             @if(Auth::user()->can('basic_congregation') || Auth::user()->can('FA_leader'))
                             <div class="form-group{{ $errors->has('no_fa') ? ' has-danger' : '' }}">
@@ -245,7 +253,8 @@
                                 @endif
                             </div>
 
-                            @unless(Auth::user()->can('admin') || Auth::user()->can('superadmin'))
+                            @unless(Auth::user()->can('admin') || Auth::user()->can('superadmin') ||
+                             Auth::user()->can('KAJ_leader') || Auth::user()->can('KOM_leader') || Auth::user()->can('baptis_leader'))
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label for="staticKAJ" class="form-control-label">Status KAJ</label>

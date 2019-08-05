@@ -52,7 +52,7 @@
                     <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col">ID</th>
                                 <th scope="col">Nama Jemaat</th>
                                 <th scope="col">No. FA</th>
                                 <th scope="col">Jenis Kelamin</th>

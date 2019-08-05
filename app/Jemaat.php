@@ -56,6 +56,10 @@ class Jemaat extends Model
         return $this->belongsTo('App\CabangGereja', 'lokasi_ibadah');
     }
 
+    public function cabangGerejaTrashed() {
+        return $this->belongsTo('App\CabangGereja', 'lokasi_ibadah')->withTrashed();
+    }
+
     public static function laratablesCustomAction($model)
     {
         return view('widgets.admin.verifyjemaat', compact('model'))->render();

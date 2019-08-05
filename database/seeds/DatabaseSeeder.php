@@ -17,5 +17,10 @@ class DatabaseSeeder extends Seeder
         $this->call([FamilyAltarsTableSeeder::class]);
         $this->call([CabangGerejasTableSeeder::class]);
         $this->call([JadwalKOMsTableSeeder::class]);
+        $this->call([RequestAltarsTableSeeder::class]);
+        $this->call([RequestBaptisTableSeeder::class]);
+        $this->call([RequestKelasOrientasisTableSeeder::class]);
+        $this->call([RequestKartuAnggotasTableSeeder::class]);
+        
     }
 }

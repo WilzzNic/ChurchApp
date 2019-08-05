@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Freshbitsweb\Laratables\Laratables;
+use Illuminate\Support\Facades\Validator;
 
 use App\FamilyAltar;
 use App\Jemaat;
@@ -41,6 +42,25 @@ class ManageFAController extends Controller
     }
 
     public function add(Request $request) {
+        Validator::make($request->all(), 
+        [
+            'jemaat' => ['required'],
+            'daerah' => ['required'],
+            'no_fa'  => ['required', 'unique:family_altars,FA_number'],
+            'alamat' => ['required'],
+            'hari' => ['required'],
+            'waktu' => ['required'],
+        ],
+        [
+            'jemaat.required'   => 'Jemaat harus dipilih.',
+            'daerah.required'   => 'Daerah harus dipilih.',
+            'no_fa.required'    => 'Nomor FA harus diisi.',
+            'no_fa.unique'      => 'Nomor FA ini telah ada.',
+            'alamat.required'   => 'Alamat harus diisi.',
+            'hari.required'     => 'Hari harus dipilih.',
+            'waktu.required'    => 'Waktu harus ditentukan.',
+        ])->validate(); 
+
         DB::transaction(function () use ($request) {
             $family_altar = new FamilyAltar();
             $family_altar->owner_id = $request->jemaat;

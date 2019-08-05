@@ -73,10 +73,6 @@
             pageLength: 10,
             scrollX: true,
             ajax: "{{ route('admin.manage.jemaat.dt') }}",
-            columnDefs: [{
-                targets: 2,
-                render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s', 'YYYY-MM-DD'),
-            }],
             columns: [
                 {
                     name: 'id',

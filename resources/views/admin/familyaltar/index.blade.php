@@ -36,12 +36,25 @@
                         </div>
                         @endif
 
+                        @if (session('errors'))
+                        <div class="alert alert-default alert-danger fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            @if($errors->any())
+                                @foreach($errors->all() as $error)
+                                    <div>{{ $error }}</div>
+                                @endforeach
+                            @endif
+                        </div>
+                        @endif
+
                         <div class="form-group">
                             <label class="form-control-label" for="input-jemaat">{{ __('Jemaat') }}</label>
-                            <select class="form-control js-example-responsive" name="jemaat" id="input-jemaat">
+                            <select class="form-control js-example-responsive" name="jemaat" id="input-jemaat" required>
                                 <option value="0" selected disabled>-- Pilih Jemaat --</option>
                                 @foreach($jemaats as $jemaat)
-                                <option value="{{ $jemaat->id }}">
+                                <option value="{{ $jemaat->id }}" {{ old('jemaat') == $jemaat->id ? 'selected' : '' }}>
                                     {{ $jemaat->nama }} ({{ $jemaat->user->email }})
                                 </option>
                                 @endforeach
@@ -50,10 +63,12 @@
 
                         <div class="form-group">
                             <label class="form-control-label" for="input-daerah">{{ __('Daerah') }}</label>
-                            <select class="form-control js-example-responsive" name="daerah" id="input-daerah">
+                            <select class="form-control js-example-responsive" name="daerah" id="input-daerah" required>
                                 <option value="0" selected disabled>-- Pilih Daerah --</option>
                                 @foreach($daerahs as $daerah)
-                                <option value="{{ $daerah->id }}">{{ $daerah->nama_daerah }}</option>
+                                <option value="{{ $daerah->id }}" {{ old('daerah') == $daerah->id ? 'selected' : '' }}>
+                                    {{ $daerah->nama_daerah }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
@@ -61,34 +76,34 @@
                         <div class="form-group row">
                             <div class="col">
                                 <label class="form-control-label" for="input-hari">{{ __('Hari') }}</label>
-                                <select class="custom-select" name="hari" id="input-hari">
+                                <select class="custom-select" name="hari" id="input-hari" required>
                                     <option value="0" selected disabled>-- Pilih Hari --</option>
-                                    <option value="Minggu">Minggu</option>
-                                    <option value="Senin">Senin</option>
-                                    <option value="Selasa">Selasa</option>
-                                    <option value="Rabu">Rabu</option>
-                                    <option value="Kamis">Kamis</option>
-                                    <option value="Jumat">Jumat</option>
-                                    <option value="Sabtu">Sabtu</option>
+                                    <option value="Minggu" {{ old('hari') == 'Minggu' ? 'selected' : '' }}>Minggu</option>
+                                    <option value="Senin" {{ old('hari') == 'Senin' ? 'selected' : '' }}>Senin</option>
+                                    <option value="Selasa" {{ old('hari') == 'Selasa' ? 'selected' : '' }}>Selasa</option>
+                                    <option value="Rabu" {{ old('hari') == 'Rabu' ? 'selected' : '' }}>Rabu</option>
+                                    <option value="Kamis" {{ old('hari') == 'Kamis' ? 'selected' : '' }}>Kamis</option>
+                                    <option value="Jumat" {{ old('hari') == 'Jumat' ? 'selected' : '' }}>Jumat</option>
+                                    <option value="Sabtu" {{ old('hari') == 'Sabtu' ? 'selected' : '' }}>Sabtu</option>
                                 </select>
                             </div>
                             <div class="col">
                                 <label class="form-control-label" for="input-waktu">{{ __('Waktu') }}</label>
-                                <input type="time" class="form-control" id="input-waktu" name="waktu">
+                                <input type="time" class="form-control" id="input-waktu" name="waktu" value="{{ old('waktu') }}" required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="form-control-label" for="input-no-fa">{{ __('No. Family Altar') }}</label>
-                            <input type="text" class="form-control" id="input-no-fa" name="no_fa"
-                                placeholder="No. Family Altar">
+                            <input type="text" class="form-control" id="input-no-fa" name="no_fa" value="{{ old('no_fa') }}"
+                                placeholder="No. Family Altar" required>
                         </div>
 
                         <div class="form-group{{ $errors->has('alamat') ? ' has-danger' : '' }}">
                             <label class="form-control-label" for="input-alamat">{{ __('Alamat') }}</label>
                             <input type="text" name="alamat" id="input-alamat"
                                 class="form-control form-control-alternative{{ $errors->has('alamat') ? ' is-invalid' : '' }}"
-                                placeholder="{{ __('Alamat') }}" value="" required>
+                                placeholder="{{ __('Alamat') }}" value="{{ old('alamat') }}" required>
 
                             @if ($errors->has('alamat'))
                             <span class="invalid-feedback" style="display: block;" role="alert">

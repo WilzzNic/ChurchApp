@@ -45,7 +45,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'andi@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('secret'),
-            'role' => 'FA_leader',
+            'role' => User::ROLE_B_CON,
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -91,6 +91,42 @@ class UsersTableSeeder extends Seeder
             // 'email_verified_at' => now(),
             'password' => Hash::make('secret'),
             'role' => User::ROLE_GUEST,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('users')->insert([
+            'email' => 'judy@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('secret'),
+            'role' => User::ROLE_B_CON,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('users')->insert([
+            'email' => 'erik@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('secret'),
+            'role' => User::ROLE_B_CON,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('users')->insert([
+            'email' => 'dicky@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('secret'),
+            'role' => User::ROLE_B_CON,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        DB::table('users')->insert([
+            'email' => 'calvin@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('secret'),
+            'role' => User::ROLE_B_CON,
             'created_at' => now(),
             'updated_at' => now()
         ]);

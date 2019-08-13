@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 })->middleware('guest');
 
+Route::get('/guest/kom/request', 'Guest\RequestKOMController@index')->name('guest.kom.request.index');
+Route::post('/guest/kom/schedule', 'Guest\RequestKOMController@schedule')->name('guest.kom.request.schedule');
+Route::post('/guest/kom/request/send', 'Guest\RequestKOMController@request')->name('guest.kom.request.send');
+
 Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
@@ -132,10 +136,22 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 	});
 
 	Route::middleware('can:KOM_leader')->prefix('leader')->group(function() {
+		/* Manajemen Jadwal KOM */
 		Route::get('/jadwal/index', 'LeadersController@indexJadwalKOM')->name('leader.kom.jadwal.index');
 		Route::get('jadwal/dt', 'LeadersController@dtJadwalKOM')->name('leader.kom.jadwal.dt');
 		Route::post('jadwal/add', 'LeadersController@addJadwalKOM')->name('leader.kom.jadwal.add');
 		Route::delete('jadwal/delete/{id}', 'LeadersController@deleteJadwalKOM')->name('leader.kom.jadwal.delete');
+
+		/* Inbox Guest */
+		Route::get('/guest/request-list', 'LeaderKOM\ManageRequestController@indexPending')->name('leader.guest.request.pending.index');
+		Route::get('/guest/request-list/dt', 'LeaderKOM\ManageRequestController@pendingDt')->name('leader.guest.request.pending.dt');
+		Route::get('/guest/kom-enrolling', 'LeaderKOM\ManageRequestController@indexEnrolling')->name('leader.guest.kom.enrolling.index');
+		Route::get('/guest/kom-enrolling/dt', 'LeaderKOM\ManageRequestController@enrollingDt')->name('leader.guest.kom.enrolling.dt');
+		Route::get('/guest/kom-completed', 'LeaderKOM\ManageRequestController@indexCompleted')->name('leader.guest.kom.completed.index');
+		Route::get('/guest/kom-completed/dt', 'LeaderKOM\ManageRequestController@completedDt')->name('leader.guest.kom.completed.dt');
+		Route::put('/guest/request-list/approve/{id}', 'LeaderKOM\ManageRequestController@approvePending')->name('leader.guest.request.pending.approve');
+		Route::delete('/guest/request-list/reject/{id}', 'LeaderKOM\ManageRequestController@rejectPending')->name('leader.guest.request.pending.reject');
+		Route::put('/guest/kom-enrolling/complete/{id}', 'LeaderKOM\ManageRequestController@complete')->name('leader.guest.kom.enrolling.complete');
 	});
 
 	Route::resource('user', 'UserController', ['except' => ['show']]);

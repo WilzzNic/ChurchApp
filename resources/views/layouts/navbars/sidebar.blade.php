@@ -193,7 +193,7 @@
                 <a class="nav-link active" href="#navbar-inbox" data-toggle="collapse" role="button"
                     aria-expanded="true" aria-controls="navbar-inbox">
                     <i class="fa fa-inbox text-default"></i>
-                    {{ __('Inbox') }}</span>
+                    {{ __('Inbox Jemaat') }}</span>
                 </a>
 
                 <div class="collapse show" id="navbar-inbox">
@@ -238,6 +238,40 @@
         @endif
 
         @if(Auth::user()->can('KOM_leader'))
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="#navbar-inbox-guest" data-toggle="collapse" role="button"
+                    aria-expanded="true" aria-controls="navbar-inbox">
+                    <i class="fa fa-inbox text-default"></i>
+                    {{ __('Inbox Guest') }}</span>
+                </a>
+
+                <div class="collapse show" id="navbar-inbox-guest">
+                    <ul class="nav nav-sm flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('leader.guest.request.pending.index') }}">
+                                <i class="fa fa-paper-plane text-default"></i> {{ __('Request List') }}
+                            </a>
+                        </li>
+
+                        @if(auth()->user()->role == 'KOM_leader')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('leader.guest.kom.enrolling.index') }}">
+                                <i class="ni ni-bus-front-12 text-default"></i> Enrolling List
+                            </a>
+                        </li>
+                        @endif
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('leader.guest.kom.completed.index') }}">
+                                <i class="fa fa-clipboard-list text-default"></i>
+                                Completed List
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('leader.kom.jadwal.index') }}">

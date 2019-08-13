@@ -15,7 +15,8 @@
             <div class="card bg-secondary shadow">
                 <div class="card-header bg-white border-0">
                     <div class="row align-items-center">
-                        <h1 class="text-center col-12" style="font-size: 50pt;"><i class="fa fa-clipboard-list"></i></h1>
+                        <h1 class="text-center col-12" style="font-size: 50pt;"><i class="fa fa-clipboard-list"></i>
+                        </h1>
                         <h3 class="text-center col-12 mb-3">{{ __('Completed List') }}</h3>
                     </div>
                 </div>
@@ -30,22 +31,20 @@
                     </div>
                     @endif
 
-                    <div class="table-responsive">
-                        <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">Tanggal Selesai</th>
-                                    <th scope="col">Tanggal Kelas</th>
-                                    <th scope="col">Waktu Kelas</th>
-                                    <th scope="col">Seri KOM</th>
-                                    <th scope="col">E-mail</th>
-                                    <th scope="col">Jemaat</th>
-                                    <th scope="col">Asal Gereja</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                        
+                    <table id="table" class="ui celled table" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th class="all" scope="col">Tanggal Selesai</th>
+                                <th class="all" scope="col">Tanggal Kelas</th>
+                                <th class="all" scope="col">Waktu Kelas</th>
+                                <th class="all" scope="col">Seri KOM</th>
+                                <th class="all" scope="col">E-mail</th>
+                                <th class="all" scope="col">Jemaat</th>
+                                <th class="all" scope="col">Asal Gereja</th>
+                            </tr>
+                        </thead>
+                    </table>
+
                 </div>
             </div>
         </div>
@@ -56,7 +55,19 @@
 
 @push('css')
 <style>
-    thead th { white-space: nowrap; }
+    thead th {
+        white-space: nowrap;
+    }
+    .ui.table td {
+        padding: !important .92857143em .78571429em;
+        text-align: inherit;
+    }
+    .ui.grid {
+        margin-top: 0rem;
+        margin-bottom: 0rem;
+        margin-left: 1rem;
+        margin-right: 0rem;
+    }
 </style>
 @endpush
 
@@ -70,9 +81,11 @@
             serverSide: true,
             pageLength: 10,
             scrollX: true,
+            responsive: {
+                details: false
+            },
             ajax: "{{ route('leader.request.approved.dt') }}",
-            columnDefs: [
-                {
+            columnDefs: [{
                     visible: false,
                     targets: groupColumn,
                 },
@@ -85,7 +98,9 @@
                     render: $.fn.dataTable.render.moment('H:m:s', 'HH:mm'),
                 },
             ],
-            order: [[ groupColumn, 'asc' ]],
+            order: [
+                [groupColumn, 'asc']
+            ],
             drawCallback: function (settings) {
                 var api = this.api();
                 var rows = api.rows({
@@ -98,32 +113,48 @@
                 }).data().each(function (group, i) {
                     if (last !== group) {
                         $(rows).eq(i).before(
-                            '<tr class="group"><td colspan="5">Tanggal Selesai: <br><b>' + moment(group).format('DD MMM YYYY') + '</b></td></tr>'
+                            '<tr class="group"><td colspan="5">Tanggal Selesai: <br><b>' +
+                            moment(group).format('DD MMM YYYY') + '</b></td></tr>'
                         );
 
                         last = group;
                     }
                 });
             },
-            columns: [
-                { name: 'updated_at' },
-                { name: 'tanggal' },
-                { name: 'jadwal.waktu', orderable: false },
-                { name: 'jadwal.seri_kom', orderable: false },
-                { name: 'email' },
-                { name: 'jemaat.nama', orderable: false },
-                { name: 'asal_gereja' }
+            columns: [{
+                    name: 'updated_at'
+                },
+                {
+                    name: 'tanggal'
+                },
+                {
+                    name: 'jadwal.waktu',
+                    orderable: false
+                },
+                {
+                    name: 'jadwal.seri_kom',
+                    orderable: false
+                },
+                {
+                    name: 'email'
+                },
+                {
+                    name: 'jemaat.nama',
+                    orderable: false
+                },
+                {
+                    name: 'asal_gereja'
+                }
             ],
         });
 
         // Order by the grouping
-        $('#table tbody').on( 'click', 'tr.group', function () {
+        $('#table tbody').on('click', 'tr.group', function () {
             var currentOrder = table.order()[0];
-            if ( currentOrder[0] === groupColumn && currentOrder[1] === 'asc' ) {
-                table.order( [ groupColumn, 'desc' ] ).draw();
-            }
-            else {
-                table.order( [ groupColumn, 'asc' ] ).draw();
+            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
+                table.order([groupColumn, 'desc']).draw();
+            } else {
+                table.order([groupColumn, 'asc']).draw();
             }
         });
     });

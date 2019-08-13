@@ -130,33 +130,31 @@
                 <div class="card-header border-0">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h3 class="mb-0">Data Jemaat</h3>
+                            <h3 class="text-center mb-0">Data Jemaat</h3>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Nama Jemaat</th>
-                                    <th scope="col">No. FA</th>
-                                    <th scope="col">Jenis Kelamin</th>
-                                    <th scope="col">Tempat Lahir</th>
-                                    <th scope="col">Tanggal Lahir</th>
-                                    <th scope="col">Profesi</th>
-                                    <th scope="col">Status Nikah</th>
-                                    <th scope="col">No. HP</th>
-                                    <th scope="col">Alamat</th>
-                                    <th scope="col">Lokasi Ibadah</th>
-                                    <th scope="col">Nama Ibu</th>
-                                    <th scope="col">Nama Ayah</th>
-                                    <th scope="col">Status Akun</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+                    <table id="table" class="ui celled table" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th class="all" scope="col">ID</th>
+                                <th class="all" scope="col">Nama Jemaat</th>
+                                <th class="all" scope="col">No. FA</th>
+                                <th class="all" scope="col">Jenis Kelamin</th>
+                                <th class="all" scope="col">Tempat Lahir</th>
+                                <th class="all" scope="col">Tanggal Lahir</th>
+                                <th class="all" scope="col">Profesi</th>
+                                <th class="all" scope="col">Status Nikah</th>
+                                <th class="all" scope="col">No. HP</th>
+                                <th class="all" scope="col">Alamat</th>
+                                <th class="all" scope="col">Lokasi Ibadah</th>
+                                <th class="all" scope="col">Nama Ibu</th>
+                                <th class="all" scope="col">Nama Ayah</th>
+                                <th class="all" scope="col">Status Akun</th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
         </div>
@@ -165,6 +163,26 @@
     @include('layouts.footers.auth')
 </div>
 @endsection
+
+@push('css')
+<style>
+    thead th {
+        white-space: nowrap;
+    }
+
+    .ui.table td {
+        padding:  !important .92857143em .78571429em;
+        text-align: inherit;
+    }
+
+    .ui.grid {
+        margin-top: 0rem;
+        margin-bottom: 0rem;
+        margin-left: 0rem;
+        margin-right: -2rem;
+    }
+</style>
+@endpush
 
 @push('js')
 <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
@@ -287,6 +305,9 @@
             serverSide: true,
             pageLength: 10,
             scrollX: true,
+            responsive: {
+                details: false
+            },
             ajax: "{{ route('superadmin.statistic.jemaat.dt') }}",
             columnDefs: [{
                 searchable: false,

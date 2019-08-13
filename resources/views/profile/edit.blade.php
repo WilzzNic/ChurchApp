@@ -334,7 +334,7 @@
                             </div>
                         </div>
                     </form>
-                    <hr class="my-4" />
+                    <hr class="my-4">
                     <form method="post" action="{{ route('profile.password') }}" autocomplete="off">
                         @csrf
                         @method('put')

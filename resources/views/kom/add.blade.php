@@ -84,20 +84,18 @@
                         <hr class="my-3">
 
                         <div class="form-group">
-                            <div class="table-responsive">
-                                <!-- Projects table -->
-                                <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">Seri KOM</th>
-                                            <th scope="col">Hari</th>
-                                            <th scope="col">Waktu</th>
-                                            <th scope="col">Dibuat pada Tanggal</th>
-                                            <th scope="col">Actions</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
+                            <!-- Projects table -->
+                            <table id="table" class="ui celled table" style="width:100%;">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="all" scope="col">Seri KOM</th>
+                                        <th class="all" scope="col">Hari</th>
+                                        <th class="all" scope="col">Waktu</th>
+                                        <th class="all" scope="col">Dibuat pada Tanggal</th>
+                                        <th class="all" scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
                     </form>
                 </div>
@@ -109,6 +107,24 @@
 </div>
 @endsection
 
+@push('css')
+<style>
+    thead th {
+        white-space: nowrap;
+    }
+    .ui.table td {
+        padding: !important .92857143em .78571429em;
+        text-align: inherit;
+    }
+    .ui.grid {
+        margin-top: -1rem;
+        margin-bottom: -1rem;
+        margin-left: 1rem;
+        margin-right: -1rem;
+    }
+</style>
+@endpush
+
 @push('js')
 <script type="text/javascript">
     $(document).ready(function () {
@@ -117,6 +133,9 @@
             serverSide: true,
             pageLength: 10,
             scrollX: true,
+            responsive: {
+                details: false
+            },
             ajax: "{{ route('leader.kom.jadwal.dt') }}",
             columnDefs: [{
                     targets: 3,

@@ -24,26 +24,24 @@
 
                 <div class="card-body">
                     @if (session('status'))
-                        <div class="alert alert-default alert-dismissable fade show" role="alert">
-                            {{ session('status') }}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    @endif
-                    <div class="table-responsive">
-                        <!-- Projects table -->
-                        <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Jemaat</th>
-                                    <th scope="col">Diupload pada Tanggal</th>
-                                    <th scope="col">Sertifikat Baptis</th>
-                                </tr>
-                            </thead>
-                        </table>
+                    <div class="alert alert-default alert-dismissable fade show" role="alert">
+                        {{ session('status') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
+                    @endif
+                    <!-- Projects table -->
+                    <table id="table" class="ui celled table" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th class="all" scope="col">ID</th>
+                                <th class="all" scope="col">Jemaat</th>
+                                <th class="all" scope="col">Diupload pada Tanggal</th>
+                                <th class="all" scope="col">Sertifikat Baptis</th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
         </div>
@@ -53,6 +51,26 @@
 </div>
 @endsection
 
+@push('css')
+<style>
+    thead th {
+        white-space: nowrap;
+    }
+
+    .ui.table td {
+        padding:  !important .92857143em .78571429em;
+        text-align: inherit;
+    }
+
+    .ui.grid {
+        margin-top: -1rem;
+        margin-bottom: -1rem;
+        margin-left: 1rem;
+        margin-right: -1rem;
+    }
+</style>
+@endpush
+
 @push('js')
 <script type="text/javascript">
     $(document).ready(function () {
@@ -61,13 +79,15 @@
             serverSide: true,
             pageLength: 10,
             scrollX: true,
+            responsive: {
+                details: false
+            },
             ajax: "{{ route('admin.manage.baptis.dt') }}",
             columnDefs: [{
                 targets: 2,
                 render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s', 'YYYY-MM-DD'),
             }],
-            columns: [
-                {
+            columns: [{
                     name: 'id'
                 },
                 {

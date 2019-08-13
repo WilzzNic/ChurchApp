@@ -30,24 +30,21 @@
                         </button>
                     </div>
                     @endif
-
-                    <div class="table-responsive">
-                        <!-- Projects table -->
-                        <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">Tanggal Permohonan Dikirim</th>
-                                    <th scope="col">E-mail</th>
-                                    <th scope="col">Nama Jemaat</th>
-                                    <th scope="col">Nama Ayah</th>
-                                    <th scope="col">Nama Ibu</th>
-                                    <th scope="col">Alamat</th>
-                                    <th scope="col">No. HP</th>
-                                    <th scope="col">Tanggal Update Permohonan</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+                    <!-- Projects table -->
+                    <table id="table" class="ui celled table" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th class="all" scope="col">Tanggal Permohonan Dikirim</th>
+                                <th class="all" scope="col">E-mail</th>
+                                <th class="all" scope="col">Nama Jemaat</th>
+                                <th class="all" scope="col">Nama Ayah</th>
+                                <th class="all" scope="col">Nama Ibu</th>
+                                <th class="all" scope="col">Alamat</th>
+                                <th class="all" scope="col">No. HP</th>
+                                <th class="all" scope="col">Tanggal Update Permohonan</th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
         </div>
@@ -62,6 +59,16 @@
     thead th {
         white-space: nowrap;
     }
+    .ui.table td {
+        padding: !important .92857143em .78571429em;
+        text-align: inherit;
+    }
+    .ui.grid {
+        margin-top: 0rem;
+        margin-bottom: 0rem;
+        margin-left: 1rem;
+        margin-right: 0rem;
+    }
 </style>
 @endpush
 
@@ -74,6 +81,9 @@
             pageLength: 10,
             scrollX: true,
             ajax: "{{ route('leader.request.approved.dt') }}",
+            responsive: {
+                details: false
+            },
             columnDefs: [
                 {
                     targets: [0, 7],

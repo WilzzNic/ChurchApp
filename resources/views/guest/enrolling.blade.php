@@ -5,7 +5,7 @@
 @section('content')
 @include('users.partials.header', [
 'title' => __('Hello') . ' '. auth()->user()->jemaat->nama,
-'description' => __('Ini adalah halaman yang berisi jemaat yang sedang enroll KOM.'),
+'description' => __('Ini adalah halaman yang berisi guest yang sedang enroll KOM.'),
 'class' => 'col-lg-12'
 ])
 
@@ -31,19 +31,26 @@
                     @endif
 
                     <table id="table" class="ui celled table" style="width:100%;">
-                        <thead class="thead-light">
+                        <thead>
                             <tr>
                                 <th class="all" scope="col">Tanggal Kelas</th>
-                                <th class="all" scope="col">Waktu Kelas</th>
-                                <th class="all" scope="col">E-mail</th>
-                                <th class="all" scope="col">Seri KOM</th>
-                                <th class="all" scope="col">Jemaat</th>
+                                <th class="all" scope="col">Cabang Gereja</th>
+                                <th class="all" scope="col">Seri</th>
+                                <th class="all" scope="col">Waktu</th>
+                                <th class="all" scope="col">Hari</th>
                                 <th class="all" scope="col">Asal Gereja</th>
+                                <th class="all" scope="col">E-mail</th>
+                                <th class="all" scope="col">Jenis Kelamin</th>
+                                <th class="all" scope="col">Nama</th>
+                                <th class="all" scope="col">Tempat Lahir</th>
+                                <th class="all" scope="col">Tanggal Lahir</th>
+                                <th class="all" scope="col">No. HP</th>
+                                <th class="all" scope="col">Alamat</th>
                                 <th class="all" scope="col">Actions</th>
                             </tr>
                         </thead>
                     </table>
-
+                        
                 </div>
             </div>
         </div>
@@ -83,8 +90,9 @@
             responsive: {
                 details: false
             },
-            ajax: "{{ route('leader.kom.enrolling.dt') }}",
-            columnDefs: [{
+            ajax: "{{ route('leader.guest.kom.enrolling.dt') }}",
+            columnDefs: [
+                {
                     visible: false,
                     targets: groupColumn,
                 },
@@ -93,9 +101,7 @@
                     render: $.fn.dataTable.render.moment('H:m:s', 'HH:mm'),
                 },
             ],
-            order: [
-                [groupColumn, 'asc']
-            ],
+            order: [[ groupColumn, 'asc' ]],
             drawCallback: function (settings) {
                 var api = this.api();
                 var rows = api.rows({
@@ -108,34 +114,63 @@
                 }).data().each(function (group, i) {
                     if (last !== group) {
                         $(rows).eq(i).before(
-                            '<tr class="group"><td colspan="5">Tanggal Kelas: <br><b>' +
-                            moment(group).format('DD MMM YYYY') + '</b></td></tr>'
+                            '<tr class="group"><td colspan="5">Tanggal Kelas: <br><b>' + moment(group).format('DD MMM YYYY') + '</b></td></tr>'
                         );
 
                         last = group;
                     }
                 });
             },
-            columns: [{
+            columns: [
+                {
                     name: 'tanggal'
                 },
                 {
-                    name: 'jadwal.waktu',
-                    orderable: false
-                },
-                {
-                    name: 'email'
+                    name: 'cabang'
                 },
                 {
                     name: 'jadwal.seri_kom',
                     orderable: false
                 },
                 {
-                    name: 'jemaat.nama',
+                    name: 'jadwal.waktu',
                     orderable: false
                 },
                 {
-                    name: 'asal_gereja'
+                    name: 'jadwal.hari',
+                    orderable: false
+                },
+                {
+                    name: 'guest.asal_gereja',
+                    orderable: false
+                },
+                {
+                    name: 'guest.email',
+                    orderable: false
+                },
+                {
+                    name: 'guest.jenis_kelamin',
+                    orderable: false
+                },
+                {
+                    name: 'guest.nama',
+                    orderable: false
+                },
+                {
+                    name: 'guest.tempat_lahir',
+                    orderable: false
+                },
+                {
+                    name: 'guest.tgl_lahir',
+                    orderable: false
+                },
+                {
+                    name: 'guest.no_hp',
+                    orderable: false
+                },
+                {
+                    name: 'guest.alamat',
+                    orderable: false
                 },
                 {
                     name: 'complete',
@@ -146,12 +181,13 @@
         });
 
         // Order by the grouping
-        $('#table tbody').on('click', 'tr.group', function () {
+        $('#table tbody').on( 'click', 'tr.group', function () {
             var currentOrder = table.order()[0];
-            if (currentOrder[0] === groupColumn && currentOrder[1] === 'asc') {
-                table.order([groupColumn, 'desc']).draw();
-            } else {
-                table.order([groupColumn, 'asc']).draw();
+            if ( currentOrder[0] === groupColumn && currentOrder[1] === 'asc' ) {
+                table.order( [ groupColumn, 'desc' ] ).draw();
+            }
+            else {
+                table.order( [ groupColumn, 'asc' ] ).draw();
             }
         });
     });

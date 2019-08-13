@@ -52,9 +52,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'nama' => ['required', 'string', 'max:255'],
             'jenis_kelamin' => ['required'],
-            // 'no_hp' => ['required', 'string'],
-            // 'status_nikah' => ['required', 'string'],
-            // 'tmpt_lhr' => ['required', 'string'],
+            'lokasi_ibadah' => ['required'],
             'tgl_lhr' => ['required', 'date'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
@@ -78,12 +76,9 @@ class RegisterController extends Controller
         $personal_data = new Jemaat();
         $personal_data->user_id = $user_data->id;
         $personal_data->nama = $data['nama'];
+        $personal_data->lokasi_ibadah = $data['lokasi_ibadah'];
         $personal_data->jenis_kelamin = $data['jenis_kelamin'];
-        // $personal_data->no_hp = $data['no_hp'];
-        // $personal_data->status_pernikahan = $data['status_nikah'];
-        // $personal_data->tempat_lahir = $data['tmpt_lhr'];
         $personal_data->tgl_lahir = $data['tgl_lhr'];
-        // $personal_data->alamat = $data['alamat'];
         $personal_data->status = 'Unverified';
 
         $personal_data->save();

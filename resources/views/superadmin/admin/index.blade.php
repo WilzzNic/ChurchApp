@@ -146,20 +146,18 @@
 
                     <hr class="my-3">
 
-                    <div class="table-responsive">
-                        <!-- Projects table -->
-                        <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">E-mail</th>
-                                    <th scope="col">Nama Admin</th>
-                                    <th scope="col">Cabang</th>
-                                    <th scope="col">Didaftarkan pada Tanggal</th>
-                                    <th scope="col">Actions</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+                    <!-- Projects table -->
+                    <table id="table" class="ui celled table" style="width:100%;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="all" scope="col">E-mail</th>
+                                <th class="all" scope="col">Nama Admin</th>
+                                <th class="all" scope="col">Cabang</th>
+                                <th class="all" scope="col">Didaftarkan pada Tanggal</th>
+                                <th class="all" scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
         </div>
@@ -172,6 +170,22 @@
 <style>
     .select2 {
         width: 100% !important;
+    }
+
+    thead th {
+        white-space: nowrap;
+    }
+
+    .ui.table td {
+        padding:  !important .92857143em .78571429em;
+        text-align: inherit;
+    }
+
+    .ui.grid {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        margin-left: 3rem;
+        margin-right: 1rem;
     }
 </style>
 @endpush
@@ -195,6 +209,9 @@
             serverSide: true,
             pageLength: 10,
             scrollX: true,
+            responsive: {
+                details: false
+            },
             ajax: "{{ route('superadmin.manage.admin.dt') }}",
             columnDefs: [{
                 targets: 3,

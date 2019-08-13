@@ -5,8 +5,7 @@
 @section('content')
 @include('users.partials.header', [
 'title' => __('Hello') . ' '. auth()->user()->jemaat->nama,
-'description' => __('This is your profile page. You can see the progress you\'ve made with your work and manage your
-projects or assigned tasks'),
+'description' => __('Ini adalah halaman untuk mengajukan permohonan bergabung dengan Family Altar.'),
 'class' => 'col-lg-12'
 ])
 
@@ -26,18 +25,22 @@ projects or assigned tasks'),
                 </div>
                 <div class="card-body">
                     @if(!auth()->user()->jemaat->requestAltar)
-                    <form class="px-5" autocomplete="off">
 
-                        @if (session('status'))
-                        <div class="alert alert-danger alert-dismissable fade show" role="alert">
-                            {{ session('status') }}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                    @if (session('status'))
+                    <div class="row">
+                        <div class="col">
+                            <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                                {{ session('status') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                         </div>
-                        @endif
+                    </div>
+                    @endif
 
-                        <div class="form-group">
+                    <div class="row mb-4">
+                        <div class="col">
                             <label class="form-control-label" for="input-daerah">{{ __('Daerah') }}</label>
                             <select class="custom-select" name="daerah" id="input-daerah">
                                 <option value="0" selected>Semua Daerah</option>
@@ -46,27 +49,27 @@ projects or assigned tasks'),
                                 @endforeach
                             </select>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <div class="table-responsive">
-                                <!-- Projects table -->
-                                <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">No. FA</th>
-                                            <th scope="col">Owner</th>
-                                            <th scope="col">No. HP</th>
-                                            <th scope="col">Daerah</th>
-                                            <th scope="col">Alamat</th>
-                                            <th scope="col">Hari</th>
-                                            <th scope="col">Waktu</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
+                    <div class="row">
+                        <div class="col">
+                            <!-- Projects table -->
+                            <table id="table" class="ui celled table" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th class="all" scope="col">No. FA</th>
+                                        <th class="all" scope="col">Owner</th>
+                                        <th class="all" scope="col">No. HP</th>
+                                        <th class="all" scope="col">Daerah</th>
+                                        <th class="all" scope="col">Alamat</th>
+                                        <th class="all" scope="col">Hari</th>
+                                        <th class="all" scope="col">Waktu</th>
+                                        <th class="all" scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
-                    </form>
+                    </div>
                     @else
                     <form class="px-5" method="POST"
                         action="{{ route('bcon.requestfa.leave', ['id' => auth()->user()->jemaat->requestAltar->id]) }}">
@@ -157,6 +160,26 @@ projects or assigned tasks'),
 </div>
 @endsection
 
+@push('css')
+<style>
+    thead th {
+        white-space: nowrap;
+    }
+
+    .ui.table td {
+        padding:  !important .92857143em .78571429em;
+        text-align: !important inherit;
+    }
+
+    .ui.grid {
+        margin-top: 0rem;
+        margin-bottom: 0rem;
+        margin-left: 1rem;
+        margin-right: 0rem;
+    }
+</style>
+@endpush
+
 @push('js')
 <script type="text/javascript">
     $(document).ready(function () {
@@ -175,6 +198,9 @@ projects or assigned tasks'),
                 data: function (d) {
                     d.daerah = $('#input-daerah').val()
                 }
+            },
+            responsive: {
+                details: false
             },
             columnDefs: [{
                 targets: 6,

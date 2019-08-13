@@ -30,23 +30,21 @@
                     </div>
                     @endif
 
-                    <div class="table-responsive">
-                        <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">E-mail</th>
-                                    <th scope="col">Tanggal dikirim</th>
-                                    <th scope="col">Seri KOM</th>
-                                    <th scope="col">Jemaat</th>
-                                    <th scope="col">Asal Gereja</th>
-                                    <th scope="col">Waktu Kelas</th>
-                                    <th scope="col">Tanggal Kelas</th>
-                                    <th scope="col">Actions</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                        
+                    <table id="table" class="ui celled table" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th class="all" scope="col">E-mail</th>
+                                <th class="all" scope="col">Tanggal dikirim</th>
+                                <th class="all" scope="col">Seri KOM</th>
+                                <th class="all" scope="col">Jemaat</th>
+                                <th class="all" scope="col">Asal Gereja</th>
+                                <th class="all" scope="col">Waktu Kelas</th>
+                                <th class="all" scope="col">Tanggal Kelas</th>
+                                <th class="all" scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                    </table>
+
                 </div>
             </div>
         </div>
@@ -54,6 +52,26 @@
     @include('layouts.footers.auth')
 </div>
 @endsection
+
+@push('css')
+<style>
+    thead th {
+        white-space: nowrap;
+    }
+
+    .ui.table td {
+        padding:  !important .92857143em .78571429em;
+        text-align: inherit;
+    }
+
+    .ui.grid {
+        margin-top: 0rem;
+        margin-bottom: 0rem;
+        margin-left: 1rem;
+        margin-right: 0rem;
+    }
+</style>
+@endpush
 
 @push('js')
 <script type="text/javascript">
@@ -63,9 +81,11 @@
             serverSide: true,
             pageLength: 10,
             scrollX: true,
+            responsive: {
+                details: false
+            },
             ajax: "{{ route('leader.request.show.dt') }}",
-            columnDefs: [
-                {
+            columnDefs: [{
                     targets: 1,
                     render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s', 'YYYY-MM-DD'),
                 },
@@ -74,24 +94,49 @@
                     render: $.fn.dataTable.render.moment('H:m:s', 'HH:mm'),
                 },
             ],
-            order: [[ 1, 'asc' ]],
-            columns: [
-                { name: 'email' },
-                { name: 'created_at' },
-                { name: 'jadwal.seri_kom', orderable: false },
-                { name: 'jemaat.nama', orderable: false },
-                { name: 'asal_gereja' },
-                { name: 'jadwal.waktu', orderable: false },
-                { name: 'tanggal' },
-                { name: 'action', orderable: false, searchable: false }
+            order: [
+                [1, 'asc']
+            ],
+            columns: [{
+                    name: 'email'
+                },
+                {
+                    name: 'created_at'
+                },
+                {
+                    name: 'jadwal.seri_kom',
+                    orderable: false
+                },
+                {
+                    name: 'jemaat.nama',
+                    orderable: false
+                },
+                {
+                    name: 'asal_gereja'
+                },
+                {
+                    name: 'jadwal.waktu',
+                    orderable: false
+                },
+                {
+                    name: 'tanggal'
+                },
+                {
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                }
             ],
         });
 
-        t.on( 'order.dt search.dt', function () {
-            t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-                cell.innerHTML = i+1;
-            } );
-        } ).draw();
+        t.on('order.dt search.dt', function () {
+            t.column(0, {
+                search: 'applied',
+                order: 'applied'
+            }).nodes().each(function (cell, i) {
+                cell.innerHTML = i + 1;
+            });
+        }).draw();
     });
 </script>
 @endpush

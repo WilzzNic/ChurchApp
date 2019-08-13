@@ -55,21 +55,17 @@
 
                         <hr class="my-3">
 
-                        <div class="form-group">
-                            <div class="table-responsive">
-                                <!-- Projects table -->
-                                <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Nama Cabang</th>
-                                            <th scope="col">Dibuat pada Tanggal</th>
-                                            <th scope="col">Actions</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
+                        <!-- Projects table -->
+                        <table id="table" class="ui celled table" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th class="all" scope="col">ID</th>
+                                    <th class="all" scope="col">Nama Cabang</th>
+                                    <th class="all" scope="col">Dibuat pada Tanggal</th>
+                                    <th class="all" scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                        </table>
                     </form>
                 </div>
             </div>
@@ -80,6 +76,26 @@
 </div>
 @endsection
 
+@push('css')
+<style>
+    thead th {
+        white-space: nowrap;
+    }
+
+    .ui.table td {
+        padding:  !important .92857143em .78571429em;
+        text-align: inherit;
+    }
+
+    .ui.grid {
+        margin-top: 0rem;
+        margin-bottom: 0rem;
+        margin-left: 0rem;
+        margin-right: -2rem;
+    }
+</style>
+@endpush
+
 @push('js')
 <script type="text/javascript">
     $(document).ready(function () {
@@ -88,6 +104,9 @@
             serverSide: true,
             pageLength: 10,
             scrollX: true,
+            responsive: {
+                details: false
+            },
             ajax: "{{ route('superadmin.manage.cabang.dt') }}",
             columnDefs: [{
                 targets: 2,

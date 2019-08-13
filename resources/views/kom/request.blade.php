@@ -105,6 +105,14 @@
 </div>
 @endsection
 
+@push('css')
+<style>
+    .select2 {
+        width: 100% !important;
+    }
+</style>
+@endpush
+
 @push('js')
 <script type="text/javascript">
     $(document).ready(function() {

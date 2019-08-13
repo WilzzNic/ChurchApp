@@ -1,12 +1,11 @@
-@extends('layouts.app', ['title' => __('Family Altar')])
+@extends('layouts.app', ['title' => __('Request List KAJ')])
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('content')
 @include('users.partials.header', [
 'title' => __('Hello') . ' '. auth()->user()->jemaat->nama,
-'description' => __('This is your profile page. You can see the progress you\'ve made with your work and manage your
-projects or assigned tasks'),
+'description' => __('Ini adalah halaman untuk menerima permohonan KAJ.'),
 'class' => 'col-lg-12'
 ])
 
@@ -31,18 +30,16 @@ projects or assigned tasks'),
                     </div>
                     @endif
 
-                    <div class="table-responsive">
-                        <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Tanggal dikirim</th>
-                                    <th scope="col">Jemaat</th>
-                                    <th scope="col">Actions</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+                    <table id="table" class="ui celled table" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th class="all" scope="col">#</th>
+                                <th class="all" scope="col">Tanggal dikirim</th>
+                                <th class="all" scope="col">Jemaat</th>
+                                <th class="all" scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                    </table>
                         
                 </div>
             </div>
@@ -52,6 +49,24 @@ projects or assigned tasks'),
 </div>
 @endsection
 
+@push('css')
+<style>
+    thead th {
+        white-space: nowrap;
+    }
+    .ui.table td {
+        padding: !important .92857143em .78571429em;
+        text-align: inherit;
+    }
+    .ui.grid {
+        margin-top: 0rem;
+        margin-bottom: 0rem;
+        margin-left: 1rem;
+        margin-right: 0rem;
+    }
+</style>
+@endpush
+
 @push('js')
 <script type="text/javascript">
     $(document).ready(function () {
@@ -60,6 +75,9 @@ projects or assigned tasks'),
             serverSide: true,
             pageLength: 10,
             scrollX: true,
+            responsive: {
+                details: false
+            },
             ajax: "{{ route('leader.request.show.dt') }}",
             columnDefs: [ 
                 {

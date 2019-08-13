@@ -32,6 +32,14 @@
                         <span class="nav-link-inner--text">{{ __('Dashboard') }}</span>
                     </a>
                 </li> --}}
+                
+                <li class="nav-item">
+                    <a class="nav-link nav-link-icon" href="{{ route('guest.kom.request.index') }}">
+                        <i class="ni ni-hat-3"></i>
+                        <span class="nav-link-inner--text">{{ __('Daftar Kelas Orientasi Melayani') }}</span>
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link nav-link-icon" href="{{ route('register') }}">
                         <i class="ni ni-circle-08"></i>

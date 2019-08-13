@@ -42,9 +42,9 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             @if($errors->any())
-                                @foreach($errors->all() as $error)
-                                    <div>{{ $error }}</div>
-                                @endforeach
+                            @foreach($errors->all() as $error)
+                            <div>{{ $error }}</div>
+                            @endforeach
                             @endif
                         </div>
                         @endif
@@ -78,9 +78,11 @@
                                 <label class="form-control-label" for="input-hari">{{ __('Hari') }}</label>
                                 <select class="custom-select" name="hari" id="input-hari" required>
                                     <option value="0" selected disabled>-- Pilih Hari --</option>
-                                    <option value="Minggu" {{ old('hari') == 'Minggu' ? 'selected' : '' }}>Minggu</option>
+                                    <option value="Minggu" {{ old('hari') == 'Minggu' ? 'selected' : '' }}>Minggu
+                                    </option>
                                     <option value="Senin" {{ old('hari') == 'Senin' ? 'selected' : '' }}>Senin</option>
-                                    <option value="Selasa" {{ old('hari') == 'Selasa' ? 'selected' : '' }}>Selasa</option>
+                                    <option value="Selasa" {{ old('hari') == 'Selasa' ? 'selected' : '' }}>Selasa
+                                    </option>
                                     <option value="Rabu" {{ old('hari') == 'Rabu' ? 'selected' : '' }}>Rabu</option>
                                     <option value="Kamis" {{ old('hari') == 'Kamis' ? 'selected' : '' }}>Kamis</option>
                                     <option value="Jumat" {{ old('hari') == 'Jumat' ? 'selected' : '' }}>Jumat</option>
@@ -89,14 +91,15 @@
                             </div>
                             <div class="col">
                                 <label class="form-control-label" for="input-waktu">{{ __('Waktu') }}</label>
-                                <input type="time" class="form-control" id="input-waktu" name="waktu" value="{{ old('waktu') }}" required>
+                                <input type="time" class="form-control" id="input-waktu" name="waktu"
+                                    value="{{ old('waktu') }}" required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="form-control-label" for="input-no-fa">{{ __('No. Family Altar') }}</label>
-                            <input type="text" class="form-control" id="input-no-fa" name="no_fa" value="{{ old('no_fa') }}"
-                                placeholder="No. Family Altar" required>
+                            <input type="text" class="form-control" id="input-no-fa" name="no_fa"
+                                value="{{ old('no_fa') }}" placeholder="No. Family Altar" required>
                         </div>
 
                         <div class="form-group{{ $errors->has('alamat') ? ' has-danger' : '' }}">
@@ -117,22 +120,26 @@
                         </div>
 
                     </form>
+                    
+                    <hr class="my-3">
 
-                    <div class="table-responsive">
-                        <!-- Projects table -->
-                        <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Pemilik</th>
-                                    <th scope="col">No. FA</th>
-                                    <th scope="col">Alamat</th>
-                                    <th scope="col">Hari</th>
-                                    <th scope="col">Waktu</th>
-                                    <th scope="col">Actions</th>
-                                </tr>
-                            </thead>
-                        </table>
+                    <div class="row">
+                        <div class="col">
+                            <!-- Projects table -->
+                            <table id="table" class="ui celled table" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th class="all" scope="col">ID</th>
+                                        <th class="all" scope="col">Pemilik</th>
+                                        <th class="all" scope="col">No. FA</th>
+                                        <th class="all" scope="col">Alamat</th>
+                                        <th class="all" scope="col">Hari</th>
+                                        <th class="all" scope="col">Waktu</th>
+                                        <th class="all" scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -147,6 +154,22 @@
 <style>
     .select2 {
         width: 100% !important;
+    }
+
+    thead th {
+        white-space: nowrap;
+    }
+
+    .ui.table td {
+        padding:  !important .92857143em .78571429em;
+        text-align: inherit;
+    }
+
+    .ui.grid {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        margin-left: 3rem;
+        margin-right: 1rem;
     }
 </style>
 @endpush
@@ -169,6 +192,9 @@
             serverSide: true,
             pageLength: 10,
             scrollX: true,
+            responsive: {
+                details: false
+            },
             ajax: "{{ route('admin.manage.fa.dt') }}",
             columnDefs: [{
                 targets: 5,
@@ -200,6 +226,5 @@
             ],
         });
     });
-
 </script>
 @endpush

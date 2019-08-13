@@ -10,10 +10,10 @@
                 <div class="card bg-secondary shadow border-0">
                     <div class="card-header bg-transparent">
                         <div class="text-center">
-                            <h1>Daftar Akun</h1>
+                            <h1>Buat Akun</h1>
                         </div>
-                        {{-- <div class="text-muted text-center mt-2 mb-4"><small>{{ __('Sign up with') }}</small></div>
-                        <div class="text-center">
+                        {{-- <div class="text-muted text-center mt-1 mb-2"><small>{{ __('Jika Anda bukan berasal dari gereja yang ada di Yayasan Surya Kebenaran Indonesia, mohon hubungi admin. ') }}</small></div> --}}
+                        {{-- <div class="text-center">
                             <a href="#" class="btn btn-neutral btn-icon mr-4">
                                 <span class="btn-inner--icon"><img src="{{ asset('argon') }}/img/icons/common/github.svg"></span>
                                 <span class="btn-inner--text">{{ __('Github') }}</span>
@@ -104,6 +104,16 @@
                                         <input class="form-control datepicker" name="tgl_lhr" placeholder="Tanggal Lahir" type="text">
                                     </div>
                                 {{-- </div> --}}
+                            </div>
+                            <div class="form-group">
+                                <select class="custom-select" name="lokasi_ibadah" id="input-loc-ibadah" aria-describedby="cabangHelp">
+                                    <option disabled selected>-- Pilih Cabang Gereja --</option>
+                                    @foreach (App\CabangGereja::get() as $cabang)
+                                    <option value="{{ $cabang->id }}" {{ old('lokasi_ibadah') == $cabang->id ? 'selected' : '' }}>
+                                        {{ $cabang->nama_gereja }}
+                                    </option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
                                 <div class="input-group input-group-alternative mb-3">

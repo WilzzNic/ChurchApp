@@ -31,30 +31,28 @@
                             </button>
                         </div>
                     @endif
-                    <div class="table-responsive">
                         <!-- Projects table -->
-                        <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
-                            <thead class="thead-light">
+                        <table id="table" class="ui celled table" style="width:100%;">
+                            <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nama Jemaat</th>
-                                    <th scope="col">No. FA</th>
-                                    <th scope="col">Jenis Kelamin</th>
-                                    <th scope="col">Tempat Lahir</th>
-                                    <th scope="col">Tanggal Lahir</th>
-                                    <th scope="col">Profesi</th>
-                                    <th scope="col">Status Nikah</th>
-                                    <th scope="col">No. HP</th>
-                                    <th scope="col">Alamat</th>
-                                    <th scope="col">Lokasi Ibadah</th>
-                                    <th scope="col">Nama Ibu</th>
-                                    <th scope="col">Nama Ayah</th>
-                                    <th scope="col">Status Akun</th>
-                                    <th scope="col">Actions</th>
+                                    <th class="all" scope="col">#</th>
+                                    <th class="all" scope="col">Nama Jemaat</th>
+                                    <th class="all" scope="col">No. FA</th>
+                                    <th class="all" scope="col">Jenis Kelamin</th>
+                                    <th class="all" scope="col">Tempat Lahir</th>
+                                    <th class="all" scope="col">Tanggal Lahir</th>
+                                    <th class="all" scope="col">Profesi</th>
+                                    <th class="all" scope="col">Status Nikah</th>
+                                    <th class="all" scope="col">No. HP</th>
+                                    <th class="all" scope="col">Alamat</th>
+                                    <th class="all" scope="col">Lokasi Ibadah</th>
+                                    <th class="all" scope="col">Nama Ibu</th>
+                                    <th class="all" scope="col">Nama Ayah</th>
+                                    <th class="all" scope="col">Status Akun</th>
+                                    <th class="all" scope="col">Actions</th>
                                 </tr>
                             </thead>
                         </table>
-                    </div>
                 </div>
             </div>
         </div>
@@ -64,6 +62,26 @@
 </div>
 @endsection
 
+@push('css')
+<style>
+    thead th {
+        white-space: nowrap;
+    }
+
+    .ui.table td {
+        padding:  !important .92857143em .78571429em;
+        text-align: inherit;
+    }
+
+    .ui.grid {
+        margin-top: -1rem;
+        margin-bottom: -1rem;
+        margin-left: 1rem;
+        margin-right: -1rem;
+    }
+</style>
+@endpush
+
 @push('js')
 <script type="text/javascript">
     $(document).ready(function () {
@@ -72,6 +90,9 @@
             serverSide: true,
             pageLength: 10,
             scrollX: true,
+            responsive: {
+                details: false
+            },
             ajax: "{{ route('admin.manage.jemaat.dt') }}",
             columns: [
                 {
@@ -85,6 +106,7 @@
                 {
                     name: 'fa.FA_number',
                     defaultContent: '-',
+                    orderable: false
                 },
                 {
                     name: 'jenis_kelamin',
@@ -117,6 +139,7 @@
                 {
                     name: 'cabangGereja.nama_gereja',
                     defaultContent: '-',
+                    orderable: false
                 },
                 {
                     name: 'nama_ibu',

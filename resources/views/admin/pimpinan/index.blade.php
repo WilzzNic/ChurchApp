@@ -48,11 +48,14 @@
                         <div class="form-group">
                             <div class="text-center">
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input name="jenis_kelamin" class="custom-control-input" id="customRadio1" type="radio" value="L" checked  {{ old('jenis_kelamin') == 'L' ? 'checked' : '' }}>
+                                    <input name="jenis_kelamin" class="custom-control-input" id="customRadio1"
+                                        type="radio" value="L" checked
+                                        {{ old('jenis_kelamin') == 'L' ? 'checked' : '' }}>
                                     <label class="custom-control-label" for="customRadio1">Laki-Laki</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input name="jenis_kelamin" class="custom-control-input" id="customRadio2" type="radio" value="P" {{ old('jenis_kelamin') == 'P' ? 'checked' : '' }}>
+                                    <input name="jenis_kelamin" class="custom-control-input" id="customRadio2"
+                                        type="radio" value="P" {{ old('jenis_kelamin') == 'P' ? 'checked' : '' }}>
                                     <label class="custom-control-label" for="customRadio2">Perempuan</label>
                                 </div>
                             </div>
@@ -60,8 +63,10 @@
 
                         <div class="form-group {{ $errors->has('nama') ? ' has-danger' : '' }}">
                             <label class="form-control-label" for="input-nama-lengkap">{{ __('Nama Lengkap') }}</label>
-                            <input type="text" class="form-control form-control-alternative {{ $errors->has('nama') ? 'is-invalid' : '' }}" id="input-nama-lengkap"
-                                name="nama" placeholder="Nama Lengkap" value="{{ old('nama') }}" required>
+                            <input type="text"
+                                class="form-control form-control-alternative {{ $errors->has('nama') ? 'is-invalid' : '' }}"
+                                id="input-nama-lengkap" name="nama" placeholder="Nama Lengkap" value="{{ old('nama') }}"
+                                required>
                             @if ($errors->has('nama'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('nama') }}</strong>
@@ -88,8 +93,10 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
-                                <input class="form-control form-control-alternative {{ $errors->has('tgl_lhr') ? ' is-invalid' : '' }} datepicker" id="input-tgl-lhr"
-                                    name="tgl_lhr" placeholder="Tanggal Lahir" type="text" value="{{ old('tgl_lhr') }}">
+                                <input
+                                    class="form-control form-control-alternative {{ $errors->has('tgl_lhr') ? ' is-invalid' : '' }} datepicker"
+                                    id="input-tgl-lhr" name="tgl_lhr" placeholder="Tanggal Lahir" type="text"
+                                    value="{{ old('tgl_lhr') }}">
                             </div>
                             @if ($errors->has('tgl_lhr'))
                             <span class="invalid-feedback" role="alert">
@@ -100,12 +107,16 @@
 
                         <div class="form-group {{ $errors->has('role') ? ' has-danger' : '' }}">
                             <label class="form-control-label" for="input-role">{{ __('Kategori Pimpinan') }}</label>
-                            <select class="form-control form-control-alternative {{ $errors->has('role') ? ' is-invalid' : '' }} custom-select" name="role"
-                                id="input-role" required>
+                            <select
+                                class="form-control form-control-alternative {{ $errors->has('role') ? ' is-invalid' : '' }} custom-select"
+                                name="role" id="input-role" required>
                                 <option value="0" selected disabled>-- Pilih Kategori --</option>
-                                <option value="baptis_leader" {{ old('role') == 'baptis_leader' ? 'selected' : '' }}>Pimpinan Baptis</option>
-                                <option value="KOM_leader" {{ old('role') == 'KOM_leader' ? 'selected' : '' }}>Pimpinan KOM</option>
-                                <option value="KAJ_leader" {{ old('role') == 'KAJ_leader' ? 'selected' : '' }}>Pimpinan KAJ</option>
+                                <option value="baptis_leader" {{ old('role') == 'baptis_leader' ? 'selected' : '' }}>
+                                    Pimpinan Baptis</option>
+                                <option value="KOM_leader" {{ old('role') == 'KOM_leader' ? 'selected' : '' }}>Pimpinan
+                                    KOM</option>
+                                <option value="KAJ_leader" {{ old('role') == 'KAJ_leader' ? 'selected' : '' }}>Pimpinan
+                                    KAJ</option>
                             </select>
                             @if ($errors->has('role'))
                             <span class="invalid-feedback" role="alert">
@@ -142,17 +153,17 @@
 
                     <hr class="my-3">
 
-                    <div class="form-group">
-                        <div class="table-responsive">
+                    <div class="row">
+                        <div class="col">
                             <!-- Projects table -->
-                            <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
-                                <thead class="thead-light">
+                            <table id="table" class="ui celled table" style="width:100%;">
+                                <thead>
                                     <tr>
-                                        <th scope="col">E-mail</th>
-                                        <th scope="col">Nama Pimpinan</th>
-                                        <th scope="col">Kategori Pimpinan</th>
-                                        <th scope="col">Didaftarkan pada Tanggal</th>
-                                        <th scope="col">Actions</th>
+                                        <th class="all" scope="col">E-mail</th>
+                                        <th class="all" scope="col">Nama Pimpinan</th>
+                                        <th class="all" scope="col">Kategori Pimpinan</th>
+                                        <th class="all" scope="col">Didaftarkan pada Tanggal</th>
+                                        <th class="all" scope="col">Actions</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -166,6 +177,26 @@
     @include('layouts.footers.auth')
 </div>
 @endsection
+
+@push('css')
+<style>
+    thead th {
+        white-space: nowrap;
+    }
+
+    .ui.table td {
+        padding:  !important .92857143em .78571429em;
+        text-align: inherit;
+    }
+
+    .ui.grid {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        margin-left: 3rem;
+        margin-right: 1rem;
+    }
+</style>
+@endpush
 
 @push('js')
 <script type="text/javascript">
@@ -183,17 +214,21 @@
                 serverSide: true,
                 pageLength: 10,
                 scrollX: true,
+                responsive: {
+                    details: false
+                },
                 ajax: "{{ route('admin.manage.leader.dt') }}",
                 columnDefs: [{
-                        targets: 3,
-                        render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s', 'YYYY-MM-DD'),
-                    },
-                ],
+                    targets: 3,
+                    render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s',
+                        'YYYY-MM-DD'),
+                }, ],
                 columns: [{
                         name: 'email'
                     },
                     {
-                        name: 'jemaat.nama'
+                        name: 'jemaat.nama',
+                        orderable: false
                     },
                     {
                         name: 'role'

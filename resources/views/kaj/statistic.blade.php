@@ -44,28 +44,28 @@
                 <div class="card-header border-0">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h3 class="mb-0">Data Jemaat</h3>
+                            <h3 class="text-center mb-0">Data Jemaat</h3>
                         </div>
                     </div>
                 </div>
-                <div class="table-responsive">
-                    <table id="table" class="uk-table uk-table-hover uk-table-striped" style="width:100%;">
-                        <thead class="thead-light">
+                <div class="card-body">
+                    <table id="table" class="ui celled table" style="width:100%;">
+                        <thead>
                             <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Nama Jemaat</th>
-                                <th scope="col">No. FA</th>
-                                <th scope="col">Jenis Kelamin</th>
-                                <th scope="col">Tempat Lahir</th>
-                                <th scope="col">Tanggal Lahir</th>
-                                <th scope="col">Profesi</th>
-                                <th scope="col">Status Nikah</th>
-                                <th scope="col">No. HP</th>
-                                <th scope="col">Alamat</th>
-                                <th scope="col">Lokasi Ibadah</th>
-                                <th scope="col">Nama Ibu</th>
-                                <th scope="col">Nama Ayah</th>
-                                <th scope="col">Status Akun</th>
+                                <th class="all" scope="col">ID</th>
+                                <th class="all" scope="col">Nama Jemaat</th>
+                                <th class="all" scope="col">No. FA</th>
+                                <th class="all" scope="col">Jenis Kelamin</th>
+                                <th class="all" scope="col">Tempat Lahir</th>
+                                <th class="all" scope="col">Tanggal Lahir</th>
+                                <th class="all" scope="col">Profesi</th>
+                                <th class="all" scope="col">Status Nikah</th>
+                                <th class="all" scope="col">No. HP</th>
+                                <th class="all" scope="col">Alamat</th>
+                                <th class="all" scope="col">Lokasi Ibadah</th>
+                                <th class="all" scope="col">Nama Ibu</th>
+                                <th class="all" scope="col">Nama Ayah</th>
+                                <th class="all" scope="col">Status Akun</th>
                             </tr>
                         </thead>
                     </table>
@@ -78,17 +78,39 @@
 </div>
 @endsection
 
+@push('css')
+<style>
+    thead th {
+        white-space: nowrap;
+    }
+    .ui.table td {
+        padding: .92857143em .78571429em;
+        text-align: inherit;
+    }
+    .ui.grid {
+        margin-top: -1rem;
+        margin-bottom: -1rem;
+        margin-left: 1rem;
+        margin-right: -1rem;
+    }
+</style>
+@endpush
+
 @push('js')
 <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
 <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
 
 <script type="text/javascript">
+
     $(document).ready(function () {
         var t = $('#table').DataTable({
             processing: true,
             serverSide: true,
             pageLength: 10,
             scrollX: true,
+            responsive: {
+                details: false
+            },
             ajax: "{{ route('leader.statistic.jemaat.dt') }}",
             columnDefs: [{
                 searchable: false,
@@ -180,7 +202,7 @@
     var canvas = document.getElementById('myChart');
     var data_array = {!! json_encode($data, JSON_HEX_TAG) !!};
     var data = {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Octr",
+        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
             "Nov", "Dec"
         ],
         datasets: [{
@@ -198,11 +220,7 @@
             display: false
         },
         tooltips: {
-            callbacks: {
-                label: function (tooltipItem) {
-                    return tooltipItem.yLabel;
-                }
-            }
+            enabled: false
         },
         scales: {
             yAxes: [{
@@ -212,16 +230,35 @@
                 }
             }]
         },
+        hover: {
+            animationDuration: 0
+        },
         animation: {
-            duration: 5000
-        }
+            duration: 1000,
+            onComplete: function() {
+                var chartInstance = this.chart,
+                ctx = chartInstance.ctx;
 
+                ctx.font = Chart.helpers.fontString(this.fontSize, this.fontStyle, this.fontFamily);
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = 'lightgrey';
+
+                this.data.datasets.forEach(function(dataset, i) {
+                    var meta = chartInstance.controller.getDatasetMeta(i);
+                    meta.data.forEach(function(bar, index) {
+                        var data = dataset.data[index];
+                        ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                    });
+                });
+            }
+        },
     };
 
     var myBarChart = Chart.Bar(canvas, {
-        type: 'line',
         data: data,
-        options: option
+        options: option,
     });
+
 </script>
 @endpush

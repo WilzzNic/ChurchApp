@@ -1,11 +1,11 @@
-@extends('layouts.app', ['title' => __('Approved List KAJ')])
+@extends('layouts.app', ['title' => __('Guest Pending List')])
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('content')
 @include('users.partials.header', [
 'title' => __('Hello') . ' '. auth()->user()->jemaat->nama,
-'description' => __('Ini adalah halaman yang berisi permohonan KAJ yang sudah diterima.'),
+'description' => __('Halaman ini menampilkan data permohonan KOM dari simpatisan.'),
 'class' => 'col-lg-12'
 ])
 
@@ -15,15 +15,14 @@
             <div class="card bg-secondary shadow">
                 <div class="card-header bg-white border-0">
                     <div class="row align-items-center">
-                        <h1 class="text-center col-12" style="font-size: 50pt;"><i class="fa fa-envelope-open"></i></h1>
-                        <h3 class="text-center col-12">
-                            {{ __('Approved List') }}
-                        </h3>
+                        <h1 class="text-center col-12"><i class="fa fa-inbox"></i></h1>
+                        <h3 class="text-center col-12 mb-5">{{ __('Request List') }}</h3>
                     </div>
                 </div>
                 <div class="card-body">
+
                     @if (session('status'))
-                    <div class="alert alert-default alert-dismissable fade show" role="alert">
+                    <div class="alert alert-default alert-dismissible fade show" role="alert">
                         {{ session('status') }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -32,32 +31,33 @@
                     @endif
 
                     <div class="table-responsive">
-                        <!-- Projects table -->
                         <table id="table" class="ui celled table" style="width:100%;">
                             <thead>
                                 <tr>
-                                    <th class="all" scope="col">Tanggal Permohonan</th>
+                                    <th class="all" scope="col">Tanggal dikirim</th>
+                                    <th class="all" scope="col">Tanggal Kelas</th>
+                                    <th class="all" scope="col">Cabang Gereja</th>
+                                    <th class="all" scope="col">Seri</th>
+                                    <th class="all" scope="col">Waktu</th>
+                                    <th class="all" scope="col">Hari</th>
+                                    <th class="all" scope="col">Asal Gereja</th>
                                     <th class="all" scope="col">E-mail</th>
-                                    <th class="all" scope="col">Nama Jemaat</th>
                                     <th class="all" scope="col">Jenis Kelamin</th>
-                                    <th class="all" scope="col">Lokasi Ibadah</th>
+                                    <th class="all" scope="col">Nama</th>
                                     <th class="all" scope="col">Tempat Lahir</th>
-                                    <th class="all" scope="col">Tanggal lahir</th>
-                                    <th class="all" scope="col">Profesi</th>
-                                    <th class="all" scope="col">Status Nikah</th>
+                                    <th class="all" scope="col">Tanggal Lahir</th>
                                     <th class="all" scope="col">No. HP</th>
                                     <th class="all" scope="col">Alamat</th>
-                                    <th class="all" scope="col">Nama Ibu</th>
-                                    <th class="all" scope="col">Nama Ayah</th>
+                                    <th class="all" scope="col">Actions</th>
                                 </tr>
                             </thead>
                         </table>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
-
     @include('layouts.footers.auth')
 </div>
 @endsection
@@ -83,8 +83,7 @@
 @push('js')
 <script type="text/javascript">
     $(document).ready(function () {
-
-        var table = $('#table').DataTable({
+        var t = $('#table').DataTable({
             processing: true,
             serverSide: true,
             pageLength: 10,
@@ -92,75 +91,74 @@
             responsive: {
                 details: false
             },
-            ajax: "{{ route('leader.request.approved.dt') }}",
-            columnDefs: [
-                {
-                    targets: [0],
+            ajax: "{{ route('leader.guest.request.pending.dt') }}",
+            columnDefs: [{
+                    targets: 0,
                     render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s', 'YYYY-MM-DD'),
                 },
-            ],
-            columns: [
                 {
+                    targets: 4,
+                    render: $.fn.dataTable.render.moment('H:m:s', 'HH:mm'),
+                },
+            ],
+            columns: [{
                     name: 'created_at'
                 },
                 {
-                    name: 'email',
-                    orderable: false,
+                    name: 'tanggal'
                 },
                 {
-                    name: 'jemaat.nama',
-                    orderable: false,
+                    name: 'cabang'
                 },
                 {
-                    name: 'jemaat.jenis_kelamin',
-                    defaultContent: '-',
-                    orderable: false,
+                    name: 'jadwal.seri_kom',
+                    orderable: false
                 },
                 {
-                    name: 'cabang',
-                    defaultContent: '-',
-                    orderable: false,
+                    name: 'jadwal.waktu',
+                    orderable: false
                 },
                 {
-                    name: 'jemaat.tempat_lahir',
-                    defaultContent: '-',
-                    orderable: false,
+                    name: 'jadwal.hari',
+                    orderable: false
                 },
                 {
-                    name: 'jemaat.tgl_lahir',
-                    defaultContent: '-',
-                    orderable: false,
+                    name: 'guest.asal_gereja',
+                    orderable: false
                 },
                 {
-                    name: 'jemaat.profesi',
-                    defaultContent: '-',
-                    orderable: false,
+                    name: 'guest.email',
+                    orderable: false
                 },
                 {
-                    name: 'jemaat.status_pernikahan',
-                    defaultContent: '-',
-                    orderable: false,
+                    name: 'guest.jenis_kelamin',
+                    orderable: false
                 },
                 {
-                    name: 'jemaat.no_hp',
-                    defaultContent: '-',
-                    orderable: false,
+                    name: 'guest.nama',
+                    orderable: false
                 },
                 {
-                    name: 'jemaat.alamat',
-                    defaultContent: '-',
-                    orderable: false,
+                    name: 'guest.tempat_lahir',
+                    orderable: false
                 },
                 {
-                    name: 'jemaat.nama_ibu',
-                    defaultContent: '-',
-                    orderable: false,
+                    name: 'guest.tgl_lahir',
+                    orderable: false
                 },
                 {
-                    name: 'jemaat.nama_ayah',
-                    defaultContent: '-',
-                    orderable: false,
+                    name: 'guest.no_hp',
+                    orderable: false
                 },
+                {
+                    name: 'guest.alamat',
+                    orderable: false
+                },
+                {
+                    name: 'approval',
+                    orderable: false,
+                    searchable: false
+                }
             ],
         });
     });

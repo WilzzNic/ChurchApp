@@ -33,7 +33,6 @@ class CreateJemaatsTable extends Migration
             $table->string('status');
             $table->timestamps();
 
-            // Combination of 2 columns to create a uniqiue value
             $table->unique(['seri_kaj_1', 'seri_kaj_2']);
         });
     }

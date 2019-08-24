@@ -17,6 +17,8 @@ class CreateJemaatsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('family_altar_id')->nullable();
+            $table->string('seri_kaj_1')->nullable();
+            $table->string('seri_kaj_2')->nullable();
             $table->string('nama');
             $table->char('jenis_kelamin', 1);
             $table->string('tempat_lahir')->nullable();
@@ -30,6 +32,8 @@ class CreateJemaatsTable extends Migration
             $table->string('nama_ayah')->nullable();
             $table->string('status');
             $table->timestamps();
+
+            $table->unique(['seri_kaj_1', 'seri_kaj_2']);
         });
     }
 

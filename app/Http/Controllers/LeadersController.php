@@ -53,7 +53,7 @@ class LeadersController extends Controller
                 ->whereHas('jemaat', function($q) {
                     $q->where('lokasi_ibadah', '=', auth()->user()->jemaat->lokasi_ibadah);
                 });;
-                        
+
             });
         }
         else if($role ==  User::ROLE_L_KAJ) {
@@ -228,7 +228,7 @@ class LeadersController extends Controller
                 ->whereHas('jemaat', function($q) {
                     $q->where('lokasi_ibadah', '=', auth()->user()->jemaat->lokasi_ibadah);
                 });;
-                        
+
             });
         }
         else if($role ==  User::ROLE_L_KAJ) {

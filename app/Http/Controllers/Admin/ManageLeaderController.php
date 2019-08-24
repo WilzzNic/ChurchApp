@@ -30,14 +30,14 @@ class ManageLeaderController extends Controller
     }
 
     public function add(Request $request) {
-        Validator::make($request->all(), 
+        Validator::make($request->all(),
         [
             'email' => ['required', 'unique:users,email'],
             'nama'  => ['required', 'min:3'],
             'jenis_kelamin' => ['required'],
             'tgl_lhr' => ['required', 'date_format:Y-m-d'],
             'role' => [
-                'required', 
+                'required',
                 new RolePimpinan,
             ],
             'password' => ['required', 'min:6', 'confirmed'],
@@ -50,7 +50,7 @@ class ManageLeaderController extends Controller
             'role.required'     => 'Kategori pimpinan harus dipilih.',
             'password.required' => 'Kata Sandi harus dimasukkan.',
             'password.confirmed'=> 'Konfirmasi Kata Sandi tidak sama.',
-        ])->validate();    
+        ])->validate();
 
         DB::transaction(function() use ($request){
             $user = new User();
@@ -78,7 +78,7 @@ class ManageLeaderController extends Controller
             $user->jemaat()->delete();
             $user->delete();
         });
-        
+
         return back()->withErrors(['msg' => 'Pimpinan telah dihapus.']);
     }
 }

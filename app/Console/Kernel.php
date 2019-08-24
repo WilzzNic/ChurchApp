@@ -5,6 +5,9 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
+use App\RequestBaptis;
+use Carbon\Carbon;
+
 class Kernel extends ConsoleKernel
 {
     /**
@@ -26,6 +29,19 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        /* Example of Scheduler for Rejecting Requests that are due. */
+        $schedule->call(function () {
+            // Request Baptis
+            $requests = RequestBaptis::get();
+            foreach($requests as $request) {
+                $date = Carbon::parse($request->tanggal);
+                if($date->isToday()) {
+                    $request->status = RequestBaptis::STATUS_REJECTED;
+                    $request->delete();
+                }
+            } 
+        })->daily();
     }
 
     /**

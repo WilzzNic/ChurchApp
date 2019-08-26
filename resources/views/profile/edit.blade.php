@@ -59,6 +59,15 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <label for="staticNIJ" class="form-control-label">NIJ</label>
+                                <input type="text" readonly class="form-control-plaintext" id="staticNIJ"
+                                    value="{{ (!is_null($data['seri_keluarga']) && !is_null($data['seri_jemaat'])) ?
+                                    str_pad($data['seri_keluarga'], 5, '0', STR_PAD_LEFT) . ' - ' . str_pad($data['seri_jemaat'], 5, '0', STR_PAD_LEFT) :
+                                    '-' }}">
+
+                            </div>
+
                             <div class="form-group{{ $errors->has('nama') ? ' has-danger' : '' }}">
                                 <label class="form-control-label" for="input-nama">{{ __('Nama') }}<span
                                         style="color:red;">*</span></label>
@@ -195,19 +204,24 @@
                                 </span>
                                 @endif
                             </div>
-                            
+
                             @if(!Auth::user()->can('superadmin'))
                             <div class="form-group">
                                 <label class="form-control-label" for="input-loc-ibadah">
-                                    @if(Auth::user()->can('admin') || Auth::user()->can('KAJ_leader') || Auth::user()->can('KOM_leader') || Auth::user()->can('baptis_leader'))
+                                    @if(Auth::user()->can('admin') || Auth::user()->can('KAJ_leader') ||
+                                    Auth::user()->can('KOM_leader') || Auth::user()->can('baptis_leader'))
                                     Cabang Gereja
                                     @else
                                     Lokasi Ibadah
                                     @endif
                                 </label>
-                                @if(Auth::user()->can('admin') || Auth::user()->can('KAJ_leader') || Auth::user()->can('KOM_leader') || Auth::user()->can('baptis_leader'))
-                                <input type="text" readonly class="form-control-plaintext" id="input-loc-ibadah" name="cabang" value="{{ old('cabang', auth()->user()->jemaat->cabangGerejaTrashed ? auth()->user()->jemaat->cabangGerejaTrashed->nama_gereja : '-') }}">
-                                <input type="hidden" name="lokasi_ibadah" value="{{ old('lokasi_ibadah', auth()->user()->jemaat->cabangGerejaTrashed ? auth()->user()->jemaat->cabangGerejaTrashed->id : '-') }}">
+                                @if(Auth::user()->can('admin') || Auth::user()->can('KAJ_leader') ||
+                                Auth::user()->can('KOM_leader') || Auth::user()->can('baptis_leader'))
+                                <input type="text" readonly class="form-control-plaintext" id="input-loc-ibadah"
+                                    name="cabang"
+                                    value="{{ old('cabang', auth()->user()->jemaat->cabangGerejaTrashed ? auth()->user()->jemaat->cabangGerejaTrashed->nama_gereja : '-') }}">
+                                <input type="hidden" name="lokasi_ibadah"
+                                    value="{{ old('lokasi_ibadah', auth()->user()->jemaat->cabangGerejaTrashed ? auth()->user()->jemaat->cabangGerejaTrashed->id : '-') }}">
                                 @else
                                 <select class="custom-select" name="lokasi_ibadah" id="input-loc-ibadah">
                                     <option disabled selected>-- Pilih Lokasi Ibadah --</option>
@@ -219,7 +233,7 @@
                                     @endforeach
                                 </select>
                                 @endif
-                                    
+
                             </div>
                             @endif
 
@@ -254,7 +268,8 @@
                             </div>
 
                             @unless(Auth::user()->can('admin') || Auth::user()->can('superadmin') ||
-                             Auth::user()->can('KAJ_leader') || Auth::user()->can('KOM_leader') || Auth::user()->can('baptis_leader'))
+                            Auth::user()->can('KAJ_leader') || Auth::user()->can('KOM_leader') ||
+                            Auth::user()->can('baptis_leader'))
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <label for="staticKAJ" class="form-control-label">Status KAJ</label>

@@ -16,9 +16,14 @@ class CreateJemaatsTable extends Migration
         Schema::create('jemaats', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
+
+            // Untuk mengetahui jemaat berada di family altar mana
             $table->integer('family_altar_id')->nullable();
-            $table->string('seri_kaj_1')->nullable();
-            $table->string('seri_kaj_2')->nullable();
+
+            // Nomor Induk Jemaat
+            $table->integer('seri_keluarga')->unsigned()->nullable();
+            $table->integer('seri_jemaat')->unsigned()->nullable();
+
             $table->string('nama');
             $table->char('jenis_kelamin', 1);
             $table->string('tempat_lahir')->nullable();
@@ -33,7 +38,7 @@ class CreateJemaatsTable extends Migration
             $table->string('status');
             $table->timestamps();
 
-            $table->unique(['seri_kaj_1', 'seri_kaj_2']);
+            $table->unique(['seri_keluarga', 'seri_jemaat']);
         });
     }
 

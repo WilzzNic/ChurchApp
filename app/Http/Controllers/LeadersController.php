@@ -89,9 +89,20 @@ class LeadersController extends Controller
             });
         }
         else if($role == User::ROLE_L_KAJ) {
-            $request = RequestKartuAnggota::find($id);
-            $request->status = RequestKartuAnggota::STATUS_ACCEPTED;
-            $request->save();
+            DB::transaction(function() use ($id) {
+                $request = RequestKartuAnggota::find($id);
+                $request->status = RequestKartuAnggota::STATUS_ACCEPTED;
+                $request->save();
+
+                $jemaat = Jemaat::find($request->jemaat_id);
+                $jemaat->seri_keluarga = 0;
+                $jemaat->seri_jemaat = 0;
+                $jemaat->save();
+
+                $jemaats_size = Jemaat::get()->count();
+                $jemaat->increment('seri_keluarga', $jemaats_size);
+                
+            });
         }
         else if($role == User::ROLE_L_KOM) {
             $request = RequestKelasOrientasi::find($id);

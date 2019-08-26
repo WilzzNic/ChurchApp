@@ -95,13 +95,25 @@ class LeadersController extends Controller
                 $request->save();
 
                 $jemaat = Jemaat::find($request->jemaat_id);
-                $jemaat->seri_keluarga = 0;
-                $jemaat->seri_jemaat = 0;
-                $jemaat->save();
 
-                $jemaats_size = Jemaat::get()->count();
-                $jemaat->increment('seri_keluarga', $jemaats_size);
+                $max_keluarga = Jemaat::max('seri_keluarga');
+                if(!is_null($max_keluarga)) {
+                    $jemaat->seri_keluarga = $max_keluarga + 1;
+                }
+                else {
+                    $jemaat->seri_keluarga = 1;
+                }
                 
+                // TODO: Kemungkinan diubah setelah ada Modul Penyerahan Anak
+                $max_jemaat = Jemaat::max('seri_jemaat');
+                if(!is_null($max_jemaat)) {
+                    $jemaat->seri_jemaat = $max_jemaat + 1;
+                }
+                else {
+                    $jemaat->seri_jemaat = 1;
+                }
+
+                $jemaat->save();
             });
         }
         else if($role == User::ROLE_L_KOM) {

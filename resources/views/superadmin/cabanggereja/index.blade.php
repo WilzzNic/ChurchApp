@@ -27,6 +27,9 @@
                         autocomplete="off">
                         @csrf
 
+                        <h6 class="heading-small text-muted mb-3">{{ __('Input Cabang Baru') }}</h6>
+                        <hr class="mt-0 mb-3">
+
                         @if (session('status'))
                         <div class="alert alert-success alert-dismissable fade show" role="alert">
                             {{ session('status') }}
@@ -37,11 +40,14 @@
                         @endif
 
                         <div class="form-group{{ $errors->has('cabang') ? ' has-danger' : '' }}">
-                            <label class="form-control-label" for="input-cabang">{{ __('Nama Cabang') }}</label>
-                            <input type="text" name="cabang" id="input-cabang"
-                                class="form-control form-control-alternative{{ $errors->has('cabang') ? ' is-invalid' : '' }}"
+                            <div class="input-group input-group-alternative mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-tag"></i></span>
+                                </div>
+                                <input type="text" name="cabang" id="input-cabang"
+                                class="form-control {{ $errors->has('cabang') ? ' is-invalid' : '' }}"
                                 placeholder="{{ __('Nama Cabang') }}" value="{{ old('cabang') }}" required>
-
+                            </div>
                             @if ($errors->has('cabang'))
                             <span class="invalid-feedback" style="display: block;" role="alert">
                                 <strong>{{ $errors->first('cabang') }}</strong>
@@ -49,11 +55,19 @@
                             @endif
                         </div>
 
+                        <div class="custom-control custom-control-alternative custom-checkbox">
+                            <input class="custom-control-input" name="check_baptis" id="checkLogin" value="1" type="checkbox" {{ old('check_baptis') ? 'checked' : '' }}>
+                            <label class="custom-control-label" for="checkLogin">
+                                <span class="text-muted">{{ __('Dapat menerima baptis') }}</span>
+                            </label>
+                        </div>
+
                         <div class="text-center">
                             <button type="submit" class="btn btn-success">{{ __('Tambah') }}</button>
                         </div>
 
-                        <hr class="my-3">
+                        <h6 class="heading-small text-muted my-3">{{ __('Data Cabang') }}</h6>
+                        <hr class="mt-0 mb-3">
 
                         <!-- Projects table -->
                         <table id="table" class="ui celled table" style="width:100%;">

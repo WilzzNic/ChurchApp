@@ -16,6 +16,7 @@ class CreateCabangGerejasTable extends Migration
         Schema::create('cabang_gerejas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama_gereja');
+            $table->boolean('bisa_baptis')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

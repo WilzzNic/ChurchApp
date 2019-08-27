@@ -22,7 +22,7 @@ class CabangGerejaController extends Controller
     public function add(Request $request) {
         Validator::make($request->all(), 
         [
-            'cabang' => ['required', 'unique:cabang_gerejas,nama_gereja']
+            'cabang' => ['required', 'unique:cabang_gerejas,nama_gereja'],
         ],
         [
             'cabang.required'    => 'Nama Cabang Gereja harus diisi.',
@@ -31,6 +31,12 @@ class CabangGerejaController extends Controller
 
         $cabang = new CabangGereja();
         $cabang->nama_gereja = $request->cabang;
+        if($request->has('check_baptis')) {
+            $cabang->bisa_baptis = $request->check_baptis;
+        }
+        else {
+            $cabang->bisa_baptis = false;
+        }
         $cabang->save();
 
         return back()->withStatus('Cabang berhasil ditambahkan.');

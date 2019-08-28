@@ -41,9 +41,7 @@ class StatisticsController extends Controller
         }
         else if($role ==  User::ROLE_L_BAPTIS) {
             $data = RequestBaptis::withTrashed()
-                    ->whereHas('jemaat', function($query) {
-                        $query->where('lokasi_ibadah', auth()->user()->jemaat->lokasi_ibadah);
-                    })
+                    ->where('cabang_gereja_id', auth()->user()->jemaat->lokasi_ibadah)
                     ->whereYear('created_at', $date)
                     ->selectRaw('count(id) as jumlah, MONTH(created_at) as bulan')
                     ->groupBy('bulan')

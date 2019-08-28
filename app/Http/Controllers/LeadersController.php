@@ -50,10 +50,7 @@ class LeadersController extends Controller
         else if($role ==  User::ROLE_L_BAPTIS) {
             return Laratables::recordsOf(RequestBaptis::class, function($query) {
                 return $query->where('status', RequestBaptis::STATUS_PENDING)
-                ->whereHas('jemaat', function($q) {
-                    $q->where('lokasi_ibadah', '=', auth()->user()->jemaat->lokasi_ibadah);
-                });;
-
+                        ->where('cabang_gereja_id', '=', auth()->user()->jemaat->lokasi_ibadah);
             });
         }
         else if($role ==  User::ROLE_L_KAJ) {
@@ -248,9 +245,7 @@ class LeadersController extends Controller
         else if($role ==  User::ROLE_L_BAPTIS) {
             return Laratables::recordsOf(RequestBaptis::class, function($query) {
                 return $query->whereIn('status', [RequestBaptis::STATUS_ACCEPTED])
-                ->whereHas('jemaat', function($q) {
-                    $q->where('lokasi_ibadah', '=', auth()->user()->jemaat->lokasi_ibadah);
-                });;
+                            ->where('cabang_gereja_id', '=', auth()->user()->jemaat->lokasi_ibadah);
 
             });
         }

@@ -50,7 +50,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                     </div>
-                                    <input class="form-control datepicker" id="input-tgl" name="tanggal" placeholder="Tanggal" type="text" value="{{ old('tanggal') }}">
+                                    <input id="input-tgl" class="form-control datepicker" name="tanggal" placeholder="Tanggal" type="text" value="{{ old('tanggal') }}">
                                 </div>
                                 @if ($errors->has('tanggal'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
@@ -102,13 +102,38 @@
             placeholder: 'Pilih Cabang Gereja',
             width: 'resolve',
         });
+
+        $(function() {
+            $('#input-tgl').datepicker({
+                format: 'yyyy-mm-dd',
+                daysOfWeekDisabled: [1,2,3,4,5,6],
+                startDate: '+0d',
+                datesDisabled: [],
+            });
+        });
     });
 
-    $(function() {
-        $(".datepicker").datepicker({
-            format: 'yyyy-mm-dd',
-            daysOfWeekDisabled: [1,2,3,4,5,6],
-            startDate: '+0d',
+    $('#input-cabang').on('change', function(e) {
+        $('#input-tgl').val("").datepicker("update");
+        $.ajax({
+            type: "POST",
+            url: "{{ route('bcon.requestbaptis.schedule.exclude') }}",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "cabang": $('#input-cabang').val(),
+            }
+        }).done(function(messages) {
+            if(messages != null && messages.length > 0) {
+                var dates = [];
+
+                console.log(messages);
+
+                messages.forEach(function(jadwal) {
+                    dates.push(jadwal.tanggal);
+                });
+
+                $('#input-tgl').datepicker('setDatesDisabled', dates);
+            }
         });
     });
 </script>

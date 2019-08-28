@@ -45,7 +45,7 @@ class RequestBaptisController extends Controller
 
     public function scheduleExclude(Request $request) {
         $jadwal = JadwalBaptisExclude::where('cabang_gereja_id', $request->cabang)->get();
-
+        
         return response()->json($jadwal);
     }
 

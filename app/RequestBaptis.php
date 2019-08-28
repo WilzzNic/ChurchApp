@@ -17,6 +17,10 @@ class RequestBaptis extends Model
         return $this->belongsTo('App\Jemaat');
     }
 
+    public function cabangGereja() {
+        return $this->belongsTo('App\CabangGereja');
+    }
+
     public static function laratablesCustomAction($model)
     {
         return view('widgets.baptisleader.approvalbuttons', compact('model'))->render();

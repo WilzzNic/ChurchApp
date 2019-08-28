@@ -22,11 +22,12 @@ Route::post('/guest/kom/request/send', 'Guest\RequestKOMController@request')->na
 Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
-	Route::get('/home', 'HomeController@index')->name('home');
+	// Route::get('/home', 'HomeController@index')->name('home');
 	
 	Route::middleware(['can:basic_congregation' || 'can:FA_leader'])->group(function() {
 		/* Baptis */
 		Route::get('/baptis/request', 'RequestBaptisController@index')->name('bcon.requestbaptis');
+		Route::post('baptis/request/schedule', 'RequestBaptisController@scheduleExclude')->name('bcon.requestbaptis.schedule.exclude');
 		Route::post('/baptis/request/send', 'RequestBaptisController@request')->name('bcon.requestbaptis.send');
 		Route::delete('/baptis/request/delete/{id}', 'RequestBaptisController@delete')->name('bcon.requestbaptis.delete');
 
@@ -135,23 +136,31 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 		Route::put('/kom-enrolling/complete/{id}', 'LeadersController@completeKOM')->name('leader.kom.enrolling.complete');
 	});
 
-	Route::middleware('can:KOM_leader')->prefix('leader')->group(function() {
+	Route::middleware('can:baptis_leader')->prefix('co-baptis')->group(function() {{
+		/* Manajemen Jadwal Baptis */
+		Route::get('/jadwal/index', 'LeaderBaptis\ManageJadwalController@index')->name('leader.baptis.jadwal.index');
+		Route::get('/jadwal/dt', 'LeaderBaptis\ManageJadwalController@dt')->name('leader.baptis.jadwal.dt');
+		Route::post('/jadwal/add', 'LeaderBaptis\ManageJadwalController@add')->name('leader.baptis.jadwal.add');
+		Route::delete('/jadwal/delete/{id}', 'LeaderBaptis\ManageJadwalController@delete')->name('leader.baptis.jadwal.delete');
+	}});
+
+	Route::middleware('can:KOM_leader')->prefix('co-kom')->group(function() {
 		/* Manajemen Jadwal KOM */
 		Route::get('/jadwal/index', 'LeadersController@indexJadwalKOM')->name('leader.kom.jadwal.index');
-		Route::get('jadwal/dt', 'LeadersController@dtJadwalKOM')->name('leader.kom.jadwal.dt');
-		Route::post('jadwal/add', 'LeadersController@addJadwalKOM')->name('leader.kom.jadwal.add');
-		Route::delete('jadwal/delete/{id}', 'LeadersController@deleteJadwalKOM')->name('leader.kom.jadwal.delete');
+		Route::get('/jadwal/dt', 'LeadersController@dtJadwalKOM')->name('leader.kom.jadwal.dt');
+		Route::post('/jadwal/add', 'LeadersController@addJadwalKOM')->name('leader.kom.jadwal.add');
+		Route::delete('/jadwal/delete/{id}', 'LeadersController@deleteJadwalKOM')->name('leader.kom.jadwal.delete');
 
 		/* Inbox Guest */
-		Route::get('/guest/request-list', 'LeaderKOM\ManageRequestController@indexPending')->name('leader.guest.request.pending.index');
-		Route::get('/guest/request-list/dt', 'LeaderKOM\ManageRequestController@pendingDt')->name('leader.guest.request.pending.dt');
-		Route::get('/guest/kom-enrolling', 'LeaderKOM\ManageRequestController@indexEnrolling')->name('leader.guest.kom.enrolling.index');
-		Route::get('/guest/kom-enrolling/dt', 'LeaderKOM\ManageRequestController@enrollingDt')->name('leader.guest.kom.enrolling.dt');
-		Route::get('/guest/kom-completed', 'LeaderKOM\ManageRequestController@indexCompleted')->name('leader.guest.kom.completed.index');
-		Route::get('/guest/kom-completed/dt', 'LeaderKOM\ManageRequestController@completedDt')->name('leader.guest.kom.completed.dt');
-		Route::put('/guest/request-list/approve/{id}', 'LeaderKOM\ManageRequestController@approvePending')->name('leader.guest.request.pending.approve');
-		Route::delete('/guest/request-list/reject/{id}', 'LeaderKOM\ManageRequestController@rejectPending')->name('leader.guest.request.pending.reject');
-		Route::put('/guest/kom-enrolling/complete/{id}', 'LeaderKOM\ManageRequestController@complete')->name('leader.guest.kom.enrolling.complete');
+		// Route::get('/guest/request-list', 'LeaderKOM\ManageRequestController@indexPending')->name('leader.guest.request.pending.index');
+		// Route::get('/guest/request-list/dt', 'LeaderKOM\ManageRequestController@pendingDt')->name('leader.guest.request.pending.dt');
+		// Route::get('/guest/kom-enrolling', 'LeaderKOM\ManageRequestController@indexEnrolling')->name('leader.guest.kom.enrolling.index');
+		// Route::get('/guest/kom-enrolling/dt', 'LeaderKOM\ManageRequestController@enrollingDt')->name('leader.guest.kom.enrolling.dt');
+		// Route::get('/guest/kom-completed', 'LeaderKOM\ManageRequestController@indexCompleted')->name('leader.guest.kom.completed.index');
+		// Route::get('/guest/kom-completed/dt', 'LeaderKOM\ManageRequestController@completedDt')->name('leader.guest.kom.completed.dt');
+		// Route::put('/guest/request-list/approve/{id}', 'LeaderKOM\ManageRequestController@approvePending')->name('leader.guest.request.pending.approve');
+		// Route::delete('/guest/request-list/reject/{id}', 'LeaderKOM\ManageRequestController@rejectPending')->name('leader.guest.request.pending.reject');
+		// Route::put('/guest/kom-enrolling/complete/{id}', 'LeaderKOM\ManageRequestController@complete')->name('leader.guest.kom.enrolling.complete');
 	});
 
 	Route::resource('user', 'UserController', ['except' => ['show']]);

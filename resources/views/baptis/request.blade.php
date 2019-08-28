@@ -32,6 +32,18 @@
                                 </div>
                             @endif
 
+                            <div class="form-group">
+                                    <label class="form-control-label" for="input-cabang">{{ __('Cabang Gereja') }}</label>
+                                <select class="js-example-responsive form-control" name="cabang" id="input-cabang">
+                                    <option value="0" selected disabled>-- Pilih Cabang --</option>
+                                    @foreach($cab_gerejas as $cab_gereja)
+                                        <option value="{{ $cab_gereja->id }}" {{ old('cabang') == $cab_gereja->id ? 'selected' : '' }}>
+                                            {{ $cab_gereja->nama_gereja }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             <div class="form-group {{ $errors->has('tanggal') ? ' has-danger' : '' }}">
                                 <label class="form-control-label" for="input-tgl">{{ __('Tanggal Baptis') }}</label>
                                 <div class="input-group input-group-alternative">
@@ -71,8 +83,27 @@
 </div>
 @endsection
 
+@push('css')
+<style>
+    .select2 {
+        width: 100% !important;
+    }
+
+    .has-success::after, .has-danger::after {
+        top: 29px;
+    }
+</style>
+@endpush
+
 @push('js')
 <script type="text/javascript">
+    $(document).ready(function() {
+        $('#input-cabang').select2({
+            placeholder: 'Pilih Cabang Gereja',
+            width: 'resolve',
+        });
+    });
+
     $(function() {
         $(".datepicker").datepicker({
             format: 'yyyy-mm-dd',

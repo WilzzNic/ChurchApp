@@ -5,22 +5,27 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\RequestBaptis;
 use App\Jemaat;
+use App\CabangGereja;
+use App\JadwalBaptisExclude;
 use Auth;
 
 class RequestBaptisController extends Controller
 {
     public function index() {
+
         if(auth()->user()->jemaat->requestBaptis) {
             $request = RequestBaptis::where('jemaat_id', auth()->user()->jemaat->id)->first();
             return view('baptis.sent')->with('request', $request);
         }
         else {
-            return view('baptis.request');
+            $cab_gerejas = CabangGereja::where('bisa_baptis', true)->get();
+            return view('baptis.request')->with('cab_gerejas', $cab_gerejas);
         }
     }
 
     public function request(Request $request) {
         $validatedData = $request->validate([
+            'cabang'  => 'required',
             'tanggal' => 'required|date_format:Y-m-d'
         ]);
         
@@ -36,6 +41,12 @@ class RequestBaptisController extends Controller
         $user->requestBaptis()->save($sendRequest);
 
         return back()->withStatus(__('Permohonan telah dikirim.'));
+    }
+
+    public function scheduleExclude(Request $request) {
+        $jadwal = JadwalBaptisExclude::where('cabang_gereja_id', $request->cabang)->get();
+
+        return response()->json($jadwal);
     }
 
     public function delete($id) {

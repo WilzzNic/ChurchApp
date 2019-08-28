@@ -166,7 +166,7 @@ class LeadersController extends Controller
     }
 
     public function indexJadwalKOM() {
-        return view('kom.add');
+        return view('kom.jadwal');
     }
 
     public function dtJadwalKOM() {

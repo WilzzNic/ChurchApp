@@ -1,6 +1,6 @@
 <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
     <div class="container px-4">
-        <a class="navbar-brand" href="{{ route('home') }}">
+        <a class="navbar-brand" href="/">
             {{-- <img src="{{ asset('argon') }}/img/brand/white.png" /> --}}
             <img src="{{ asset('img') }}/logo_white.png"/> 
         </a>
@@ -12,7 +12,7 @@
             <div class="navbar-collapse-header d-md-none">
                 <div class="row">
                     <div class="col-6 collapse-brand">
-                        <a href="{{ route('home') }}">
+                        <a href="/">
                             <img src="{{ asset('argon') }}/img/brand/blue.png">
                         </a>
                     </div>
@@ -33,12 +33,12 @@
                     </a>
                 </li> --}}
                 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link nav-link-icon" href="{{ route('guest.kom.request.index') }}">
                         <i class="ni ni-hat-3"></i>
                         <span class="nav-link-inner--text">{{ __('Daftar Kelas Orientasi Melayani') }}</span>
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="nav-item">
                     <a class="nav-link nav-link-icon" href="{{ route('register') }}">

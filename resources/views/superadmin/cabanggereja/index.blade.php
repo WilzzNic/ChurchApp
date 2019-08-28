@@ -45,8 +45,8 @@
                                     <span class="input-group-text"><i class="ni ni-tag"></i></span>
                                 </div>
                                 <input type="text" name="cabang" id="input-cabang"
-                                class="form-control {{ $errors->has('cabang') ? ' is-invalid' : '' }}"
-                                placeholder="{{ __('Nama Cabang') }}" value="{{ old('cabang') }}" required>
+                                    class="form-control {{ $errors->has('cabang') ? ' is-invalid' : '' }}"
+                                    placeholder="{{ __('Nama Cabang') }}" value="{{ old('cabang') }}" required>
                             </div>
                             @if ($errors->has('cabang'))
                             <span class="invalid-feedback" style="display: block;" role="alert">
@@ -56,7 +56,8 @@
                         </div>
 
                         <div class="custom-control custom-control-alternative custom-checkbox">
-                            <input class="custom-control-input" name="check_baptis" id="checkLogin" value="1" type="checkbox" {{ old('check_baptis') ? 'checked' : '' }}>
+                            <input class="custom-control-input" name="check_baptis" id="checkLogin" value="1"
+                                type="checkbox" {{ old('check_baptis') ? 'checked' : '' }}>
                             <label class="custom-control-label" for="checkLogin">
                                 <span class="text-muted">{{ __('Dapat menerima baptis') }}</span>
                             </label>
@@ -75,6 +76,7 @@
                                 <tr>
                                     <th class="all" scope="col">ID</th>
                                     <th class="all" scope="col">Nama Cabang</th>
+                                    <th class="all" scope="col">Fasilitas Baptis</th>
                                     <th class="all" scope="col">Dibuat pada Tanggal</th>
                                     <th class="all" scope="col">Actions</th>
                                 </tr>
@@ -123,15 +125,30 @@
             },
             ajax: "{{ route('superadmin.manage.cabang.dt') }}",
             columnDefs: [{
-                targets: 2,
-                render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s', 'YYYY-MM-DD'),
-            }],
-            columns: [
+                    targets: 3,
+                    render: $.fn.dataTable.render.moment('YYYY-MM-DD H:m:s', 'YYYY-MM-DD'),
+                },
                 {
+                    render: function (data, type, row) {
+                        if (data == 1) {
+                            data = 'Ada';
+                        }
+                        else {
+                            data = 'Tidak ada';
+                        }
+                        return data;
+                    },
+                    targets: 2,
+                }
+            ],
+            columns: [{
                     name: 'id'
                 },
                 {
                     name: 'nama_gereja'
+                },
+                {
+                    name: 'bisa_baptis'
                 },
                 {
                     name: 'created_at'
